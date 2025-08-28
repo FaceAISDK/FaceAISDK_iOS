@@ -9,8 +9,15 @@
 
 ## FaceAISDK 介绍
 iOS FaceAISDK is on_device Offline Face Detection 、Recognition 、Liveness Detection Anti Spoofing SDK.  
-FaceAISDK是iOS 设备端可离线不需联网的人脸识别、动作活体检测、人脸录入SDK，集成后可快速实现相关功能。  
+FaceAISDK是iOS 设备端可离线不需联网的人脸录入、动作活体检测、人脸识别SDK，集成后可快速实现相关功能。  
 
+** 根据相关法规，请尽快升级到2025.08.27以上版本SDK，否则App将可能被通报**
+
+| 功能项         | 功能简介 | 其他说明 |
+|:---------------|:-------:|:---------|
+| 人脸录入 | 检测摄像头前是否有人脸并且提示正对摄像头 |   -    | 
+| 活体检测 | 随机抽取眨眼、摇头、点头、张嘴、微笑2种组合用户在制定时间通过\n需保持人脸出现镜头防止切屏 | 通过后会返回一张正脸图 | 
+| 人脸识别 | 在活体检测的基础上同时和底片对比识别相似度 | -   | 
 
 .  
 <div align=center>
@@ -32,7 +39,7 @@ Installation ToastUI https://github.com/quanshousio/ToastUI
 
 #### 1.Podfile 添加依赖
   最新版本一般会在本工程Podfile 中指定，请复制指定版本到你的项目
-  首次依赖 安装SDK及内部依赖 会耗费10分钟左右时间（实际取决于你的网络状态）  
+  首次依赖 安装SDK及内部依赖 会耗费15-30分钟左右时间（实际取决于你的网络状态）  
   pod update FaceAISDK_Core 安装依赖,请指定版本。
 
   pod 'FaceAISDK_Core', 'Newest Version'  

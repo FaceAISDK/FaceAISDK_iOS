@@ -5,7 +5,7 @@ import ToastUI
 
 
 /**
- * 动作活体检测，（iOS 目前仅支持动作活体，静默 炫彩等排期）
+ * 动作活体检测，（目前仅支持动作活体，静默 炫彩暂不支持）
  * UI 样式仅供参考，根据你的业务可自行调整
  */
 struct LivenessDetectView: View {
@@ -14,7 +14,7 @@ struct LivenessDetectView: View {
     @State private var showToast = false
     @Environment(\.dismiss) private var dismiss
     
-    //录入保存的FaceID 值。一般是你的业务体系中个人的唯一编码，比如账号 身份证
+    //录入保存的FaceID 值。一般是你的业务体系中个人的唯一编码，比如账号 手机号等
     let faceID: String
  
     let onDismiss: (FaceVerifyResult) -> Void

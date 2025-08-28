@@ -6,8 +6,8 @@ target 'FaceAISDK_iOS' do
   use_frameworks!
 
   # 1.  pod update FaceAISDK_Core 安装更新FaceAISDK依赖,请指定版本。
-  pod 'FaceAISDK_Core', '1.0.0.0827'
-#  pod 'FaceAISDK_Core', :path => 'FaceAISDK_Core/FaceAISDK_Core.podspec' # 替换为实际路径
+  # 特别说明，根据网络环境不同，首次依赖耗时15-30分钟不等
+  pod 'FaceAISDK_Core', '2025.08.28'
 
 
   # 2.  Add Swift Package: ToastUI https://github.com/quanshousio/ToastUI

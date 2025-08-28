@@ -56,7 +56,7 @@ Installation ToastUI https://github.com/quanshousio/ToastUI
   Email: FaceAISDK.Service@gmail.com   
 
 ## 其他平台？
-  uniApp接入正重构为UTS 插件，0810 等待UNI官方协调上线处理.   
+  uniApp接入正重构为UTS 插件，0910 等待UNI官方协调上线处理.   
   uniApp:  https://github.com/AnyLifeZLB/uniPlugin_FaceAI_UTS    
   Android：https://github.com/AnyLifeZLB/FaceVerificationSDK     
   
