@@ -39,8 +39,8 @@ Installation ToastUI https://github.com/quanshousio/ToastUI
 
 
 #### 1.Podfile 添加依赖
-  最新版本一般会在本工程Podfile 中指定，请复制指定版本到你的项目
-  首次依赖 安装SDK及内部依赖 会耗费15-30分钟左右时间（实际取决于你的网络状态）  
+  最新版本一般会在本工程Podfile 中指定，请复制指定版本到你的项目  
+  首次依赖本SDK到你的主项目大约耗费15-30分钟左右时间（实际取决于你的网络状态）  
   pod update FaceAISDK_Core 安装依赖,请指定版本。
 
   pod 'FaceAISDK_Core', 'Newest Version'  
