@@ -11,7 +11,7 @@
 iOS FaceAISDK is on_device Offline Face Detection 、Recognition 、Liveness Detection Anti Spoofing SDK.  
 FaceAISDK是iOS 设备端可离线不需联网的人脸录入、动作活体检测、人脸识别SDK，集成后可快速实现相关功能。  
 
-** 根据相关法规，请尽快升级到2025.08.27以上版本SDK，否则App将可能被通报**
+** 根据相关法规，请尽快升级到2025.08.29以上版本SDK，否则App将可能被通报**
 
 | 功能项         | 功能简介 | 其他说明 |
 |:---------------|:-------:|:---------|
@@ -30,7 +30,7 @@ FaceAISDK是iOS 设备端可离线不需联网的人脸录入、动作活体检�
 
 ## 集成步骤
 
-SDK默认的开发环境为Xcode 16.3 ,实现语言为Swift 6.1，OC&C；UI全部使用SwiftUI实现
+SDK默认的开发环境为Xcode 16.3 ,Swift 6.1，OC&C；UI全部使用SwiftUI实现，支持iOS[16,26]
 
 #### 0. 安装Demo运行的ToastUI 依赖库
 Navigate to your project settings. Find a new tab called “Package Dependencies”. 
@@ -50,7 +50,7 @@ Installation ToastUI https://github.com/quanshousio/ToastUI
   记得声明相机使用权限；应用内跳转到 FaceAINaviView功能演示导航页面你就可以开始体验效果  
   
 #### 3. 根据你的业务需求修改View 和参数设置等定制你的应用  
-  SDK中人脸录入和识别都需要指定一个唯一的FaceID Key来关联你的用户，可以使用注册的手机号，身份证等  
+  SDK中人脸录入和识别都需要指定一个唯一的FaceID Key来关联你的用户，可以使用注册的手机号等唯一ID
   动作活体检测可以指定动作活体的步骤个数为1还是2个；其中SDK 的UI实现是完整暴露给开发者自由修改  
   
 
@@ -62,8 +62,9 @@ Installation ToastUI https://github.com/quanshousio/ToastUI
 
 ## 其他平台？
   uniApp接入正重构为UTS 插件，0915 等待UNI官方协调上线处理.   
-  uniApp:  https://github.com/AnyLifeZLB/uniPlugin_FaceAI_UTS    
-  Android：https://github.com/AnyLifeZLB/FaceVerificationSDK     
+  UniAppX： https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS
+  Android： https://github.com/FaceAISDK/FaceAISDK_Android
+     
   
   Android体验Demo APK下载如下  
   
