@@ -16,7 +16,7 @@ FaceAISDK是iOS 设备端可离线不需联网的人脸录入、动作活体检�
 
 SDK默认的开发环境为Xcode 16.3 ,Swift 6.1，OC&C；UI全部使用SwiftUI实现，支持iOS[16,26]
 
-**先跑成功本Demo，你的开发电脑需要能科学上网翻墙，部分资源托管在GitHub，否则无法运行成功**
+**跑成功本Demo，你的开发电脑需要能科学上网翻墙，部分资源托管在GitHub，否则无法运行成功**
 
 ![pod_update_FaceAISDK](Doc/pod_update_FaceAISDK.jpg)  
 
