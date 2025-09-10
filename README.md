@@ -11,16 +11,7 @@
 iOS FaceAISDK is on_device Offline Face Detection 、Recognition 、Liveness Detection Anti Spoofing SDK.  
 FaceAISDK是iOS 设备端可离线不需联网的人脸录入、动作活体检测、人脸识别SDK，集成后可快速实现相关功能。  
 
-** 根据相关法规，请尽快升级到2025.08.29以上版本SDK，否则App将可能被通报**
 
-| 功能项         | 功能简介 | 其他说明 |
-|:---------------|:-------:|:---------|
-| 人脸录入 | 检测摄像头前是否有人脸并且提示正对摄像头 |   -    | 
-| 活体检测 | 随机抽取眨眼、摇头、点头、张嘴、微笑2种组合用户在指定时间通过    
- 需保持人脸出现镜头防止切屏 | 通过后会返回一张正脸图 | 
-| 人脸识别 | 在活体检测的基础上同时和底片对比识别相似度 | -   | 
-
-.  
 <div align=center>
 <img src="https://github.com/user-attachments/assets/b52b8ddf-b4e1-4f43-b2e4-dd77e0156082" width = 70% height = 70% />
 </div>  
@@ -30,7 +21,12 @@ FaceAISDK是iOS 设备端可离线不需联网的人脸录入、动作活体检�
 
 ## 集成步骤
 
-SDK默认的开发环境为Xcode 16.3 ,Swift 6.1，OC&C；UI全部使用SwiftUI实现，支持iOS[16,26]
+**SDK默认的开发环境为Xcode 16.3 ,Swift 6.1，OC&C；UI全部使用SwiftUI实现，支持iOS[16,26]**
+
+先跑成功本Demo，你的开发电脑需要能科学上网翻墙，部分资源托管在GitHub，否则无法运行成功
+
+![pod_update_FaceAISDK](Doc/pod_update_FaceAISDK.jpg)  
+
 
 #### 0. 安装Demo运行的ToastUI 依赖库
 Navigate to your project settings. Find a new tab called “Package Dependencies”. 
@@ -41,7 +37,7 @@ Installation ToastUI https://github.com/quanshousio/ToastUI
 #### 1.Podfile 添加依赖
   最新版本一般会在本工程Podfile 中指定，请复制指定版本到你的项目  
   首次依赖本SDK到你的主项目大约耗费15-30分钟左右时间（实际取决于你的网络状态）  
-  pod update FaceAISDK_Core 安装依赖,请指定版本。
+  **pod update FaceAISDK_Core 安装依赖,请指定版本**
 
   pod 'FaceAISDK_Core', 'Newest Version'  
 
@@ -59,14 +55,10 @@ Installation ToastUI https://github.com/quanshousio/ToastUI
   
   微信：FaceAISDK  
   Email: FaceAISDK.Service@gmail.com   
-
-## 其他平台？
-  uniApp接入正重构为UTS 插件，0915 等待UNI官方协调上线处理.   
-  UniAppX： https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS
   Android： https://github.com/FaceAISDK/FaceAISDK_Android
      
   
-  Android体验Demo APK下载如下  
+## Android体验Demo APK下载如下  
   
 <div align=center>
 <img src="https://user-images.githubusercontent.com/15169396/210045090-60c073df-ddbd-4747-8e24-f0dce1eccb58.png" width = 22% />
