@@ -3,7 +3,7 @@ import AVFoundation
 import FaceAISDK_Core
 
 
-let cameraSize: CGFloat = 300 //  相机的尺寸
+let cameraSize: CGFloat = 300 //相机的尺寸
 
 
 /**
