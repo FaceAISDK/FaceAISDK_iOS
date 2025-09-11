@@ -33,7 +33,7 @@ Installing TensorFlowLiteSwift (2.17.0) 这是最耗时的基础依赖安装
 ### 2. 安装Demo运行的ToastUI 依赖库
 Navigate to your project settings. Find a new tab called “Package Dependencies”. 
 Click the “+” button to open the add package dialog. 
-Installation ToastUI 参考 https://github.com/quanshousio/ToastUI to 
+Installation ToastUI 参考 https://github.com/quanshousio/ToastUI to Pod.
 
 ![pod_update_FaceAISDK](Doc/pod_install_FaceAISDK.jpg)  
 
