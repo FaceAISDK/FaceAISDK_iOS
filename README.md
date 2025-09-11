@@ -21,7 +21,7 @@ SDK默认的开发环境为Xcode 16.3 ,Swift 6.1，OC&C；UI全部使用SwiftUI�
 
 
 ### 0. 使用git Clone 本Demo仓库代码
-你可以使用命令 git clone https://github.com/FaceAISDK/FaceAISDK_Android.git
+你可以使用命令 git clone https://github.com/FaceAISDK/FaceAISDK_iOS.git
 然后点击白色图标「FaceAISDK_iOS.xcworkspace」 打开项目
 
 ### 1. 确认电脑能科学上网翻墙后，使用Pod命令安装FaceAISDK和相关依赖库
