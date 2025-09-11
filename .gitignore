@@ -16,7 +16,11 @@ Package.resolved
 # We recommend against adding the Pods directory to your .gitignore.
 # However, if you choose to ignore it, uncomment the following line:
 Pods/
-Podfile.lock # If you ignore Pods/, you might also ignore this.
+
+# If you ignore Pods/, you might also ignore this.
+Podfile.lock
+
+
 
 # Carthage (if used)
 Carthage/
