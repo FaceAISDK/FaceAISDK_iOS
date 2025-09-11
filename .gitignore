@@ -1,0 +1,37 @@
+# Xcode
+.DS_Store
+*.xcodeproj/xcuserdata/
+*.xcuserdatad/
+DerivedData/
+build/
+*.xcworkspace/xcuserdata/
+
+# Swift Package Manager (if used)
+.build/
+Packages/
+Package.pins
+Package.resolved
+
+# CocoaPods
+# We recommend against adding the Pods directory to your .gitignore.
+# However, if you choose to ignore it, uncomment the following line:
+Pods/
+Podfile.lock # If you ignore Pods/, you might also ignore this.
+
+# Carthage (if used)
+Carthage/
+
+# Other
+.swiftpm/
+.idea/
+.vscode/
+*.swp
+*.bak
+*.orig
+*.pyc
+*.o
+*.d
+*.gcno
+*.gcda
+*.gcov
+*.lproj/

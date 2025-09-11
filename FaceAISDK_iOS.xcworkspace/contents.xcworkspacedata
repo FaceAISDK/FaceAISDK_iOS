@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:README.md">
+   </FileRef>
+   <Group
+      location = "group:Doc"
+      name = "Doc">
+      <FileRef
+         location = "group:pod_update_FaceAISDK.jpg">
+      </FileRef>
+      <FileRef
+         location = "group:FaceAISDK &#x4e2a;&#x4eba;&#x4fe1;&#x606f;&#x4fdd;&#x62a4;&#x89c4;&#x5219;.md">
+      </FileRef>
+   </Group>
+   <FileRef
+      location = "group:FaceAISDK_iOS.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Pods/Pods.xcodeproj">
+   </FileRef>
+</Workspace>
