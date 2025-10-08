@@ -38,7 +38,7 @@ Installation ToastUI 参考 https://github.com/quanshousio/ToastUI to Pod.
 ![pod_update_FaceAISDK](Doc/pod_install_FaceAISDK.jpg)  
 
 ### 3. 最后一步骤别忘了
- 升级版本最后执行 pod update FaceAISDK_Core 后clean all Issues，否则出错（不太清楚原因）  
+ 升级版本最后执行 pod update FaceAISDK_Core 后clean all Issues，否则可能出错（不太清楚原因）  
    pod update FaceAISDK_Core
  Swift/Integers.swift:3564: Fatal error: Not enough bits to represent the passed value
 **经过漫长的等待，编译完成后✅ 就可以在手机体验效果了**
