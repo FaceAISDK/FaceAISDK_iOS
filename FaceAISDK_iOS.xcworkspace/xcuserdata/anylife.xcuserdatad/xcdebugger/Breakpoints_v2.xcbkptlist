@@ -34,36 +34,6 @@
             endingLineNumber = "54"
             landmarkName = "body"
             landmarkType = "24">
-            <Locations>
-               <Location
-                  uuid = "EBE703EB-1CFB-456D-98B3-69E080694C22 - 3fe2fe21cc6014fa"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #3 (Swift.Int) -&gt; () in FaceAISDK_iOS.LivenessDetectView.body.getter : some"
-                  moduleName = "FaceAISDK_iOS.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/anylife/code/iOS/FaceAISDK_iOS/FaceAISDK_iOS/LivenessDetectView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "54"
-                  endingLineNumber = "54">
-               </Location>
-               <Location
-                  uuid = "EBE703EB-1CFB-456D-98B3-69E080694C22 - 91072ef6a3ffc18c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 @Swift.MainActor @Sendable () -&gt; () in closure #3 (Swift.Int) -&gt; () in FaceAISDK_iOS.LivenessDetectView.body.getter : some"
-                  moduleName = "FaceAISDK_iOS.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/anylife/code/iOS/FaceAISDK_iOS/FaceAISDK_iOS/LivenessDetectView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "55"
-                  endingLineNumber = "55">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

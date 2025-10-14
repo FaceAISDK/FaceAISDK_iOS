@@ -5,7 +5,7 @@ import ToastUI
 
 
 /**
- * 动作活体检测，（目前仅支持动作活体，静默 炫彩暂不支持）
+ * 动作活体检测，（iOS 目前仅支持动作活体，静默 炫彩等排期）
  * UI 样式仅供参考，根据你的业务可自行调整
  */
 struct LivenessDetectView: View {
@@ -14,7 +14,7 @@ struct LivenessDetectView: View {
     @State private var showToast = false
     @Environment(\.dismiss) private var dismiss
     
-    //录入保存的FaceID 值。一般是你的业务体系中个人的唯一编码，比如账号 手机号等
+    //录入保存的FaceID 值。一般是你的业务体系中个人的唯一编码，比如账号 身份证
     let faceID: String
  
     let onDismiss: (FaceVerifyResult) -> Void
@@ -22,12 +22,12 @@ struct LivenessDetectView: View {
     var body: some View {
         VStack {
             Text(viewModel.verifyFaceTips)
-                .font(.system(size: 19).bold())
+                .font(.system(size: 22).bold())
                 .padding(.bottom, 5)
                 .foregroundColor(.black)
             
             Text(viewModel.verifyFaceTipsExtra)
-                .font(.system(size: 17).bold())
+                .font(.system(size: 19).bold())
                 .padding(.bottom, 6)
                 .frame(minHeight: 30)
                 .foregroundColor(.black)
@@ -50,7 +50,7 @@ struct LivenessDetectView: View {
         
         .onChange(of: viewModel.faceVerifyResult.code) { newValue in
             showToast = true
-            print("ViewModel 返回 ： \(viewModel.faceVerifyResult)")
+            print("动作活体检测返回 ： \(viewModel.faceVerifyResult)")
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                 showToast = false
                 onDismiss(viewModel.faceVerifyResult)  // 传值给父视图
@@ -66,6 +66,8 @@ struct LivenessDetectView: View {
             viewModel.stopFaceVerify() //停止
         }
         .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity) // 确保填满可用空间
+        .background(Color.white.ignoresSafeArea()) // 扩展到安全区域
         .background(Color.white)
     }
 }

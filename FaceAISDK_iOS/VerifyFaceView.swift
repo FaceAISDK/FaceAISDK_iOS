@@ -24,12 +24,12 @@ struct VerifyFaceView: View {
     var body: some View {
         VStack {
             Text(viewModel.verifyFaceTips)
-                .font(.system(size: 19).bold())
+                .font(.system(size: 22).bold())
                 .padding(.bottom, 5)
                 .foregroundColor(.black)
             
             Text(viewModel.verifyFaceTipsExtra)
-                .font(.system(size: 17).bold())
+                .font(.system(size: 19).bold())
                 .padding(.bottom, 6)
                 .frame(minHeight: 30)
                 .foregroundColor(.black)
@@ -68,13 +68,14 @@ struct VerifyFaceView: View {
             }else {
                 ToastView("\(viewModel.faceVerifyResult.tips)  \(sim)").toastViewStyle(.failure)
             }
-
         }
         
         .onDisappear{
             viewModel.stopFaceVerify() //停止
         }
         .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity) // 确保填满可用空间
+        .background(Color.white.ignoresSafeArea()) // 扩展到安全区域
         .background(Color.white)
     }
 }
