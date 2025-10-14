@@ -7,6 +7,7 @@ import ToastUI
 /**
  * 动作活体检测，（iOS 目前仅支持动作活体，静默 炫彩等排期）
  * UI 样式仅供参考，根据你的业务可自行调整
+ * @author  FaceAISDK.service@gmail.com  https://github.com/FaceAISDK/FaceAISDK_iOS
  */
 struct LivenessDetectView: View {
     //确保ViewModel的生命周期与视图一致，使用@StateObject持有ViewModel，视图被销毁时会一起释放
