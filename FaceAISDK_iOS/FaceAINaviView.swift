@@ -23,7 +23,7 @@ struct FaceAINaviView: View {
                 
                 VStack(spacing: 20) {
                     
-                    Button("添加人脸照片") {
+                    Button("录入你的人脸图片") {
                         navigationPath.append(FaceAINaviDestination.AddFacePageView(faceID))
                     }
                     .font(.system(size: 20).bold())
