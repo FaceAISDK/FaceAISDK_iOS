@@ -16,4 +16,5 @@ struct FaceAISDK_iOSApp: App {
             FaceAINaviView()
         }
     }
+    
 }
