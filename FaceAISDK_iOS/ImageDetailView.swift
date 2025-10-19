@@ -26,8 +26,8 @@ struct ImageDetailView: View {
                     .padding(100)
                     .background(Color.gray.opacity(0.1))
             }
-            Button("知道了") {
-                dismiss() 
+            Button("I Know") {
+                dismiss()
             }
             .padding()
         }
@@ -36,7 +36,7 @@ struct ImageDetailView: View {
             let fileURL = documentDirectory.appendingPathComponent(faceID)
             
             guard FileManager.default.fileExists(atPath: fileURL.path) else {
-                print("文件不存在: \(faceID)")
+                print("Face Image not found: \(faceID)")
                 return
             }
             
@@ -47,7 +47,7 @@ struct ImageDetailView: View {
                         self.uiImage = loadedImage
                     }
                 } else {
-                    print("图片加载失败: \(faceID)")
+                    print("Load Face Image Failed: \(faceID)")
                 }
             }
         }

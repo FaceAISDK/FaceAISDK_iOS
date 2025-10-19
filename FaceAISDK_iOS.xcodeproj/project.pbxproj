@@ -16,6 +16,7 @@
 		7C73FE652DEFEA6F005437F4 /* ImageDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C73FE5F2DEFEA6F005437F4 /* ImageDetailView.swift */; };
 		CF2B99C02E604E8F00FF2B61 /* ToastUI in Frameworks */ = {isa = PBXBuildFile; productRef = CF2B99BF2E604E8F00FF2B61 /* ToastUI */; };
 		CF2E7E812E2E1FA500608756 /* VerifyFaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2E7E802E2E1FA500608756 /* VerifyFaceView.swift */; };
+		CF3AFC072EA4FA7C000D24B3 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = CF3AFC062EA4FA7C000D24B3 /* Localizable.xcstrings */; };
 		CF44AD232E2CFCC7001177C6 /* ToastUI in Frameworks */ = {isa = PBXBuildFile; productRef = CF44AD222E2CFCC7001177C6 /* ToastUI */; };
 		CF9ABDE72E389864006642AF /* LivenessDetectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9ABDE62E389864006642AF /* LivenessDetectView.swift */; };
 /* End PBXBuildFile section */
@@ -32,6 +33,7 @@
 		921A8590F4AA590117A5B357 /* Pods-FaceAISDK_iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FaceAISDK_iOS.release.xcconfig"; path = "Target Support Files/Pods-FaceAISDK_iOS/Pods-FaceAISDK_iOS.release.xcconfig"; sourceTree = "<group>"; };
 		A10E935EFA4D20E3DD316D53 /* Pods_FaceAISDK_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FaceAISDK_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF2E7E802E2E1FA500608756 /* VerifyFaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyFaceView.swift; sourceTree = "<group>"; };
+		CF3AFC062EA4FA7C000D24B3 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		CF9ABDE62E389864006642AF /* LivenessDetectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivenessDetectView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -74,6 +76,7 @@
 				7C73FE5D2DEFEA6F005437F4 /* FaceAINaviView.swift */,
 				7C73FE5C2DEFEA6F005437F4 /* FaceAISDK_iOSApp.swift */,
 				CF9ABDE62E389864006642AF /* LivenessDetectView.swift */,
+				CF3AFC062EA4FA7C000D24B3 /* Localizable.xcstrings */,
 				7C73FE5F2DEFEA6F005437F4 /* ImageDetailView.swift */,
 				CF2E7E802E2E1FA500608756 /* VerifyFaceView.swift */,
 				7C73FE4D2DEFE199005437F4 /* Assets.xcassets */,
@@ -174,6 +177,7 @@
 			files = (
 				7C73FE512DEFE199005437F4 /* Preview Assets.xcassets in Resources */,
 				7C73FE4E2DEFE199005437F4 /* Assets.xcassets in Resources */,
+				CF3AFC072EA4FA7C000D24B3 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -23,49 +23,55 @@ struct FaceAINaviView: View {
                 
                 VStack(spacing: 20) {
                     
-                    Button("录入你的人脸图片") {
+                    //录入你的人脸图片
+                    Button("Add Your Face Image") {
                         navigationPath.append(FaceAINaviDestination.AddFacePageView(faceID))
                     }
                     .font(.system(size: 20).bold())
                     .controlSize(.large)
                     .foregroundColor(Color.white)
-                    .padding(.top,55)
+                    .padding(.top,50)
                     
                     Text("\(addFaceResult ?? " ")")
                         .font(.system(size: 8).bold())
                         .foregroundColor(Color.white)
                         .padding(.horizontal,7)
                     
-                    Button("人脸识别+活体检测") {
+                    //人脸识别+活体检测
+                    Button("Face Verify and Liveness Detection") {
                         navigationPath.append(FaceAINaviDestination.VerifyFacePageView(faceID))
                     }
                     .font(.system(size: 20).bold())
                     .foregroundColor(Color.white)
-                    .padding(.top,20)
+                    .padding(.top,15)
                     
-                    Button("仅动作活体检测") {
+                    //仅动作活体检测
+                    Button("ONLY Motion Liveness Detection") {
                         navigationPath.append(FaceAINaviDestination.LivenessView(faceID))
                     }
                     .font(.system(size: 20).bold())
                     .foregroundColor(Color.white)
                     .padding(.top,25)
                     
-                    Button("判断人脸图片是否存在") {
-                        print("是否存在：\(FaceImageManger.isFaceImageExist(faceID: faceID))")
+                    //判断人脸图片是否存在
+                    Button("is Face Image Exist") {
+                        print("isFaceImageExist？ ：\(FaceImageManger.isFaceImageExist(faceID: faceID))")
                     }
                     .font(.system(size: 18).bold())
                     .foregroundColor(Color.white)
                     .padding(.top,33)
 
-                    Button("本地人脸图片转Base64") {
-                        print("转化结果？：\(FaceImageManger.imageFromDocumentsToBase64(fileName: faceID))")
+                    //人脸图片转为Base64
+                    Button("Convert Face Image to Base64") {
+                        print("Base64：\(String(describing: FaceImageManger.imageFromDocumentsToBase64(fileName: faceID)))")
                     }
                     .foregroundColor(Color.white)
                     .padding(.top,11)
                     .font(.system(size: 18).bold())
 
-                    Button("同步Base64图片到本地") {
-                        print("同步Base64图片到本地：\(FaceImageManger.saveBase64ImageToLocal(base64String: base64Data, fileName: faceID))")
+                    //保存Base64人脸图片
+                    Button("Save Base64 Face Images") {
+                        print("Save Path：\(String(describing: FaceImageManger.saveBase64ImageToLocal(base64String: base64Data, fileName: faceID)))")
                     }
                     .foregroundColor(Color.white)
                     .padding(.top,11)
@@ -73,7 +79,7 @@ struct FaceAINaviView: View {
 
                     Spacer()
                     
-                    Button("关于我们"){
+                    Button("About us"){
                         // 记得切换成iOS 的介绍版本
                         let url = URL(string: "https://mp.weixin.qq.com/s/R43s70guLqxA6JPEdWtjcA")
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -87,7 +93,7 @@ struct FaceAINaviView: View {
 
                 }
             }
-            .navigationTitle("FaceAISDK 🧭")
+            .navigationTitle("🧭 FaceAISDK")
             .navigationDestination(for: FaceAINaviDestination.self) { destination in
                 switch destination {
                     
@@ -108,8 +114,7 @@ struct FaceAINaviView: View {
                         // 0   默认值
                         // 1   人脸识别对比成功大于设置的threshold
                         // 2   人脸识别对比识别小于设置的threshold
-                        
-                        print("verifyFaceView 返回 ：\(faceVerifyResult?.tips) \(faceVerifyResult?.code)")
+                        print("verifyFaceView Result ：\(faceVerifyResult?.tips) \(faceVerifyResult?.code)")
                         
                         if !navigationPath.isEmpty { // 检查路径是否为空
                             navigationPath.removeLast()
@@ -122,9 +127,8 @@ struct FaceAINaviView: View {
                     // -1  多次切换人脸或检查失败
                     // 0   默认值
                     // 3   动作活体检测成功
-                    
                     LivenessDetectView(faceID: param,onDismiss: { result in
-                        print("活体检测返回 ：\(result.tips) \(result.code)")
+                        print("Motion Liveness Result：\(result.tips) \(result.code)")
                         navigationPath.removeLast()
                     })
                     

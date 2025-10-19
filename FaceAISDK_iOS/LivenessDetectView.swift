@@ -7,7 +7,6 @@ import ToastUI
 /**
  * 动作活体检测，（iOS 目前仅支持动作活体，静默 炫彩等排期）
  * UI 样式仅供参考，根据你的业务可自行调整
- * @author  FaceAISDK.service@gmail.com  https://github.com/FaceAISDK/FaceAISDK_iOS
  */
 struct LivenessDetectView: View {
     //确保ViewModel的生命周期与视图一致，使用@StateObject持有ViewModel，视图被销毁时会一起释放
@@ -20,14 +19,24 @@ struct LivenessDetectView: View {
  
     let onDismiss: (FaceVerifyResult) -> Void
     
+
+    //根据提示状态码多语言展示文本
+    //添加人脸状态码参考 AddFaceTipsCode
+    private func localizedTip(for code: Int) -> String {
+        let key = "Face_Tips_\(code)"
+        let defaultValue = "Add Face Tips Code=\(code)"
+        return NSLocalizedString(key, value: defaultValue, comment: "")
+    }
+    
+    
     var body: some View {
         VStack {
-            Text(viewModel.verifyFaceTips)
+            Text(localizedTip(for: viewModel.sdkInterfaceTips.code))
                 .font(.system(size: 22).bold())
                 .padding(.bottom, 5)
                 .foregroundColor(.black)
             
-            Text(viewModel.verifyFaceTipsExtra)
+            Text(localizedTip(for: viewModel.sdkInterfaceTipsExtra.code))
                 .font(.system(size: 19).bold())
                 .padding(.bottom, 6)
                 .frame(minHeight: 30)
