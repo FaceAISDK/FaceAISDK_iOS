@@ -2,6 +2,7 @@ import SwiftUI
 import AVFoundation
 import FaceAISDK_Core
 
+
 let cameraSize: CGFloat = 320 //  相机的尺寸
 
 
@@ -17,18 +18,25 @@ public struct AddFaceView: View {
         
     @StateObject private var viewModel: AddFaceModel = AddFaceModel()
     
+
+    //根据提示状态码多语言展示文本
+    //添加人脸状态码参考 AddFaceTipsCode
+    private func localizedTip(for code: Int) -> String {
+        let key = "Face_Tips_\(code)"
+        let defaultValue = "Add Face Tips Code=\(code)"
+        return NSLocalizedString(key, value: defaultValue, comment: "")
+    }
+    
+    
     public var body: some View {
-        VStack {
-            Text(viewModel.addFaceTips)
-                .font(.system(size: 22).bold())
-                .padding(.bottom, 5)
-                .foregroundColor(.black)
-            
-            Text(viewModel.addFaceTipsExtra)
-                .font(.system(size: 19).bold())
-                .padding(.bottom, 6)
-                .frame(minHeight: 30)
-                .foregroundColor(.black)
+        VStack(spacing: 22){
+            Text(localizedTip(for: viewModel.sdkInterfaceTips.code))
+                .font(.system(size: 20).bold())
+                .padding(.horizontal,20)
+                .padding(.vertical,8)
+                .foregroundColor(.white)
+                .background(Color.faceMain)
+                .cornerRadius(20)
             
             FaceAICameraView(session: viewModel.captureSession, cameraSize: cameraSize)
                 .frame(
@@ -42,11 +50,11 @@ public struct AddFaceView: View {
             Spacer()
         }
         .padding()
-        .frame(maxWidth: .infinity, maxHeight: .infinity) // 确保填满可用空间
-        .background(Color.white.ignoresSafeArea()) // 扩展到安全区域
+        .frame(maxWidth: .infinity, maxHeight: .infinity) 
+        .background(Color.white.ignoresSafeArea())
         .overlay {
             if viewModel.readyConfirmFace {
-                PopupConfirmView(
+                ConfirmAddFaceDialog(
                     viewModel: viewModel,
                     onConfirm: {
                         let facePath = viewModel.confirmSaveFaceAir(fileName: faceID)
@@ -59,20 +67,24 @@ public struct AddFaceView: View {
         .onAppear {
             viewModel.initAddFace()
         }
+        .onChange(of: viewModel.sdkInterfaceTips.code) { newValue in
+            print("⚠️ 提示状态： \(viewModel.sdkInterfaceTips.message)")
+        }
         .onDisappear {
             viewModel.stopAddFace()
         }
+
     }
     
-    
-    
-    struct PopupConfirmView: View {
+
+    //确认添加人脸对话框
+    struct ConfirmAddFaceDialog: View {
         let viewModel: AddFaceModel
         let onConfirm: () -> Void
         
         var body: some View {
             VStack(alignment: .center) {
-                Text("人脸录入确认")
+                Text("Confirm Add Face Title")
                     .font(.system(size: 19).bold())
                     .frame(maxWidth: .infinity,alignment: .leading)
                     .foregroundColor(.faceMain)
@@ -84,14 +96,14 @@ public struct AddFaceView: View {
                     .frame(width: 140, height: 140)
                     .cornerRadius(8)
                 
-                Text("请录入无遮挡正脸清晰图")
+                Text("Confirm Add Face Tips")
                     .multilineTextAlignment(.center)
                     .foregroundColor(.faceMain)
                     .padding(.vertical, 3)
-                    .font(.system(size: 15).bold())
+                    .font(.system(size: 16).bold())
                 
-                HStack(spacing: 10) {
-                    Button("重试") {
+                HStack(spacing: 16) {
+                    Button("Retry") {
                         viewModel.reInit()
                     }
                     .padding()
@@ -99,7 +111,7 @@ public struct AddFaceView: View {
                     .background(Color.gray.opacity(0.2))
                     .cornerRadius(8)
                     
-                    Button("确认") {
+                    Button("Confirm") {
                         onConfirm()  //触发关闭弹窗和页面的操作
                     }
                     .padding()

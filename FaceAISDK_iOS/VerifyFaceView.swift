@@ -21,14 +21,26 @@ struct VerifyFaceView: View {
     let threshold:Float
     let onDismiss: (FaceVerifyResult) -> Void
     
+    
+    //根据提示状态码多语言展示文本
+    //添加人脸状态码参考 AddFaceTipsCode
+    private func localizedTip(for code: Int) -> String {
+        let key = "Face_Tips_\(code)"
+        let defaultValue = "Add Face Tips Code=\(code)"
+        return NSLocalizedString(key, value: defaultValue, comment: "")
+    }
+    
     var body: some View {
         VStack {
-            Text(viewModel.verifyFaceTips)
-                .font(.system(size: 22).bold())
-                .padding(.bottom, 5)
-                .foregroundColor(.black)
+            Text(localizedTip(for: viewModel.sdkInterfaceTips.code))
+                .font(.system(size: 20).bold())
+                .padding(.horizontal,20)
+                .padding(.vertical,8)
+                .foregroundColor(.white)
+                .background(Color.faceMain)
+                .cornerRadius(20)
             
-            Text(viewModel.verifyFaceTipsExtra)
+            Text(localizedTip(for: viewModel.sdkInterfaceTipsExtra.code))
                 .font(.system(size: 19).bold())
                 .padding(.bottom, 6)
                 .frame(minHeight: 30)
@@ -56,8 +68,8 @@ struct VerifyFaceView: View {
             print("ViewModel 返回 ： \(viewModel.faceVerifyResult)")
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                 showToast = false
-                onDismiss(viewModel.faceVerifyResult)  // 传值给父视图
-                dismiss() // 关闭页面
+                onDismiss(viewModel.faceVerifyResult)  //传值给父视图
+                dismiss() //关闭页面
             }
         }
         
