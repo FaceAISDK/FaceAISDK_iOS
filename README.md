@@ -23,7 +23,7 @@ SDK默认的开发环境为Xcode 16.2 ,Swift 6.0；UI全部使用SwiftUI实现�
 一般pod install 命令能完整的下载同步安装好所有依赖，也可以pod update FaceAISDK_Core仅更新人脸识别SDK
 不同开发设备和网络环境，**首次**集成到主项目翻墙安装依赖**耗时25分钟左右**，建议此时去喝杯水活动一下颈椎😭
 
-**Installing TensorFlowLiteSwift (2.17.0) 这是最耗时的基础依赖安装**
+**Install TensorFlowLiteSwift (2.17.0) 这是最耗时的基础依赖安装**
 你也可以在浏览器中看看当前网络环境下载TensorFlowLiteSwift情况：  
 https://github.com/tensorflow/tensorflow/archive/refs/heads/master.zip
 
@@ -39,19 +39,23 @@ Installing FaceAISDK_Core 2025.10.17
 Cloning into '/var/folders/gh/p4wv4ytj4tn5xrhgq0n_jnbm0000gn/T/d20251020-8626-c57agm'...
 fatal: unable to access 'https://github.com/FaceAISDK/FaceAISDK_Core.git/': Error in the HTTP2 framing layer
 ```
+ **经过漫长的等待，编译完成后 就可以在手机体验效果了**
 
 ### 2. 安装Demo运行的ToastUI 依赖库
 运行本Demo还需要安装 Swift ToastUI。 参考 https://github.com/quanshousio/ToastUI
 
 
 ### 3. 升级FaceAISDK问题
- 升级FaceAISDK pod update FaceAISDK_Core 后，在Xcode菜单Product执行clean all Issues，否则会出现以下错误
+ 如果运行出现以下错误
   
  ```
  Swift/Integers.swift:3564: Fatal error: Not enough bits to represent the passed value  
  ```
  
- **经过漫长的等待，编译完成后 就可以在手机体验效果了**
+ 请在Xcode菜单Product执行clean all Issues后 再次执行pod命令升级FaceAISDK就可以了。
+ ```
+  pod update FaceAISDK_Core 
+ ```
 
 ## 其他说明 
   本SDK 需要摄像头实时获取预览数据，目前只支持真机调试。
