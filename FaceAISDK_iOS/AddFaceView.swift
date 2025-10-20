@@ -2,7 +2,6 @@ import SwiftUI
 import AVFoundation
 import FaceAISDK_Core
 
-
 let cameraSize: CGFloat = 320 //  相机的尺寸
 
 
