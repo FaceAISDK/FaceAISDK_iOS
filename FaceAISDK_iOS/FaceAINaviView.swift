@@ -123,7 +123,7 @@ struct FaceAINaviView: View {
                 case .LivenessView(let param):
                     
                     // faceVerifyResult.code
-                    // -2  人脸识别动作活体检测超过10秒
+                    // -2  人脸识别动作活体检测超时间
                     // -1  多次切换人脸或检查失败
                     // 0   默认值
                     // 3   动作活体检测成功

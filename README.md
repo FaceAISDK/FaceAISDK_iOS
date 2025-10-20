@@ -22,7 +22,10 @@ SDK默认的开发环境为Xcode 16.2 ,Swift 6.0；UI全部使用SwiftUI实现�
 ### 1. 确认电脑能科学上网翻墙后，使用Pod命令安装FaceAISDK和相关依赖库
 一般pod install 命令能完整的下载同步安装好所有依赖，也可以pod update FaceAISDK_Core仅更新人脸识别SDK
 不同开发设备和网络环境，**首次**集成到主项目翻墙安装依赖**耗时25分钟左右**，建议此时去喝杯水活动一下颈椎😭
-Installing TensorFlowLiteSwift (2.17.0) 这是最耗时的基础依赖安装
+
+**Installing TensorFlowLiteSwift (2.17.0) 这是最耗时的基础依赖安装**
+你也可以在浏览器中看看当前网络环境下载TensorFlowLiteSwift情况：  
+https://github.com/tensorflow/tensorflow/archive/refs/heads/master.zip
 
 ```
 「没有翻墙的错误提示」
@@ -42,7 +45,7 @@ fatal: unable to access 'https://github.com/FaceAISDK/FaceAISDK_Core.git/': Erro
 
 
 ### 3. 升级FaceAISDK问题
- 升级FaceAISDK pod update FaceAISDK_Core 后记得Product-clean all Issues，否则可能出现以下错误（不太清楚原因） 
+ 升级FaceAISDK pod update FaceAISDK_Core 后，在Xcode菜单Product执行clean all Issues，否则会出现以下错误
   
  ```
  Swift/Integers.swift:3564: Fatal error: Not enough bits to represent the passed value  
@@ -55,7 +58,7 @@ fatal: unable to access 'https://github.com/FaceAISDK/FaceAISDK_Core.git/': Erro
   
   微信：FaceAISDK  
   Email: FaceAISDK.Service@gmail.com   
-  iOS SDK： https://github.com/FaceAISDK/FaceAISDK_iOS
+  iOS SDK： https://github.com/FaceAISDK/FaceAISDK_iOS  
   Android： https://github.com/FaceAISDK/FaceAISDK_Android     
   
 ## Android体验Demo APK下载如下  
