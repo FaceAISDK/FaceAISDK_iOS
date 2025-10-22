@@ -46,10 +46,10 @@ struct VerifyFaceView: View {
                 .frame(minHeight: 30)
                 .foregroundColor(.black)
             
-            FaceAICameraView(session: viewModel.captureSession,cameraSize: cameraSize)
+            FaceAICameraView(session: viewModel.captureSession,cameraSize: FaceAICameraSize)
                 .frame(
-                    width: min(UIScreen.main.bounds.width,cameraSize),
-                    height: min(UIScreen.main.bounds.width,cameraSize))
+                    width: FaceAICameraSize,
+                    height: FaceAICameraSize)
                 .aspectRatio(1.0, contentMode: .fit)   //Enforce1:1ratio
                 .clipShape(Circle())     //Clip to ensure square bounds
             

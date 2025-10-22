@@ -32,9 +32,12 @@ struct LivenessDetectView: View {
     var body: some View {
         VStack {
             Text(localizedTip(for: viewModel.sdkInterfaceTips.code))
-                .font(.system(size: 22).bold())
-                .padding(.bottom, 5)
-                .foregroundColor(.black)
+                .font(.system(size: 20).bold())
+                .padding(.horizontal,20)
+                .padding(.vertical,8)
+                .foregroundColor(.white)
+                .background(Color.faceMain)
+                .cornerRadius(20)
             
             Text(localizedTip(for: viewModel.sdkInterfaceTipsExtra.code))
                 .font(.system(size: 19).bold())
@@ -42,10 +45,10 @@ struct LivenessDetectView: View {
                 .frame(minHeight: 30)
                 .foregroundColor(.black)
             
-            FaceAICameraView(session: viewModel.captureSession,cameraSize: cameraSize)
+            FaceAICameraView(session: viewModel.captureSession,cameraSize: FaceAICameraSize)
                 .frame(
-                    width: min(UIScreen.main.bounds.width,cameraSize),
-                    height: min(UIScreen.main.bounds.width,cameraSize))
+                    width: FaceAICameraSize,
+                    height: FaceAICameraSize)
                 .aspectRatio(1.0, contentMode: .fit)   //Enforce1:1ratio
                 .clipShape(Circle())     //Clip to ensure square bounds
             
@@ -61,7 +64,7 @@ struct LivenessDetectView: View {
         .onChange(of: viewModel.faceVerifyResult.code) { newValue in
             showToast = true
             print("动作活体检测返回 ： \(viewModel.faceVerifyResult)")
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 showToast = false
                 onDismiss(viewModel.faceVerifyResult)  // 传值给父视图
                 dismiss() // 关闭页面
