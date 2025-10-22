@@ -2,8 +2,12 @@ import SwiftUI
 import AVFoundation
 import FaceAISDK_Core
 
-let cameraSize: CGFloat = 320 //  相机的尺寸
 
+// 使用 @MainActor 确保在主线程访问
+@MainActor
+var FaceAICameraSize: CGFloat {
+    3 * min(UIScreen.main.bounds.width, UIScreen.main.bounds.height) / 4
+}
 
 /**
  *  人脸录入，摄像头采集画面需要真机调试
@@ -37,14 +41,16 @@ public struct AddFaceView: View {
                 .background(Color.faceMain)
                 .cornerRadius(20)
             
-            FaceAICameraView(session: viewModel.captureSession, cameraSize: cameraSize)
+            FaceAICameraView(session: viewModel.captureSession, cameraSize: FaceAICameraSize)
                 .frame(
-                    width: min(UIScreen.main.bounds.width, cameraSize),
-                    height: min(UIScreen.main.bounds.width, cameraSize)
+                    width: FaceAICameraSize,
+                    height:FaceAICameraSize
                 )
                 .aspectRatio(1.0, contentMode: .fit)
                 .clipShape(Circle())
                 .background(Color.white)
+            
+            
             
             Spacer()
         }
@@ -56,8 +62,12 @@ public struct AddFaceView: View {
                 ConfirmAddFaceDialog(
                     viewModel: viewModel,
                     onConfirm: {
+                        print("confirmSaveFaceAir")
+
                         let facePath = viewModel.confirmSaveFaceAir(fileName: faceID)
                         onDismiss(facePath)
+                        print("onDismiss")
+
                     }
                 )
             }
@@ -102,27 +112,34 @@ public struct AddFaceView: View {
                     .font(.system(size: 16).bold())
                 
                 HStack(spacing: 16) {
-                    Button("Retry") {
-                        viewModel.reInit()
-                    }
-                    .padding()
-                    .frame(maxWidth: .infinity, maxHeight: 44)
-                    .background(Color.gray.opacity(0.2))
-                    .cornerRadius(8)
                     
-                    Button("Confirm") {
-                        onConfirm()  //触发关闭弹窗和页面的操作
+                    Button(action: {
+                        viewModel.reInit()
+                    }) {
+                        Text("Retry")
+                            .frame(maxWidth: .infinity, maxHeight: 44)
+                            .background(Color.gray.opacity(0.2))
+                            .cornerRadius(8)
+                            .contentShape(Rectangle()) // 使整个 HStack 区域可点击
                     }
-                    .padding()
-                    .frame(maxWidth: .infinity, maxHeight: 44)
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(8)
+                    
+                    Button(action: {
+                        onConfirm()  //触发关闭弹窗和页面的操作
+                    }) {
+                        Text("Confirm")
+                            .frame(maxWidth: .infinity, maxHeight: 44)
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(8)
+                            .contentShape(Rectangle()) // 使整个 HStack 区域可点击
+                    }
+                    
+
                 }.padding()
             }
             .padding(.horizontal, 8)
             .padding(.vertical, 4)
-            .frame(maxWidth: UIScreen.main.bounds.width-50, minHeight: 250)
+            .frame(maxWidth: 8*FaceAICameraSize/7, minHeight: 250)
             .background(Color.white)
             .cornerRadius(9)
             .shadow(radius: 9)
