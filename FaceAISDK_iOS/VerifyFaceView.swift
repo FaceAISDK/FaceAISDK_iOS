@@ -59,8 +59,8 @@ struct VerifyFaceView: View {
         .onAppear {
             //初始化人脸引擎,设置人脸识别的底片和比对相似度阈值（0.8到0.95）
             //设置的相似度阈值越高，对人脸角度，环境光线和摄像头宽动态要求越高
-            //动作活体目前是随机的两个步骤，当前不支持设置，6月底会开发更多设置
-            viewModel.initFaceAISDK(faceIDParam: faceID,threshold: threshold)
+            // motionLiveness 指定活体动作的种类(至少3种)  1.张张嘴  2.微笑  3.眨眨眼  4.摇摇头  5.点头
+            viewModel.initFaceAISDK(faceIDParam: faceID,onlyLiveness: false,motionLiveness:[1,3,4,5])
         }
         
         .onChange(of: viewModel.faceVerifyResult.code) { newValue in
