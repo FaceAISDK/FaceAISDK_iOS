@@ -18,9 +18,7 @@ struct FaceAINaviView: View {
     var body: some View {
         NavigationStack(path: $navigationPath) {
             ZStack {
-                // 设置整个背景为红色
                 Color.faceMain.ignoresSafeArea()
-                
                 VStack(spacing: 20) {
                     
                     //录入你的人脸图片
@@ -136,7 +134,7 @@ struct FaceAINaviView: View {
             }
         }
         .onAppear {
-            //提前初始化
+            //和合适的场景，提前一点初始化FaceAISDK
             FaceAISDK.initSDK()
         }
     }

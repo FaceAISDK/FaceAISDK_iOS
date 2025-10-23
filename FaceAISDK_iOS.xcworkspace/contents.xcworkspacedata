@@ -8,7 +8,7 @@
       location = "group:Doc"
       name = "Doc">
       <FileRef
-         location = "group:pod_install_FaceAISDK.jpg">
+         location = "group:pod_update_FaceAISDK.jpg">
       </FileRef>
    </Group>
    <FileRef
