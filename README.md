@@ -12,6 +12,11 @@ iOS FaceAISDK is on_device Offline Face Detection 、Recognition 、Liveness Det
 FaceAISDK_iOS SDK是设备端可离线不需联网的人脸录入、动作活体检测、人脸识别SDK，集成后可快速实现相关功能。  
 
 
+## 更新说明 V2025.10.28
+- SDK闪退问题处理  
+- 动作活体随机组合优化  
+[更多历史版本介绍见](/Doc/历史版本SDK更新记录.md)  
+
 ## 集成步骤
 
 SDK默认的开发环境为Xcode 16.2 ,Swift 6.0；UI全部使用SwiftUI实现，支持iOS[16,26]

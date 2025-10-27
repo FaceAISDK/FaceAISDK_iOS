@@ -98,7 +98,9 @@ struct FaceAINaviView: View {
                 case .AddFacePageView(let param):
                     AddFaceView(faceID: param,onDismiss: { result in
                         addFaceResult = result
-                        navigationPath.removeLast()
+                        if !navigationPath.isEmpty { // 检查路径是否为空
+                            navigationPath.removeLast()
+                        }
                     })
                     
                 case .VerifyFacePageView(let param):
@@ -127,7 +129,9 @@ struct FaceAINaviView: View {
                     // 3   动作活体检测成功
                     LivenessDetectView(faceID: param,onDismiss: { result in
                         print("Motion Liveness Result：\(result.tips) \(result.code)")
-                        navigationPath.removeLast()
+                        if !navigationPath.isEmpty { // 检查路径是否为空
+                            navigationPath.removeLast()
+                        }
                     })
                     
                 }

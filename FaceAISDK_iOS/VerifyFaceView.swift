@@ -60,7 +60,7 @@ struct VerifyFaceView: View {
             //初始化人脸引擎,设置人脸识别的底片和比对相似度阈值（0.8到0.95）
             //设置的相似度阈值越高，对人脸角度，环境光线和摄像头宽动态要求越高
             // motionLiveness 指定活体动作的种类(至少3种)  1.张张嘴  2.微笑  3.眨眨眼  4.摇摇头  5.点头
-            viewModel.initFaceAISDK(faceIDParam: faceID,onlyLiveness: false,motionLiveness:[1,3,4,5])
+            viewModel.initFaceAISDK(faceIDParam: faceID, threshold: 0.85, onlyLiveness: false,motionLiveness:[1,3,4,5])
         }
         
         .onChange(of: viewModel.faceVerifyResult.code) { newValue in
@@ -87,8 +87,7 @@ struct VerifyFaceView: View {
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity) // 确保填满可用空间
-        .background(Color.white.ignoresSafeArea()) // 扩展到安全区域
-        .background(Color.white)
+        .background(Color.white.ignoresSafeArea())  // 扩展到安全区域
     }
 }
 

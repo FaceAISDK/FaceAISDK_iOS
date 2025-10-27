@@ -10,6 +10,9 @@
       <FileRef
          location = "group:pod_update_FaceAISDK.jpg">
       </FileRef>
+      <FileRef
+         location = "group:&#x5386;&#x53f2;&#x7248;&#x672c;SDK&#x66f4;&#x65b0;&#x8bb0;&#x5f55;.md">
+      </FileRef>
    </Group>
    <FileRef
       location = "group:FaceAISDK_iOS.xcodeproj">
