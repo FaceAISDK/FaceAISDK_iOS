@@ -16,10 +16,10 @@ struct LivenessDetectView: View {
     
     //录入保存的FaceID 值。一般是你的业务体系中个人的唯一编码，比如账号 身份证
     let faceID: String
- 
+    
     let onDismiss: (FaceVerifyResult) -> Void
     
-
+    
     //根据提示状态码多语言展示文本
     //添加人脸状态码参考 AddFaceTipsCode
     private func localizedTip(for code: Int) -> String {
@@ -82,7 +82,6 @@ struct LivenessDetectView: View {
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity) // 确保填满可用空间
         .background(Color.white.ignoresSafeArea()) // 扩展到安全区域
-        .background(Color.white)
     }
 }
 
