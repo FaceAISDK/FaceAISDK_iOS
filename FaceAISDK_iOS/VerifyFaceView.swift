@@ -87,7 +87,7 @@ struct VerifyFaceView: View {
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity) // 确保填满可用空间
-        .background(Color.white.ignoresSafeArea())  // 扩展到安全区域
+        .background(Color.white.ignoresSafeArea()) // 扩展到安全区域
     }
 }
 
