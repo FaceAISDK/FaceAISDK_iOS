@@ -3,7 +3,6 @@ import SwiftUI
 import FaceAISDK_Core
 import ToastUI
 
-
 /**
  * iOS  FaceAISDK 功能导航页面
  */
@@ -21,19 +20,23 @@ struct FaceAINaviView: View {
                 Color.faceMain.ignoresSafeArea()
                 VStack(spacing: 20) {
                     
-                    //录入你的人脸图片
-                    Button("Add Your Face Image") {
+                    //通过SDK相机录入人脸
+                    Button("Add Face By Camera") {
                         navigationPath.append(FaceAINaviDestination.AddFacePageView(faceID))
                     }
                     .font(.system(size: 20).bold())
                     .controlSize(.large)
                     .foregroundColor(Color.white)
-                    .padding(.top,50)
+                    .padding(.top,30)
                     
-                    Text("\(addFaceResult ?? " ")")
-                        .font(.system(size: 8).bold())
-                        .foregroundColor(Color.white)
-                        .padding(.horizontal,7)
+                    //通过相册录入人脸
+                    Button("Add Face From Album") {
+                        navigationPath.append(FaceAINaviDestination.AddFaceFromAlbum(faceID))
+                    }
+                    .font(.system(size: 19).bold())
+                    .controlSize(.large)
+                    .foregroundColor(Color.white)
+                    .padding(.top,15)
                     
                     //人脸识别+活体检测
                     Button("Face Verify and Liveness Detection") {
@@ -41,7 +44,7 @@ struct FaceAINaviView: View {
                     }
                     .font(.system(size: 20).bold())
                     .foregroundColor(Color.white)
-                    .padding(.top,15)
+                    .padding(.top,22)
                     
                     //仅动作活体检测
                     Button("ONLY Motion Liveness Detection") {
@@ -49,7 +52,7 @@ struct FaceAINaviView: View {
                     }
                     .font(.system(size: 20).bold())
                     .foregroundColor(Color.white)
-                    .padding(.top,25)
+                    .padding(.top,20)
                     
                     //判断人脸图片是否存在
                     Button("is Face Image Exist") {
@@ -88,7 +91,6 @@ struct FaceAINaviView: View {
                     }
                     .foregroundColor(Color.white)
                     .font(.system(size: 16).bold())
-
                 }
             }
             .navigationTitle("🧭 FaceAISDK")
@@ -96,13 +98,22 @@ struct FaceAINaviView: View {
                 switch destination {
                     
                 case .AddFacePageView(let param):
-                    AddFaceView(faceID: param,onDismiss: { result in
+                    AddFaceByCamera(faceID: param,onDismiss: { result in
                         addFaceResult = result
                         if !navigationPath.isEmpty { // 检查路径是否为空
                             navigationPath.removeLast()
                         }
                     })
                     
+                case .AddFaceFromAlbum(let param):
+
+                    AddFaceByUIImage(faceID: param,onDismiss: { result in
+                        addFaceResult = result
+                        if !navigationPath.isEmpty { // 检查路径是否为空
+                            navigationPath.removeLast()
+                        }
+                    })
+                
                 case .VerifyFacePageView(let param):
                     //设置的相似度阈值threshold越高，对人脸角度，环境光线和摄像头宽动态要求越高
                     VerifyFaceView(faceID: param,threshold: 0.85, onDismiss: { result in
@@ -146,6 +157,7 @@ struct FaceAINaviView: View {
 }
 
 enum FaceAINaviDestination: Hashable {
+    case AddFaceFromAlbum(String)
     case AddFacePageView(String)
     case VerifyFacePageView(String)
     case LivenessView(String)
