@@ -23,8 +23,8 @@ struct LivenessDetectView: View {
     //根据提示状态码多语言展示文本
     //添加人脸状态码参考 AddFaceTipsCode
     private func localizedTip(for code: Int) -> String {
-        let key = "Face_Tips_\(code)"
-        let defaultValue = "Add Face Tips Code=\(code)"
+        let key = "Face_Tips_Code_\(code)"
+        let defaultValue = "LivenessDetect Tips Code=\(code)"
         return NSLocalizedString(key, value: defaultValue, comment: "")
     }
     
@@ -50,7 +50,7 @@ struct LivenessDetectView: View {
                     width: FaceAICameraSize,
                     height: FaceAICameraSize)
                 .aspectRatio(1.0, contentMode: .fit)   //Enforce1:1ratio
-                .clipShape(Circle())     //Clip to ensure square bounds
+                .clipShape(Circle())                   //Clip to ensure square bounds
             
             Spacer()
         }
@@ -82,6 +82,7 @@ struct LivenessDetectView: View {
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity) // 确保填满可用空间
         .background(Color.white.ignoresSafeArea()) // 扩展到安全区域
+        
     }
 }
 

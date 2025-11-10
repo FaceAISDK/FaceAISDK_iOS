@@ -33,20 +33,34 @@
         }
       }
     },
-    "Add Your Face Image" : {
-      "comment" : "导航_录入人脸",
-      "extractionState" : "manual",
+    "Add Face By Camera" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Add Your Face Image"
+            "value" : "Add Face By Camera"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "录入你的人脸图片"
+            "value" : "用SDK相机添加人脸"
+          }
+        }
+      }
+    },
+    "Add Face From Album" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add Face From Album"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "从相册选取人脸照片"
           }
         }
       }
@@ -131,7 +145,7 @@
         }
       }
     },
-    "Face_Tips_0" : {
+    "Face_Tips_Code_0" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -148,7 +162,7 @@
         }
       }
     },
-    "Face_Tips_1" : {
+    "Face_Tips_Code_1" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -165,7 +179,7 @@
         }
       }
     },
-    "Face_Tips_2" : {
+    "Face_Tips_Code_2" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -182,7 +196,7 @@
         }
       }
     },
-    "Face_Tips_3" : {
+    "Face_Tips_Code_3" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -199,7 +213,7 @@
         }
       }
     },
-    "Face_Tips_4" : {
+    "Face_Tips_Code_4" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -216,7 +230,7 @@
         }
       }
     },
-    "Face_Tips_5" : {
+    "Face_Tips_Code_5" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -233,7 +247,7 @@
         }
       }
     },
-    "Face_Tips_6" : {
+    "Face_Tips_Code_6" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -250,7 +264,7 @@
         }
       }
     },
-    "Face_Tips_7" : {
+    "Face_Tips_Code_7" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -267,7 +281,7 @@
         }
       }
     },
-    "Face_Tips_8" : {
+    "Face_Tips_Code_8" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -284,7 +298,7 @@
         }
       }
     },
-    "Face_Tips_9" : {
+    "Face_Tips_Code_9" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -301,7 +315,7 @@
         }
       }
     },
-    "Face_Tips_10" : {
+    "Face_Tips_Code_10" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -318,7 +332,7 @@
         }
       }
     },
-    "Face_Tips_11" : {
+    "Face_Tips_Code_11" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -335,7 +349,7 @@
         }
       }
     },
-    "Face_Tips_12" : {
+    "Face_Tips_Code_12" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -352,7 +366,24 @@
         }
       }
     },
-    "Face_Tips_31" : {
+    "Face_Tips_Code_13" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Too Small Face"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "人脸太小了"
+          }
+        }
+      }
+    },
+    "Face_Tips_Code_31" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -369,7 +400,7 @@
         }
       }
     },
-    "Face_Tips_32" : {
+    "Face_Tips_Code_32" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -386,7 +417,7 @@
         }
       }
     },
-    "Face_Tips_33" : {
+    "Face_Tips_Code_33" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -403,7 +434,7 @@
         }
       }
     },
-    "Face_Tips_34" : {
+    "Face_Tips_Code_34" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -420,7 +451,7 @@
         }
       }
     },
-    "Face_Tips_35" : {
+    "Face_Tips_Code_35" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -437,7 +468,7 @@
         }
       }
     },
-    "Face_Tips_36" : {
+    "Face_Tips_Code_36" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -454,7 +485,7 @@
         }
       }
     },
-    "Face_Tips_37" : {
+    "Face_Tips_Code_37" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -471,7 +502,7 @@
         }
       }
     },
-    "Face_Tips_38" : {
+    "Face_Tips_Code_38" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -488,7 +519,7 @@
         }
       }
     },
-    "Face_Tips_41" : {
+    "Face_Tips_Code_41" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -505,7 +536,7 @@
         }
       }
     },
-    "Face_Tips_42" : {
+    "Face_Tips_Code_42" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -522,7 +553,7 @@
         }
       }
     },
-    "Face_Tips_43" : {
+    "Face_Tips_Code_43" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -539,7 +570,7 @@
         }
       }
     },
-    "Face_Tips_44" : {
+    "Face_Tips_Code_44" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -556,7 +587,7 @@
         }
       }
     },
-    "Face_Tips_45" : {
+    "Face_Tips_Code_45" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -622,6 +653,9 @@
         }
       }
     },
+    "Key" : {
+      "extractionState" : "manual"
+    },
     "ONLY Motion Liveness Detection" : {
       "localizations" : {
         "en" : {
@@ -670,16 +704,14 @@
         }
       }
     },
-    "test0" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "4547777654654"
-          }
-        }
-      }
+    "保存图片" : {
+
+    },
+    "请从相册中选择一张图片" : {
+
+    },
+    "选择图片" : {
+
     }
   },
   "version" : "1.0"

@@ -11,7 +11,6 @@
 		7C73FE512DEFE199005437F4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C73FE502DEFE199005437F4 /* Preview Assets.xcassets */; };
 		7C73FE622DEFEA6F005437F4 /* FaceAISDK_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C73FE5C2DEFEA6F005437F4 /* FaceAISDK_iOSApp.swift */; };
 		7C73FE632DEFEA6F005437F4 /* FaceAINaviView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C73FE5D2DEFEA6F005437F4 /* FaceAINaviView.swift */; };
-		7C73FE642DEFEA6F005437F4 /* AddFaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C73FE5E2DEFEA6F005437F4 /* AddFaceView.swift */; };
 		7C73FE652DEFEA6F005437F4 /* ImageDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C73FE5F2DEFEA6F005437F4 /* ImageDetailView.swift */; };
 		92E5A4258DA0047999719507 /* Pods_FaceAISDK_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45C8E370246FC32137A49677 /* Pods_FaceAISDK_iOS.framework */; };
 		CF2B99C02E604E8F00FF2B61 /* ToastUI in Frameworks */ = {isa = PBXBuildFile; productRef = CF2B99BF2E604E8F00FF2B61 /* ToastUI */; };
@@ -19,6 +18,8 @@
 		CF3AFC072EA4FA7C000D24B3 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = CF3AFC062EA4FA7C000D24B3 /* Localizable.xcstrings */; };
 		CF44AD232E2CFCC7001177C6 /* ToastUI in Frameworks */ = {isa = PBXBuildFile; productRef = CF44AD222E2CFCC7001177C6 /* ToastUI */; };
 		CF9ABDE72E389864006642AF /* LivenessDetectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9ABDE62E389864006642AF /* LivenessDetectView.swift */; };
+		CFBE5BD72EC1D54C00068AD4 /* AddFaceByCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBE5BD42EC1D54C00068AD4 /* AddFaceByCamera.swift */; };
+		CFDE0C992EC1DEE100252A6D /* AddFaceByUIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDE0C982EC1DEDE00252A6D /* AddFaceByUIImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,11 +31,12 @@
 		7C73FE502DEFE199005437F4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7C73FE5C2DEFEA6F005437F4 /* FaceAISDK_iOSApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceAISDK_iOSApp.swift; sourceTree = "<group>"; };
 		7C73FE5D2DEFEA6F005437F4 /* FaceAINaviView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceAINaviView.swift; sourceTree = "<group>"; };
-		7C73FE5E2DEFEA6F005437F4 /* AddFaceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFaceView.swift; sourceTree = "<group>"; };
 		7C73FE5F2DEFEA6F005437F4 /* ImageDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDetailView.swift; sourceTree = "<group>"; };
 		CF2E7E802E2E1FA500608756 /* VerifyFaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyFaceView.swift; sourceTree = "<group>"; };
 		CF3AFC062EA4FA7C000D24B3 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		CF9ABDE62E389864006642AF /* LivenessDetectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivenessDetectView.swift; sourceTree = "<group>"; };
+		CFBE5BD42EC1D54C00068AD4 /* AddFaceByCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFaceByCamera.swift; sourceTree = "<group>"; };
+		CFDE0C982EC1DEDE00252A6D /* AddFaceByUIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFaceByUIImage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,10 +74,11 @@
 		7C73FE482DEFE193005437F4 /* FaceAISDK_iOS */ = {
 			isa = PBXGroup;
 			children = (
-				7C73FE5E2DEFEA6F005437F4 /* AddFaceView.swift */,
 				7C73FE5D2DEFEA6F005437F4 /* FaceAINaviView.swift */,
 				7C73FE5C2DEFEA6F005437F4 /* FaceAISDK_iOSApp.swift */,
 				CF9ABDE62E389864006642AF /* LivenessDetectView.swift */,
+				CFDE0C982EC1DEDE00252A6D /* AddFaceByUIImage.swift */,
+				CFBE5BD42EC1D54C00068AD4 /* AddFaceByCamera.swift */,
 				CF3AFC062EA4FA7C000D24B3 /* Localizable.xcstrings */,
 				7C73FE5F2DEFEA6F005437F4 /* ImageDetailView.swift */,
 				CF2E7E802E2E1FA500608756 /* VerifyFaceView.swift */,
@@ -248,11 +251,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				CF2E7E812E2E1FA500608756 /* VerifyFaceView.swift in Sources */,
+				CFDE0C992EC1DEE100252A6D /* AddFaceByUIImage.swift in Sources */,
 				CF9ABDE72E389864006642AF /* LivenessDetectView.swift in Sources */,
 				7C73FE652DEFEA6F005437F4 /* ImageDetailView.swift in Sources */,
 				7C73FE632DEFEA6F005437F4 /* FaceAINaviView.swift in Sources */,
 				7C73FE622DEFEA6F005437F4 /* FaceAISDK_iOSApp.swift in Sources */,
-				7C73FE642DEFEA6F005437F4 /* AddFaceView.swift in Sources */,
+				CFBE5BD72EC1D54C00068AD4 /* AddFaceByCamera.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

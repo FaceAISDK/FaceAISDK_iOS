@@ -25,8 +25,8 @@ struct VerifyFaceView: View {
     //根据提示状态码多语言展示文本
     //添加人脸状态码参考 AddFaceTipsCode
     private func localizedTip(for code: Int) -> String {
-        let key = "Face_Tips_\(code)"
-        let defaultValue = "Add Face Tips Code=\(code)"
+        let key = "Face_Tips_Code_\(code)"
+        let defaultValue = "VerifyFace Tips Code=\(code)"
         return NSLocalizedString(key, value: defaultValue, comment: "")
     }
     

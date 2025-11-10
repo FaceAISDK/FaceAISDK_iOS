@@ -14,18 +14,18 @@ var FaceAICameraSize: CGFloat {
  *  UI 样式仅供参考，根据你的业务可自行调整
  *
  */
-public struct AddFaceView: View {
+public struct AddFaceByCamera: View {
     //录入保存的FaceID 值。一般是你的业务体系中个人的唯一编码，比如账号 身份证
     let faceID: String
     let onDismiss: (String?) -> Void
         
-    @StateObject private var viewModel: AddFaceModel = AddFaceModel()
+    @StateObject private var viewModel: AddFaceByCameraModel = AddFaceByCameraModel()
     
 
     //根据提示状态码多语言展示文本
     //添加人脸状态码参考 AddFaceTipsCode
     private func localizedTip(for code: Int) -> String {
-        let key = "Face_Tips_\(code)"
+        let key = "Face_Tips_Code_\(code)"
         let defaultValue = "Add Face Tips Code=\(code)"
         return NSLocalizedString(key, value: defaultValue, comment: "")
     }
@@ -49,7 +49,6 @@ public struct AddFaceView: View {
                 .aspectRatio(1.0, contentMode: .fit)
                 .clipShape(Circle())
                 .background(Color.white)
-            
             
             
             Spacer()
@@ -88,7 +87,7 @@ public struct AddFaceView: View {
 
     //确认添加人脸对话框
     struct ConfirmAddFaceDialog: View {
-        let viewModel: AddFaceModel
+        let viewModel: AddFaceByCameraModel
         let onConfirm: () -> Void
         
         var body: some View {
@@ -120,7 +119,7 @@ public struct AddFaceView: View {
                             .frame(maxWidth: .infinity, maxHeight: 44)
                             .background(Color.gray.opacity(0.2))
                             .cornerRadius(8)
-                            .contentShape(Rectangle()) // 使整个 HStack 区域可点击
+                            .contentShape(Rectangle()) //使整个 HStack 区域可点击
                     }
                     
                     Button(action: {
