@@ -61,9 +61,8 @@ public struct AddFaceByCamera: View {
                 ConfirmAddFaceDialog(
                     viewModel: viewModel,
                     onConfirm: {
-                        print("confirmSaveFaceAir")
-
-                        let facePath = viewModel.confirmSaveFaceAir(fileName: faceID)
+                        print("保存人脸图")
+                        let facePath = viewModel.confirmSaveFace(fileName: faceID)
                         onDismiss(facePath)
                         print("onDismiss")
 

@@ -86,7 +86,7 @@ public struct AddFaceByUIImage: View {
                 
                 if canSave {
                     Button("保存图片"){
-                        viewModel.confirmSaveFaceAir(fileName: faceID)
+                        viewModel.confirmSaveFace(fileName: faceID)
                         onDismiss("保存成功")
                     }
                     .padding(.top,22)
