@@ -1,14 +1,13 @@
 <img src="https://badgen.net/badge/FaceAI%20SDK/%20%E5%BF%AB%E9%80%9F%E5%AE%9E%E7%8E%B0%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E5%8A%9F%E8%83%BD" />
-<br>
 
 
 <div align=center>
-<img src="https://github.com/user-attachments/assets/b1e0a9c4-8b43-4eb8-bf7a-7632901cfb2c" width = 20% />
+<img src="https://github.com/user-attachments/assets/b1e0a9c4-8b43-4eb8-bf7a-7632901cfb2c" width = 15% />
 </div>
 
 
 ## FaceAISDK 介绍
-iOS FaceAISDK is on_device Offline Face Detection 、Recognition 、Liveness Detection Anti Spoofing SDK.  
+iPhone&iPad iOS FaceAISDK is on_device Offline Face Detection 、Recognition 、Liveness Detection Anti Spoofing SDK.  
 FaceAISDK_iOS SDK是设备端可离线不需联网的人脸录入、动作活体检测、人脸识别SDK，集成后可快速实现相关功能。  
 
 
@@ -46,7 +45,7 @@ Installing FaceAISDK_Core 2025.10.17
 Cloning into '/var/folders/gh/p4wv4ytj4tn5xrhgq0n_jnbm0000gn/T/d20251020-8626-c57agm'...
 fatal: unable to access 'https://github.com/FaceAISDK/FaceAISDK_Core.git/': Error in the HTTP2 framing layer
 ```
- **经过漫长的等待，编译完成后 就可以在手机体验效果了**
+ **经过漫长的等待，编译完成后 就可以在体验效果了**
 
 ### 2. 安装Demo运行的ToastUI 依赖库
 运行本Demo还需要安装 Swift ToastUI。 参考 https://github.com/quanshousio/ToastUI
@@ -65,7 +64,6 @@ fatal: unable to access 'https://github.com/FaceAISDK/FaceAISDK_Core.git/': Erro
  ```
 
 ## 其他说明 
-  本SDK 需要摄像头实时获取预览数据，目前只支持真机调试。
   
   微信：FaceAISDK  
   Email: FaceAISDK.Service@gmail.com   
