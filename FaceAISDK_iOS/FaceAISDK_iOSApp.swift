@@ -12,7 +12,6 @@ struct FaceAISDK_iOSApp: App {
     var body: some Scene {
         WindowGroup {
             FaceAINaviView()
-        
         }
     }
     

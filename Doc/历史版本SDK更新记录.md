@@ -5,7 +5,14 @@
  请在Xcode菜单Product执行clean all Issues后 再次执行pod命令升级FaceAISDK就可以了。
  ```
   pod update FaceAISDK_Core 
+ 
  ```
+ 
+## 更新说明 V2025.11.15
+- 人脸录入裁剪方式修改，**老的人脸需要重新矫正一次数据或重新录入人脸**
+- SDK 内部流程优化
+- 支持通过相册UIImage添加人脸 
+
  
 ## V2025.10.28
 - SDK闪退问题处理
