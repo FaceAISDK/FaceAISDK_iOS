@@ -29,7 +29,6 @@ public struct AddFaceByUIImage: View {
     }
     
     
-    
     public var body: some View {
             VStack(spacing: 2) {
                 
@@ -85,7 +84,12 @@ public struct AddFaceByUIImage: View {
                 .tint(.blue)
                 
                 if canSave {
-                    Button("保存图片"){
+                    Button("保存人脸数据"){
+                        //保存人脸特征值。人脸图如果业务有需要也可以保存，SDK不需要人脸图只需要人脸特征
+                        var faceFeature=viewModel.getFaceFeature(faceUIImage: selectedImage!);
+                        UserDefaults.standard.set(faceFeature, forKey: faceID)
+                        print("UIImage 特征值  \(faceFeature)")
+
                         viewModel.confirmSaveFace(fileName: faceID)
                         onDismiss("保存成功")
                     }
@@ -117,7 +121,7 @@ public struct AddFaceByUIImage: View {
                     }
                 }
             }
-            .onChange(of: viewModel.canAddFace) { newValue in
+            .onChange(of: viewModel.croppedFaceImage) { newValue in
                 selectedImage=newValue
                 isLoading = false
                 canSave = true
