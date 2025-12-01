@@ -3,6 +3,7 @@ import AVFoundation
 import FaceAISDK_Core
 import ToastUI
 
+
 /**
  * 动作活体检测，（iOS 目前仅支持动作活体，静默 炫彩等排期）
  * UI 样式仅供参考，根据你的业务可自行调整
@@ -55,10 +56,10 @@ struct LivenessDetectView: View {
         }
         
         .onAppear {
-            // 初始化人脸引擎
-            // 是否仅仅需要动作活体检测，动作活体目前是随机的两个步骤
+            //初始化人脸引擎
+            //是否仅仅需要动作活体检测，动作活体目前是随机的两个步骤
             // motionLiveness 指定活体动作的种类(至少3种)  1.张张嘴  2.微笑  3.眨眨眼  4.摇摇头  5.点头
-            viewModel.initFaceAISDK(faceIDParam: faceID,onlyLiveness: true,motionLiveness:[1,2,3,4,5])
+            viewModel.initFaceAISDK(faceIDFeature: "",onlyLiveness: true,motionLiveness:[1,2,3,4,5])
         }
         
         .onChange(of: viewModel.faceVerifyResult.code) { newValue in
