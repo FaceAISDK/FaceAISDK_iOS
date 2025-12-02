@@ -7,10 +7,6 @@ import ToastUI
  */
 struct FaceAINaviView: View {
     
-    // Base64 在线转换工具 https://tool.jisuapi.com/base642pic.html
-    private let base64FaceImage="data:image/jpeg;base64,/9j/4AAQSk。。。。。。。。。。"
-
-    
     @State private var navigationPath = NavigationPath()
     @State private var addFaceResult: String?
     
@@ -57,29 +53,21 @@ struct FaceAINaviView: View {
                     .foregroundColor(Color.white)
                     .padding(.top,20)
                     
-                    //判断人脸图片是否存在
-                    Button("is Face Image Exist") {
-                        print("isFaceImageExist？ ：\(FaceImageManger.isFaceImageExist(faceID: faceID))")
+                    //判断faceID对应人脸特征值是否存在
+                    Button("is Face Feature Exist") {
+                        //人脸特征值是一个1024长度的字符串，已经和Android 同步实现了数据互联互通
+                        guard let faceFeature = UserDefaults.standard.string(forKey: faceID) else {
+                            print("isFaceFeatureExist？ ： No ! ")
+                            return
+                        }
+                        
+                        print("\n😊FaceFeature: \(faceFeature)")
                     }
+                    
                     .font(.system(size: 18).bold())
                     .foregroundColor(Color.white)
                     .padding(.top,33)
 
-                    //人脸图片转为Base64
-                    Button("Convert Face Image to Base64") {
-                        print("Base64：\(String(describing: FaceImageManger.imageFromDocumentsToBase64(fileName: faceID)))")
-                    }
-                    .foregroundColor(Color.white)
-                    .padding(.top,11)
-                    .font(.system(size: 18).bold())
-
-                    //保存Base64人脸图片
-                    Button("Save Base64 Face Images") {
-
-                    }
-                    .foregroundColor(Color.white)
-                    .padding(.top,11)
-                    .font(.system(size: 18).bold())
 
                     Spacer()
                     

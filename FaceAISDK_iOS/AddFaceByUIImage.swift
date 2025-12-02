@@ -10,7 +10,7 @@ public struct AddFaceByUIImage: View {
     @State private var canSave = false
 
 
-    // 用于存储最终加载并用于显示的 SwiftUI Image
+    // 用于存储最终加载并用于显示的 SwiftUI Image ,会自动销毁吗？
     @State private var selectedImage: UIImage?
     
     @StateObject private var viewModel: addFaceByUIImageModel = addFaceByUIImageModel()
@@ -86,6 +86,7 @@ public struct AddFaceByUIImage: View {
                 if canSave {
                     Button("保存人脸数据"){
                         //保存人脸特征值。人脸图如果业务有需要也可以保存，SDK不需要人脸图只需要人脸特征
+                        //人脸特征值长度 1024
                         var faceFeature=viewModel.getFaceFeature(faceUIImage: selectedImage!);
                         UserDefaults.standard.set(faceFeature, forKey: faceID)
                         print("UIImage 特征值  \(faceFeature)")
