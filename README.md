@@ -11,10 +11,10 @@ iPhone&iPad iOS FaceAISDK is on_device Offline Face Detection 、Recognition 、
 FaceAISDK_iOS SDK是设备端可离线不需联网的人脸录入、动作活体检测、人脸识别SDK，集成后可快速实现相关功能。  
 
 
-## 更新说明 V2025.11.29
-- 统一Android&iOS 的人脸特征值长度为1024
-- 识别精确度优化阶段1
-- 其它API 精简优化
+## 更新说明 V2025.12.01
+- 提示iOS 版本识别精度和性能
+- 支持Xcode15.2+ ，Swift 5.9
+- 人脸特征值处理优化，统一长度为1024
 
 [更多历史版本介绍见](/Doc/历史版本SDK更新记录.md)  
 
