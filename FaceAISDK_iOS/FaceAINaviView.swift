@@ -80,6 +80,7 @@ struct FaceAINaviView: View {
                             }
                         }
                     }
+                    .padding(.bottom,11)
                     .foregroundColor(Color.white)
                     .font(.system(size: 16).bold())
                 }
