@@ -44,7 +44,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "用SDK相机添加人脸"
+            "value" : "SDK相机添加人脸"
           }
         }
       }
@@ -60,7 +60,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "从相册选取人脸照片"
+            "value" : "从相册添加一人脸"
           }
         }
       }
@@ -109,22 +109,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "确认录入次人脸图？"
-          }
-        }
-      }
-    },
-    "Convert Face Image to Base64" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Convert Face Image to Base64"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "人脸图片转为Base64"
           }
         }
       }
@@ -604,23 +588,6 @@
         }
       }
     },
-    "FaceAISDK 🧭" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "FaceAISDK 🧭"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "FaceAISDK 🧭"
-          }
-        }
-      }
-    },
     "I Know" : {
       "localizations" : {
         "en" : {
@@ -637,24 +604,15 @@
         }
       }
     },
-    "is Face Image Exist" : {
+    "is Face Feature Exist" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "is Face Image Exist"
-          }
-        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "检查人脸图是否存在"
+            "value" : "人脸特征值是否存在"
           }
         }
       }
-    },
-    "Key" : {
-      "extractionState" : "manual"
     },
     "ONLY Motion Liveness Detection" : {
       "localizations" : {
@@ -684,22 +642,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "重试"
-          }
-        }
-      }
-    },
-    "Save Base64 Face Images" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Save Base64 Face Images"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "保存Base64人脸图片"
           }
         }
       }

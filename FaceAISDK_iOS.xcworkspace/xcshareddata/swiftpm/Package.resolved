@@ -1,5 +1,4 @@
 {
-  "originHash" : "7b876b0d12d25c6d8679b5f4ecf253dc634ab29d846aabb5e3b90ac57d65a671",
   "pins" : [
     {
       "identity" : "toastui",
@@ -11,5 +10,5 @@
       }
     }
   ],
-  "version" : 3
+  "version" : 2
 }

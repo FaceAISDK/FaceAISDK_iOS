@@ -45,10 +45,10 @@ struct LivenessDetectView: View {
                 .frame(minHeight: 30)
                 .foregroundColor(.black)
             
-            FaceAICameraView(session: viewModel.captureSession,cameraSize: FaceAICameraSize)
+            FaceAICameraView(session: viewModel.captureSession,cameraSize: FaceCameraSize)
                 .frame(
-                    width: FaceAICameraSize,
-                    height: FaceAICameraSize)
+                    width: FaceCameraSize,
+                    height: FaceCameraSize)
                 .aspectRatio(1.0, contentMode: .fit)   //Enforce1:1ratio
                 .clipShape(Circle())                   //Clip to ensure square bounds
             

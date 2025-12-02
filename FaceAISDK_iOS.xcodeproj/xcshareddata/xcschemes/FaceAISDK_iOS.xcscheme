@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1630"
+   LastUpgradeVersion = "1520"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
-      buildImplicitDependencies = "YES"
-      buildArchitectures = "Automatic">
+      buildImplicitDependencies = "YES">
       <BuildActionEntries>
          <BuildActionEntry
             buildForTesting = "YES"
@@ -15,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7C73FE452DEFE193005437F4"
+               BlueprintIdentifier = "7CFB912A2EDE7D5F00F01A21"
                BuildableName = "FaceAISDK_iOS.app"
                BlueprintName = "FaceAISDK_iOS"
                ReferencedContainer = "container:FaceAISDK_iOS.xcodeproj">
@@ -39,13 +38,12 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
-      enableGPUValidationMode = "1"
       allowLocationSimulation = "YES">
       <BuildableProductRunnable
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7C73FE452DEFE193005437F4"
+            BlueprintIdentifier = "7CFB912A2EDE7D5F00F01A21"
             BuildableName = "FaceAISDK_iOS.app"
             BlueprintName = "FaceAISDK_iOS"
             ReferencedContainer = "container:FaceAISDK_iOS.xcodeproj">
@@ -69,7 +67,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7C73FE452DEFE193005437F4"
+            BlueprintIdentifier = "7CFB912A2EDE7D5F00F01A21"
             BuildableName = "FaceAISDK_iOS.app"
             BlueprintName = "FaceAISDK_iOS"
             ReferencedContainer = "container:FaceAISDK_iOS.xcodeproj">

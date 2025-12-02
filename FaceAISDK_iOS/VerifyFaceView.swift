@@ -48,13 +48,14 @@ struct VerifyFaceView: View {
                 .frame(minHeight: 30)
                 .foregroundColor(.black)
             
-            FaceAICameraView(session: viewModel.captureSession,cameraSize: FaceAICameraSize)
+            FaceAICameraView(session: viewModel.captureSession,cameraSize: FaceCameraSize)
                 .frame(
-                    width: FaceAICameraSize,
-                    height: FaceAICameraSize)
+                    width: FaceCameraSize,
+                    height: FaceCameraSize)
                 .aspectRatio(1.0, contentMode: .fit)   //Enforce1:1ratio
                 .clipShape(Circle())     //Clip to ensure square bounds
-            
+                .overlay(Circle().stroke(Color.gray, lineWidth: 1))
+
             Spacer()
         }
         
@@ -85,7 +86,6 @@ struct VerifyFaceView: View {
         .onChange(of: viewModel.faceVerifyResult.code) { newValue in
             toastViewTips=viewModel.faceVerifyResult.tips
             print("ViewModel 返回 ： \(viewModel.faceVerifyResult)")
-
             showToast = true
 
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
@@ -96,13 +96,13 @@ struct VerifyFaceView: View {
         }
         
         .toast(isPresented: $showToast) {
-            let sim = String(format: "%.2f", viewModel.faceVerifyResult.similarity)
-            let tips = toastViewTips
-            //toastViewTips 怎么一直还是初始化的值呢？？
+            let similarity = String(format: "%.2f", viewModel.faceVerifyResult.similarity)
+            let currentTips = toastViewTips
+            //currentTips 怎么一直还是初始化的值呢？？
             if(viewModel.faceVerifyResult.similarity>threshold){
-                ToastView("\(toastViewTips)  \(sim)").toastViewStyle(.success)
+                ToastView("\(currentTips)  \(similarity)").toastViewStyle(.success)
             }else {
-                ToastView("\(toastViewTips)  \(sim)").toastViewStyle(.failure)
+                ToastView("\(currentTips)  \(similarity)").toastViewStyle(.failure)
             }
         }
         
