@@ -1,7 +1,6 @@
 import SwiftUI
 import AVFoundation
 import FaceAISDK_Core
-import ToastUI
 
 
 /**
@@ -95,23 +94,34 @@ struct VerifyFaceView: View {
             }
         }
         
-        .toast(isPresented: $showToast) {
-            let similarity = String(format: "%.2f", viewModel.faceVerifyResult.similarity)
-            let currentTips = toastViewTips
-            //currentTips 怎么一直还是初始化的值呢？？
-            if(viewModel.faceVerifyResult.similarity>threshold){
-                ToastView("\(currentTips)  \(similarity)").toastViewStyle(.success)
-            }else {
-                ToastView("\(currentTips)  \(similarity)").toastViewStyle(.failure)
-            }
-        }
-        
         .onDisappear{
             viewModel.stopFaceVerify() //停止
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity) // 确保填满可用空间
         .background(Color.white.ignoresSafeArea()) // 扩展到安全区域
+                
+        if showToast {
+            // 根据结果和阈值计算样式和文本
+            let similarity = String(format: "%.2f", viewModel.faceVerifyResult.similarity)
+            let currentTips = viewModel.faceVerifyResult.tips // 直接使用 ViewModel 的最新值
+            
+            let toastStyle: ToastStyle = (viewModel.faceVerifyResult.similarity > threshold) ? .success : .failure
+            
+            VStack {
+                Spacer()
+                
+                CustomToastView(
+                    message: "\(currentTips)  \(similarity)",
+                    style: toastStyle
+                )
+                .padding(.bottom, 60) // 放置在底部
+            }
+            .transition(.move(edge: .bottom).combined(with: .opacity)) // 添加过渡动画
+            .animation(.easeInOut(duration: 0.3), value: showToast) // 动画控制
+        }
+        
+        
     }
 }
 

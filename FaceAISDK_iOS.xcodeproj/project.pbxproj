@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7C600D4F2EDEB8A3005EEEDD /* CustomToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C600D4E2EDEB8A3005EEEDD /* CustomToastView.swift */; };
 		7CD054CE2EDE7E6300EA3E37 /* FaceAINaviView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD054C72EDE7E6300EA3E37 /* FaceAINaviView.swift */; };
 		7CD054CF2EDE7E6300EA3E37 /* ImageDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD054C82EDE7E6300EA3E37 /* ImageDetailView.swift */; };
 		7CD054D02EDE7E6300EA3E37 /* AddFaceByUIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD054C92EDE7E6300EA3E37 /* AddFaceByUIImage.swift */; };
@@ -14,7 +15,6 @@
 		7CD054D22EDE7E6300EA3E37 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 7CD054CB2EDE7E6300EA3E37 /* Localizable.xcstrings */; };
 		7CD054D32EDE7E6300EA3E37 /* VerifyFaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD054CC2EDE7E6300EA3E37 /* VerifyFaceView.swift */; };
 		7CD054D42EDE7E6300EA3E37 /* LivenessDetectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD054CD2EDE7E6300EA3E37 /* LivenessDetectView.swift */; };
-		7CD054D72EDE896B00EA3E37 /* ToastUI in Frameworks */ = {isa = PBXBuildFile; productRef = 7CD054D62EDE896B00EA3E37 /* ToastUI */; };
 		7CFB912F2EDE7D5F00F01A21 /* FaceAISDK_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFB912E2EDE7D5F00F01A21 /* FaceAISDK_iOSApp.swift */; };
 		7CFB91332EDE7D6200F01A21 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CFB91322EDE7D6200F01A21 /* Assets.xcassets */; };
 		BCD04DD1162F9538D69EE68D /* Pods_FaceAISDK_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B9DB8123FB7EC134919361C /* Pods_FaceAISDK_iOS.framework */; };
@@ -23,6 +23,7 @@
 /* Begin PBXFileReference section */
 		12A384494A3A80924B23A91F /* Pods-FaceAISDK_iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FaceAISDK_iOS.release.xcconfig"; path = "Target Support Files/Pods-FaceAISDK_iOS/Pods-FaceAISDK_iOS.release.xcconfig"; sourceTree = "<group>"; };
 		4B9DB8123FB7EC134919361C /* Pods_FaceAISDK_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FaceAISDK_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7C600D4E2EDEB8A3005EEEDD /* CustomToastView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomToastView.swift; sourceTree = "<group>"; };
 		7CD054C72EDE7E6300EA3E37 /* FaceAINaviView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceAINaviView.swift; sourceTree = "<group>"; };
 		7CD054C82EDE7E6300EA3E37 /* ImageDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDetailView.swift; sourceTree = "<group>"; };
 		7CD054C92EDE7E6300EA3E37 /* AddFaceByUIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFaceByUIImage.swift; sourceTree = "<group>"; };
@@ -41,7 +42,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7CD054D72EDE896B00EA3E37 /* ToastUI in Frameworks */,
 				BCD04DD1162F9538D69EE68D /* Pods_FaceAISDK_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -79,6 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				7CD054CA2EDE7E6300EA3E37 /* AddFaceByCamera.swift */,
+				7C600D4E2EDEB8A3005EEEDD /* CustomToastView.swift */,
 				7CD054C92EDE7E6300EA3E37 /* AddFaceByUIImage.swift */,
 				7CD054C72EDE7E6300EA3E37 /* FaceAINaviView.swift */,
 				7CD054C82EDE7E6300EA3E37 /* ImageDetailView.swift */,
@@ -120,7 +121,6 @@
 			);
 			name = FaceAISDK_iOS;
 			packageProductDependencies = (
-				7CD054D62EDE896B00EA3E37 /* ToastUI */,
 			);
 			productName = FaceAISDK_iOS;
 			productReference = 7CFB912B2EDE7D5F00F01A21 /* FaceAISDK_iOS.app */;
@@ -151,7 +151,6 @@
 			);
 			mainGroup = 7CFB91222EDE7D5F00F01A21;
 			packageReferences = (
-				7CD054D52EDE896B00EA3E37 /* XCRemoteSwiftPackageReference "ToastUI" */,
 			);
 			productRefGroup = 7CFB912C2EDE7D5F00F01A21 /* Products */;
 			projectDirPath = "";
@@ -239,6 +238,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7CFB912F2EDE7D5F00F01A21 /* FaceAISDK_iOSApp.swift in Sources */,
+				7C600D4F2EDEB8A3005EEEDD /* CustomToastView.swift in Sources */,
 				7CD054D02EDE7E6300EA3E37 /* AddFaceByUIImage.swift in Sources */,
 				7CD054D42EDE7E6300EA3E37 /* LivenessDetectView.swift in Sources */,
 				7CD054D32EDE7E6300EA3E37 /* VerifyFaceView.swift in Sources */,
@@ -379,7 +379,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"FaceAISDK_iOS/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = G35M5X479Y;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = FaceAISDK;
@@ -412,7 +412,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"FaceAISDK_iOS/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = G35M5X479Y;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = FaceAISDK;
@@ -458,25 +458,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		7CD054D52EDE896B00EA3E37 /* XCRemoteSwiftPackageReference "ToastUI" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/quanshousio/ToastUI";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		7CD054D62EDE896B00EA3E37 /* ToastUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7CD054D52EDE896B00EA3E37 /* XCRemoteSwiftPackageReference "ToastUI" */;
-			productName = ToastUI;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7CFB91232EDE7D5F00F01A21 /* Project object */;
 }

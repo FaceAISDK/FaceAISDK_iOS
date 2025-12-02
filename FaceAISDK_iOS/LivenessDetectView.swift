@@ -1,7 +1,6 @@
 import SwiftUI
 import AVFoundation
 import FaceAISDK_Core
-import ToastUI
 
 
 /**
@@ -72,16 +71,25 @@ struct LivenessDetectView: View {
             }
         }
         
-        .toast(isPresented: $showToast) {
-            ToastView("\(viewModel.faceVerifyResult.tips)").toastViewStyle(.success)
-        }
-        
         .onDisappear{
             viewModel.stopFaceVerify() //停止
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity) // 确保填满可用空间
         .background(Color.white.ignoresSafeArea()) // 扩展到安全区域
+        
+        if showToast {
+            VStack {
+                Spacer()
+                CustomToastView(
+                    message: "\(viewModel.faceVerifyResult.tips)",
+                    style: ToastStyle.success
+                )
+                .padding(.bottom, 60) // 放置在底部
+            }
+            .transition(.move(edge: .bottom).combined(with: .opacity)) // 添加过渡动画
+            .animation(.easeInOut(duration: 0.3), value: showToast) // 动画控制
+        }
         
     }
 }
