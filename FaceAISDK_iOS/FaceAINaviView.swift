@@ -1,6 +1,5 @@
 import SwiftUI
 import FaceAISDK_Core
-import ToastUI
 
 /**
  * iOS  FaceAISDK 功能导航页面
