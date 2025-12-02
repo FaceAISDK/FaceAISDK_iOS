@@ -47,18 +47,17 @@ fatal: unable to access 'https://github.com/FaceAISDK/FaceAISDK_Core.git/': Erro
 ```
  **经过漫长的等待，编译完成后 就可以在体验效果了**
 
-### 2. 安装Demo运行的ToastUI 依赖库
-运行本Demo还需要安装 Swift ToastUI。 参考 https://github.com/quanshousio/ToastUI
 
-
-### 3. 升级FaceAISDK问题
+### 2. 升级FaceAISDK问题
  如果运行出现以下错误
   
  ```
  Swift/Integers.swift:3564: Fatal error: Not enough bits to represent the passed value  
+ 或其他Bad Memery Access 错误
  ```
  
- 请在Xcode菜单Product执行clean all Issues后 再次执行pod命令升级FaceAISDK就可以了。
+ 请在Xcode菜单Product执行clean all Issues后 再次执行pod命令更新FaceAISDK就可以了。
+ 
  ```
   pod update FaceAISDK_Core 
  ```
