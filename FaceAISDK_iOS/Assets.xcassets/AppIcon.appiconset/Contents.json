@@ -1,31 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "logo.jpg",
-      "idiom" : "universal",
-      "platform" : "ios",
-      "size" : "1024x1024"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
-        }
-      ],
-      "filename" : "logo 1.jpg",
-      "idiom" : "universal",
-      "platform" : "ios",
-      "size" : "1024x1024"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "tinted"
-        }
-      ],
-      "filename" : "logo 2.jpg",
+      "filename" : "微信图片_20251203161351_725.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"

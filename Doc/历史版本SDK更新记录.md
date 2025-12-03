@@ -7,6 +7,8 @@
   pod update FaceAISDK_Core 
  ```
 
+## V2025.12.03
+- 解决运行时tensorflow Interpreter delegates 无法访问问题
 
 ## V2025.12.01
 - 提示iOS 版本识别精度
