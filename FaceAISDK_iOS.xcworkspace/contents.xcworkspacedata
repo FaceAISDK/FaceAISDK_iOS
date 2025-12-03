@@ -14,6 +14,9 @@
          location = "group:SDKWorkFlow.png">
       </FileRef>
       <FileRef
+         location = "group:logo.png">
+      </FileRef>
+      <FileRef
          location = "group:/Users/zlb/ios_code/FaceAISDK_iOS/Doc/FaceAISDK&#x9690;&#x79c1;&#x534f;&#x8bae;.md">
       </FileRef>
       <FileRef
