@@ -51,8 +51,8 @@ struct VerifyFaceView: View {
                 .frame(
                     width: FaceCameraSize,
                     height: FaceCameraSize)
-                .aspectRatio(1.0, contentMode: .fit)   //Enforce1:1ratio
-                .clipShape(Circle())     //Clip to ensure square bounds
+                .aspectRatio(1.0, contentMode: .fit)  //Enforce1:1ratio
+                .clipShape(Circle())                  //Clip to ensure square bounds
                 .overlay(Circle().stroke(Color.gray, lineWidth: 1))
 
             Spacer()

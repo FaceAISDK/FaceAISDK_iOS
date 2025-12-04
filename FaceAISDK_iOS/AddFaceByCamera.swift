@@ -101,7 +101,7 @@ public struct AddFaceByCamera: View {
                     Image(uiImage: viewModel.croppedFaceImage)
                         .resizable()
                         .scaledToFill()
-                        .frame(width: 142, height: 142) // 保持你原来的大小或微调
+                        .frame(width: 132, height: 132) // 保持你原来的大小或微调
 //                        .clipShape(Circle()) // 圆形裁剪
                          .cornerRadius(8)
                         .shadow(radius: 2)
@@ -119,7 +119,7 @@ public struct AddFaceByCamera: View {
                             viewModel.reInit()
                         }) {
                             Text("Retry")
-                                .frame(maxWidth: .infinity, maxHeight: 45)
+                                .frame(maxWidth: .infinity, maxHeight: 44)
                                 .background(Color.gray.opacity(0.2))
                                 .foregroundColor(.black)
                                 .cornerRadius(7)
@@ -129,7 +129,7 @@ public struct AddFaceByCamera: View {
                             onConfirm()
                         }) {
                             Text("Confirm")
-                                .frame(maxWidth: .infinity, maxHeight: 45)
+                                .frame(maxWidth: .infinity, maxHeight: 44)
                                 .background(Color.blue)
                                 .foregroundColor(.white)
                                 .cornerRadius(7)
