@@ -14,7 +14,7 @@ FaceAISDK_iOS SDK是设备端可完全离线不需联网实现人脸录入、动
   ![FaceAISDK](/Doc/SDKWorkFlow.png)  
 
 
-## 更新说明 V2025.12.01
+## 更新说明 V2025.12.03
 - 提示iOS 版本识别精度和性能
 - 支持Xcode15.2+ ，Swift 5.9
 - 人脸特征值处理优化，统一长度为1024
