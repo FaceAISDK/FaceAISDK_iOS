@@ -52,20 +52,6 @@ fatal: unable to access 'https://github.com/FaceAISDK/FaceAISDK_Core.git/': Erro
  **经过漫长的等待，编译完成后 就可以在体验效果了**
 
 
-### 2. 编译FaceAISDK相关问题
- 如果调试运行出现以下错误
-  
- ```
- Swift/Integers.swift:3564: Fatal error: Not enough bits to represent the passed value  
- 或
- tensorflow Interpreter delegates 无法访问问题
- ```
- 
- 请在Xcode菜单Product执行clean all Issues后 再次执行以下pod命令更新FaceAISDK就可以了。
- 
- ```
-  pod update FaceAISDK_Core 
- ```
 
 ## 其他说明 
   
