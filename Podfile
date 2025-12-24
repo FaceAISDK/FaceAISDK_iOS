@@ -17,17 +17,6 @@ end
 
 
 
-#----------   以下是打包XCFrameWork 制作插件,SDK接入方不用关心    --------------
-# CD 到Product 目录然后命令
-# xcodebuild -create-xcframework -framework Release-iphoneos/FaceAISDK_Lib.framework -output FaceAISDK_LIb.xcframework
-target 'FaceAISDK_Lib' do
-  project 'FaceAISDK_Lib/FaceAISDK_Lib.xcodeproj'
-  pod 'FaceAISDK_Core', '2025.12.03'
-end
-
-
-
-
 post_install do |installer|
     installer.pods_project.targets.each do |target|
       # 启用库演进支持
@@ -35,4 +24,14 @@ post_install do |installer|
         config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES'
       end
     end
+end
+
+
+
+#----------   以下是打包XCFrameWork 制作插件,SDK接入方不用关心    --------------
+# CD 到Product 目录然后命令
+# xcodebuild -create-xcframework -framework Release-iphoneos/FaceAISDK_Lib.framework -output FaceAISDK_Lib.xcframework
+target 'FaceAISDK_Lib' do
+  project 'FaceAISDK_Lib/FaceAISDK_Lib.xcodeproj'
+  pod 'FaceAISDK_Core', '2025.12.03'
 end
