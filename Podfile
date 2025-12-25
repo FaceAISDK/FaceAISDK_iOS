@@ -11,7 +11,7 @@ target 'FaceAISDK_demo' do
 
   # 1. 命令 pod update FaceAISDK_Core 安装更新FaceAISDK依赖,请指定版本。
   # 不同开发设备和网络环境，首次集成到主项目依赖同步耗时20-30分钟不等
-  pod 'FaceAISDK_Core', '2025.12.03'
+  pod 'FaceAISDK_Core', '2025.12.24'
 
 end
 
@@ -33,5 +33,5 @@ end
 # xcodebuild -create-xcframework -framework Release-iphoneos/FaceAISDK_Lib.framework -output FaceAISDK_Lib.xcframework
 target 'FaceAISDK_Lib' do
   project 'FaceAISDK_Lib/FaceAISDK_Lib.xcodeproj'
-  pod 'FaceAISDK_Core', '2025.12.03'
+  pod 'FaceAISDK_Core', '2025.12.24'
 end
