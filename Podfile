@@ -1,7 +1,7 @@
 # 1. 定义公共的版本号变量，方便一处修改全域生效
-$face_sdk_version = '2025.12.24'
+$face_sdk_version = '2025.12.25'
 
-# 2. 定义公共的依赖函数
+# 2. 定义公共的FaceAISDK依赖函数
 def shared_pods
   pod 'FaceAISDK_Core', $face_sdk_version
 end
@@ -17,7 +17,7 @@ target 'FaceAISDK_demo' do
 
   # 1. 命令 pod update FaceAISDK_Core 安装更新FaceAISDK依赖,请指定版本。
   # 不同开发设备和网络环境，首次集成到主项目依赖同步耗时20-30分钟不等
-  # 调用公共依赖
+  # 调用FaceAISDK公共依赖
     shared_pods
 end
 
