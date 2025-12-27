@@ -82,6 +82,7 @@ struct FaceAINaviView: View {
                     }
                     .foregroundColor(Color.white)
                     .font(.system(size: 16).bold())
+                    .padding(.bottom,12)
                 }
             }
             .navigationTitle("🧭 FaceAISDK")
@@ -107,7 +108,7 @@ struct FaceAINaviView: View {
                 
                 case .VerifyFacePageView(let param):
                     //设置的相似度阈值threshold越高，对人脸角度，环境光线和摄像头宽动态要求越高
-                    VerifyFaceView(faceID: param,threshold: 0.83, onDismiss: { resultCode in
+                    VerifyFaceView(faceID: param,threshold: 0.85, onDismiss: { resultCode in
                         
                         // resultCode, 参考 VerifyResultCode
                         // -2  人脸识别动作活体检测超过10秒

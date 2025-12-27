@@ -17,13 +17,13 @@
          location = "group:SDK_WORK_FLOW.jpg">
       </FileRef>
       <FileRef
+         location = "group:FaceAISDKpng.png">
+      </FileRef>
+      <FileRef
          location = "group:logo.png">
       </FileRef>
       <FileRef
          location = "group:FaceAISDK &#x4e2a;&#x4eba;&#x4fe1;&#x606f;&#x4fdd;&#x62a4;&#x89c4;&#x5219;.md">
-      </FileRef>
-      <FileRef
-         location = "group:FaceAISDK.jpg">
       </FileRef>
    </Group>
    <FileRef
