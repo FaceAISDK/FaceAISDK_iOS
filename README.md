@@ -59,7 +59,7 @@ fatal: unable to access 'https://github.com/FaceAISDK/FaceAISDK_Core.git/': Erro
   Android： https://github.com/FaceAISDK/FaceAISDK_Android     
 
   
-  ![FaceAISDK](/Doc/FaceAISDK.jpg)  
+  ![FaceAISDK](/Doc/FaceAISDK.png)  
   
 ## Android体验Demo APK下载如下  
   
