@@ -50,16 +50,15 @@ fatal: unable to access 'https://github.com/FaceAISDK/FaceAISDK_Core.git/': Erro
  **经过漫长的等待，编译完成后 就可以在体验效果了**
 
 
-
 ## 其他说明 
   
   微信：FaceAISDK  
   Email: FaceAISDK.Service@gmail.com   
   iOS SDK： https://github.com/FaceAISDK/FaceAISDK_iOS  
   Android： https://github.com/FaceAISDK/FaceAISDK_Android     
+
   
-  
-  ![FaceAISDK](/Doc/FaceAISDK.jpg)  
+  ![FaceAISDK](/Doc/FaceAISDK.png)  
   
 ## Android体验Demo APK下载如下  
   

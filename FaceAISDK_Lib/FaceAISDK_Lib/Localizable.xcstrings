@@ -424,7 +424,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "动作活体检测完成"
           }
         }
@@ -441,7 +441,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "动作活体检验超时"
           }
         }
@@ -573,11 +573,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Color Flash Success"
+<<<<<<< HEAD:FaceAISDK_iOS/Localizable.xcstrings
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "炫彩活体成功"
           }
         }
@@ -590,45 +591,116 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Color Flash Failed"
+=======
+>>>>>>> b1a41a07db13c89923cf03fcf46fe08735d9eb58:FaceAISDK_Lib/FaceAISDK_Lib/Localizable.xcstrings
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
+<<<<<<< HEAD:FaceAISDK_iOS/Localizable.xcstrings
             "value" : "炫彩活体失败"
+=======
+            "value" : "炫彩活体成功"
+>>>>>>> b1a41a07db13c89923cf03fcf46fe08735d9eb58:FaceAISDK_Lib/FaceAISDK_Lib/Localizable.xcstrings
           }
         }
       }
     },
+<<<<<<< HEAD:FaceAISDK_iOS/Localizable.xcstrings
     "Face_Tips_Code_53" : {
+=======
+    "Face_Tips_Code_52" : {
+>>>>>>> b1a41a07db13c89923cf03fcf46fe08735d9eb58:FaceAISDK_Lib/FaceAISDK_Lib/Localizable.xcstrings
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
+<<<<<<< HEAD:FaceAISDK_iOS/Localizable.xcstrings
             "value" : "Detection failed: Too bright.Please avoid direct light as below and use in a softly lit indoor environment"
+=======
+            "value" : "Color Flash Failed"
+>>>>>>> b1a41a07db13c89923cf03fcf46fe08735d9eb58:FaceAISDK_Lib/FaceAISDK_Lib/Localizable.xcstrings
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
+<<<<<<< HEAD:FaceAISDK_iOS/Localizable.xcstrings
             "state" : "translated",
             "value" : "炫彩活体检测失败,光线亮度过高;如图遮挡高亮光源或室内光线柔和环境使用"
+=======
+            "state" : "needs_review",
+            "value" : "炫彩活体失败"
+>>>>>>> b1a41a07db13c89923cf03fcf46fe08735d9eb58:FaceAISDK_Lib/FaceAISDK_Lib/Localizable.xcstrings
           }
         }
       }
     },
+<<<<<<< HEAD:FaceAISDK_iOS/Localizable.xcstrings
     "Face_Tips_Code_61" : {
+=======
+    "Face_Tips_Code_53" : {
+>>>>>>> b1a41a07db13c89923cf03fcf46fe08735d9eb58:FaceAISDK_Lib/FaceAISDK_Lib/Localizable.xcstrings
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
+<<<<<<< HEAD:FaceAISDK_iOS/Localizable.xcstrings
             "value" : "Face Liveness Success"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "活体检测完成"
+          }
+        }
+      }
+    },
+    "Face_Tips_Code_62" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
             "state" : "translated",
+            "value" : "Face Verify Success"
+=======
+            "value" : "Detection failed: Too bright. Please avoid direct light and use in a softly lit indoor environment."
+>>>>>>> b1a41a07db13c89923cf03fcf46fe08735d9eb58:FaceAISDK_Lib/FaceAISDK_Lib/Localizable.xcstrings
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+<<<<<<< HEAD:FaceAISDK_iOS/Localizable.xcstrings
+            "value" : "人脸识别成功"
+=======
+            "value" : "炫彩失败,光线亮度过高;请到遮挡高亮光源或室内光线柔和环境使用"
+>>>>>>> b1a41a07db13c89923cf03fcf46fe08735d9eb58:FaceAISDK_Lib/FaceAISDK_Lib/Localizable.xcstrings
+          }
+        }
+      }
+    },
+<<<<<<< HEAD:FaceAISDK_iOS/Localizable.xcstrings
+    "Face_Tips_Code_63" : {
+=======
+    "Face_Tips_Code_61" : {
+>>>>>>> b1a41a07db13c89923cf03fcf46fe08735d9eb58:FaceAISDK_Lib/FaceAISDK_Lib/Localizable.xcstrings
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+<<<<<<< HEAD:FaceAISDK_iOS/Localizable.xcstrings
+=======
+            "value" : "Face Liveness Success"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
             "value" : "活体检测完成"
           }
         }
@@ -645,7 +717,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "人脸识别成功"
           }
         }
@@ -657,12 +729,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
+>>>>>>> b1a41a07db13c89923cf03fcf46fe08735d9eb58:FaceAISDK_Lib/FaceAISDK_Lib/Localizable.xcstrings
             "value" : "Face Verify Failed"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "人脸识别失败"
           }
         }

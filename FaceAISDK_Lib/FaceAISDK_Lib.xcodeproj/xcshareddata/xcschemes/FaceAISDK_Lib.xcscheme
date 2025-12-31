@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7CFB912A2EDE7D5F00F01A21"
-               BuildableName = "FaceAISDK_iOS.app"
-               BlueprintName = "FaceAISDK_iOS"
-               ReferencedContainer = "container:FaceAISDK_iOS.xcodeproj">
+               BlueprintIdentifier = "7C759A2C2EE673AB0023DA6E"
+               BuildableName = "FaceAISDK_Lib.framework"
+               BlueprintName = "FaceAISDK_Lib"
+               ReferencedContainer = "container:FaceAISDK_Lib.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -39,16 +39,6 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7CFB912A2EDE7D5F00F01A21"
-            BuildableName = "FaceAISDK_iOS.app"
-            BlueprintName = "FaceAISDK_iOS"
-            ReferencedContainer = "container:FaceAISDK_iOS.xcodeproj">
-         </BuildableReference>
-      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -56,16 +46,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7CFB912A2EDE7D5F00F01A21"
-            BuildableName = "FaceAISDK_iOS.app"
-            BlueprintName = "FaceAISDK_iOS"
-            ReferencedContainer = "container:FaceAISDK_iOS.xcodeproj">
+            BlueprintIdentifier = "7C759A2C2EE673AB0023DA6E"
+            BuildableName = "FaceAISDK_Lib.framework"
+            BlueprintName = "FaceAISDK_Lib"
+            ReferencedContainer = "container:FaceAISDK_Lib.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
