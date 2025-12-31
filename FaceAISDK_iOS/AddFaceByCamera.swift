@@ -5,12 +5,13 @@ import FaceAISDK_Core
 // 使用 @MainActor 确保在主线程访问
 @MainActor
 var FaceCameraSize: CGFloat {
-    4 * min(UIScreen.main.bounds.width, UIScreen.main.bounds.height) / 5
+    // 保持相机区域为屏幕宽度或高度的 70%，确保是正方形
+    7 * min(UIScreen.main.bounds.width, UIScreen.main.bounds.height) / 10
 }
 
 public struct AddFaceByCamera: View {
     let faceID: String
-    let onDismiss: (String?) -> Void  //返回人脸特征值字符串，长度1024.
+    let onDismiss: (String?) -> Void
     
     @StateObject private var viewModel: AddFaceByCameraModel = AddFaceByCameraModel()
     
@@ -25,11 +26,11 @@ public struct AddFaceByCamera: View {
         VStack(spacing: 22) {
             // 1. 顶部提示区域
             Text(localizedTip(for: viewModel.sdkInterfaceTips.code))
-                .font(.system(size: 20).bold())
+                .font(.system(size: 19).bold())
                 .padding(.horizontal, 20)
                 .padding(.vertical, 8)
                 .foregroundColor(.white)
-                .background(Color.faceMain) // 假设 Color.faceMain 已定义
+                .background(Color.brown)
                 .cornerRadius(20)
             
             // 2. 核心区域：相机与确认弹窗的容器
@@ -44,26 +45,30 @@ public struct AddFaceByCamera: View {
                 
                 // 图层 B: 确认对话框 (顶层)
                 if viewModel.readyConfirmFace {
+                    // 黑色半透明遮罩，突出 Dialog
+                    Color.black.opacity(0.3)
+                        .clipShape(Circle())
                     
-                    // B2. 对话框实体
                     ConfirmAddFaceDialog(
                         viewModel: viewModel,
-                        cameraSize: FaceCameraSize, // 传入尺寸以适配
+                        cameraSize: FaceCameraSize,
                         onConfirm: {
-                            //保存人脸特征值，选择符合业务需求的保存方式
+                            // 保存人脸特征值
                             UserDefaults.standard.set(viewModel.faceFeatureBySDKCamera, forKey: faceID)
-                            print("FaceFeature: \(viewModel.faceFeatureBySDKCamera!)")
+                            print("FaceFeature: \(String(describing: viewModel.faceFeatureBySDKCamera))")
 
-                            //人脸图如果业务有需要也可以保存，SDK不需要人脸图只需要人脸特征
-                            let savedPath = viewModel.confirmSaveFace(fileName: faceID)
+                            // 人脸图保存逻辑
+                            let _ = viewModel.confirmSaveFace(fileName: faceID)
 
                             onDismiss(viewModel.faceFeatureBySDKCamera)
                         }
                     )
-
+                    // 增加淡入动画
+                    .transition(.scale.combined(with: .opacity))
                 }
             }
             .frame(width: FaceCameraSize, height: FaceCameraSize) // 强制容器尺寸一致
+            .animation(.easeInOut(duration: 0.25), value: viewModel.readyConfirmFace)
             
             Spacer()
         }
@@ -80,70 +85,77 @@ public struct AddFaceByCamera: View {
             viewModel.stopAddFace()
         }
     }
-    
-
-        // MARK: - 确认对话框组件
-        struct ConfirmAddFaceDialog: View {
-            // 使用 @ObservedObject 监听 viewModel 变化，或者直接传入 let 引用（如果父视图刷新机制已覆盖）
-            // 这里沿用你原来的 let 定义，因为父视图 AddFaceByCamera 已经持有 @StateObject
-            let viewModel: AddFaceByCameraModel
-            let cameraSize: CGFloat
-            let onConfirm: () -> Void
-            
-            var body: some View {
-                VStack(alignment: .center, spacing: 11) {
-                    
-                    Text("Confirm Add Face Title")
-                        .font(.system(size: 19).bold())
-                        .foregroundColor(.faceMain) // 确保你有定义这个颜色，否则用 .blue
-                        .padding(.top, 12)
-                    
-                    Image(uiImage: viewModel.croppedFaceImage)
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 132, height: 132) // 保持你原来的大小或微调
-//                        .clipShape(Circle()) // 圆形裁剪
-                         .cornerRadius(8)
-                        .shadow(radius: 2)
-
-                    
-                    Text("Confirm Add Face Tips")
-                        .multilineTextAlignment(.center)
-                        .foregroundColor(.gray) // 稍微浅一点的颜色
-                        .font(.system(size: 16).bold())
-                        .padding(.horizontal)
-                        .padding(.vertical, 3)
-                    
-                    HStack(spacing: 16) {
-                        Button(action: {
-                            viewModel.reInit()
-                        }) {
-                            Text("Retry")
-                                .frame(maxWidth: .infinity, maxHeight: 44)
-                                .background(Color.gray.opacity(0.2))
-                                .foregroundColor(.black)
-                                .cornerRadius(7)
-                        }
-                        
-                        Button(action: {
-                            onConfirm()
-                        }) {
-                            Text("Confirm")
-                                .frame(maxWidth: .infinity, maxHeight: 44)
-                                .background(Color.blue)
-                                .foregroundColor(.white)
-                                .cornerRadius(7)
-                        }
-                    }
-                    .padding()
-                }
-                // 确保对话框在相机区域内居中
-                .frame(width: cameraSize+12, height: cameraSize+12)
-                .background(Color.white) // 背景透明，依靠外层的 ZStack Circle 遮挡
-                .cornerRadius(9)
-                .shadow(radius: 8)
-            }
-        }
-    
-    
 }
+
+
+
+// MARK: - 确认对话框组件
+struct ConfirmAddFaceDialog: View {
+    // 使用 @ObservedObject 监听变化，或者让父视图传递（这里沿用你的 let，因为父视图是 StateObject）
+    let viewModel: AddFaceByCameraModel
+    let cameraSize: CGFloat
+    let onConfirm: () -> Void
+    
+    var body: some View {
+        VStack(alignment: .center, spacing: 16) {
+            
+            Text("Confirm Add Face")
+                .font(.system(size: 18, weight: .semibold))
+                .foregroundColor(Color.brown)
+                .padding(.top, 16)
+
+            Image(uiImage: viewModel.croppedFaceImage)
+                .resizable()
+                .scaledToFill()
+                .frame(width: 120, height: 120)
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(Color.gray.opacity(0.2), lineWidth: 1)
+                )
+                .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
+
+            Text("Ensure face is clear")
+                .font(.system(size: 14))
+                .foregroundColor(.gray)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal)
+            
+            // 按钮组
+            HStack(spacing: 12) {
+                Button(action: {
+                    viewModel.reInit()
+                }) {
+                    Text("Retry")
+                        .font(.system(size: 16, weight: .medium))
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 44)
+                        .background(Color.gray.opacity(0.15))
+                        .foregroundColor(.primary)
+                        .cornerRadius(8)
+                }
+                
+                Button(action: {
+                    onConfirm()
+                }) {
+                    Text("Confirm")
+                        .font(.system(size: 16, weight: .bold))
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 44)
+                        .background(Color.brown)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                }
+            }
+            .padding(.horizontal, 16)
+            .padding(.bottom, 16)
+        }
+        .frame(width: cameraSize * 1.11)
+        .background(Color.white)
+        .cornerRadius(16)
+        .shadow(color: Color.black.opacity(0.2), radius: 10, x: 0, y: 5)
+    }
+}
+
+
+
