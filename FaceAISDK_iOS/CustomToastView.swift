@@ -1,3 +1,5 @@
+
+
 import Foundation
 import SwiftUI
 
@@ -8,7 +10,17 @@ import SwiftUI
 //  Created by anylife on 2025/12/2.
 
 
-// 自定义ToastView 提示
+// 定义 Toast 样式
+enum ToastStyle {
+    case success
+    case failure
+    var backgroundColor: Color {
+        switch self {
+        case .success: return Color.brown
+        case .failure: return Color.yellow
+        }
+    }
+}
 struct CustomToastView: View {
     let message: String
     let style: ToastStyle
@@ -25,18 +37,6 @@ struct CustomToastView: View {
             .background(style.backgroundColor)
             .cornerRadius(25)
             .shadow(radius: 5)
-        }
-    }
-}
-
-// 定义 Toast 样式
-enum ToastStyle {
-    case success
-    case failure
-    var backgroundColor: Color {
-        switch self {
-        case .success: return Color.faceMain
-        case .failure: return Color.red
         }
     }
 }

@@ -68,7 +68,11 @@
         }
       }
     },
+    "Confirm Add Face" : {
+
+    },
     "Confirm Add Face Tips" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -85,6 +89,7 @@
       }
     },
     "Confirm Add Face Title" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -99,6 +104,9 @@
           }
         }
       }
+    },
+    "Ensure face is clear" : {
+
     },
     "Face Verify and Liveness Detection" : {
       "localizations" : {
@@ -411,13 +419,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Verify Success"
+            "value" : "Motion Liveness Complete"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "人脸识别检验成功"
+            "state" : "needs_review",
+            "value" : "动作活体检测完成"
           }
         }
       }
@@ -428,46 +436,12 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Verify Failed"
+            "value" : "Motion Liveness  Timeout"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "人脸相似度低于阈值"
-          }
-        }
-      }
-    },
-    "Face_Tips_Code_36" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Liveness Complete"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "活体检测完成"
-          }
-        }
-      }
-    },
-    "Face_Tips_Code_37" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Liveness  Timeout"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "动作活体检验超时"
           }
         }
@@ -575,6 +549,125 @@
         }
       }
     },
+    "Face_Tips_Code_50" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start Color Flash"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "屏幕即将闪烁，请靠近"
+          }
+        }
+      }
+    },
+    "Face_Tips_Code_51" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Color Flash Success"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "炫彩活体成功"
+          }
+        }
+      }
+    },
+    "Face_Tips_Code_52" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Color Flash Failed"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "炫彩活体失败"
+          }
+        }
+      }
+    },
+    "Face_Tips_Code_53" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Detection failed: Too bright.Please avoid direct light as below and use in a softly lit indoor environment"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "炫彩活体检测失败,光线亮度过高;如图遮挡高亮光源或室内光线柔和环境使用"
+          }
+        }
+      }
+    },
+    "Face_Tips_Code_61" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Face Liveness Success"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "活体检测完成"
+          }
+        }
+      }
+    },
+    "Face_Tips_Code_62" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Face Verify Success"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "人脸识别成功"
+          }
+        }
+      }
+    },
+    "Face_Tips_Code_63" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Face Verify Failed"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "人脸识别失败"
+          }
+        }
+      }
+    },
     "I Know" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -602,18 +695,12 @@
         }
       }
     },
-    "ONLY Motion Liveness Detection" : {
+    "ONLY Liveness Detection" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ONLY Motion Liveness Detection"
-          }
-        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "仅动作活体检测"
+            "value" : "炫彩|动作 活体检测"
           }
         }
       }

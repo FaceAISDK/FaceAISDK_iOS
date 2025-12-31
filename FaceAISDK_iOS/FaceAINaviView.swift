@@ -2,10 +2,12 @@ import SwiftUI
 import FaceAISDK_Core
 
 /**
- * iOS  FaceAISDK 功能导航页面
+ * iOS  FaceAISDK 功能导航页面，UI 仅供参考
+ *
  */
 struct FaceAINaviView: View {
-    
+    // 1. 【新增】定义一个闭包属性，用来接收外部传入的关闭逻辑
+    var onDismiss: (() -> Void)?
     @State private var navigationPath = NavigationPath()
     @State private var addFaceResult: String?
     
@@ -15,7 +17,7 @@ struct FaceAINaviView: View {
     var body: some View {
         NavigationStack(path: $navigationPath) {
             ZStack {
-                Color.faceMain.ignoresSafeArea()
+                Color.brown.ignoresSafeArea()
                 VStack(spacing: 20) {
                     
                     //通过SDK相机录入人脸
@@ -45,7 +47,7 @@ struct FaceAINaviView: View {
                     .padding(.top,22)
                     
                     //仅动作活体检测
-                    Button("ONLY Motion Liveness Detection") {
+                    Button("ONLY Liveness Detection") {
                         navigationPath.append(FaceAINaviDestination.LivenessView(faceID))
                     }
                     .font(.system(size: 20).bold())
@@ -67,7 +69,6 @@ struct FaceAINaviView: View {
                     .foregroundColor(Color.white)
                     .padding(.top,33)
 
-
                     Spacer()
                     
                     Button("About us"){
@@ -79,12 +80,22 @@ struct FaceAINaviView: View {
                             }
                         }
                     }
-                    .padding(.bottom,11)
                     .foregroundColor(Color.white)
                     .font(.system(size: 16).bold())
                 }
             }
             .navigationTitle("🧭 FaceAISDK")
+            // 2.【新增】在导航栏添加一个关闭按钮，调用 onDismiss
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        onDismiss?()
+                    }) {
+                        Image(systemName: "xmark.circle.fill") //或者文字 "关闭"
+                            .foregroundColor(.gray)
+                    }
+                }
+            }
             .navigationDestination(for: FaceAINaviDestination.self) { destination in
                 switch destination {
                     
@@ -107,7 +118,7 @@ struct FaceAINaviView: View {
                 
                 case .VerifyFacePageView(let param):
                     //设置的相似度阈值threshold越高，对人脸角度，环境光线和摄像头宽动态要求越高
-                    VerifyFaceView(faceID: param,threshold: 0.83, onDismiss: { resultCode in
+                    VerifyFaceView(faceID: param,threshold: 0.85, onDismiss: { resultCode in
                         
                         // resultCode, 参考 VerifyResultCode
                         // -2  人脸识别动作活体检测超过10秒
@@ -115,19 +126,23 @@ struct FaceAINaviView: View {
                         // 0   默认值
                         // 1   人脸识别对比成功大于设置的threshold
                         // 2   人脸识别对比识别小于设置的threshold
+                        // 3   动作活体检测成功
+                        // 4   动作活体超时
+                        // 5   多次没有检测到人脸
+                        // 6   没有对应的人脸特征值
+                        // 7   炫彩活体成功
+                        // 8   炫彩活体失败
+                        // 9   炫彩活体失败，光线亮度过高
+                        // 10  所有的活体检测完成(包括动作和炫彩)
                         print("VerifyResultCode ：\(resultCode)")
 
                         if !navigationPath.isEmpty { // 检查路径是否为空
                             navigationPath.removeLast()
                         }
                     })
+
                 case .LivenessView(let param):
-                    
-                    // faceVerifyResult.code
-                    // -2  人脸识别动作活体检测超过10秒
-                    // -1  多次切换人脸或检查失败
-                    // 0   默认值
-                    // 3   动作活体检测成功
+                    // Code 含义同上
                     LivenessDetectView(faceID: param,onDismiss: { result in
                         print("Motion Liveness Result：\(result.tips) \(result.code)")
                         if !navigationPath.isEmpty { // 检查路径是否为空
@@ -139,7 +154,7 @@ struct FaceAINaviView: View {
             }
         }
         .onAppear {
-            //和合适的场景，提前一点初始化FaceAISDK
+            //在合适的场景，提前一点初始化FaceAISDK
             FaceAISDK.initSDK()
         }
     }
@@ -152,6 +167,8 @@ enum FaceAINaviDestination: Hashable {
     case VerifyFacePageView(String)
     case LivenessView(String)
 }
+
+
 
 //#Preview {
 //    FaceAINaviView()
