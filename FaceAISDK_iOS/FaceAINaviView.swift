@@ -6,7 +6,8 @@ import FaceAISDK_Core
  *
  */
 struct FaceAINaviView: View {
-    
+    // 1. 【新增】定义一个闭包属性，用来接收外部传入的关闭逻辑
+    var onDismiss: (() -> Void)?
     @State private var navigationPath = NavigationPath()
     @State private var addFaceResult: String?
     
@@ -39,7 +40,7 @@ struct FaceAINaviView: View {
                     
                     //人脸识别+活体检测
                     Button("Face Verify and Liveness Detection") {
-                        navigationPath.append(FaceAINaviDestination.VerifyFacePageView(faceID))
+                        navigationPath.append(FaceAINaviDestination.VerifyFacePageView(faceID,0.85,2,"1,2,3,4,5"))
                     }
                     .font(.system(size: 20).bold())
                     .foregroundColor(Color.white)
@@ -47,7 +48,7 @@ struct FaceAINaviView: View {
                     
                     //仅动作活体检测
                     Button("ONLY Liveness Detection") {
-                        navigationPath.append(FaceAINaviDestination.LivenessView(faceID))
+                        navigationPath.append(FaceAINaviDestination.LivenessView(2,"1,2,3,4,5"))
                     }
                     .font(.system(size: 20).bold())
                     .foregroundColor(Color.white)
@@ -84,6 +85,18 @@ struct FaceAINaviView: View {
                 }
             }
             .navigationTitle("🧭 FaceAISDK")
+            // 2. 【新增】在导航栏添加一个关闭按钮，调用 onDismiss
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        // 点击时执行回调，通知 SwiftUIManager 关闭页面
+                        onDismiss?()
+                    }) {
+                        Image(systemName: "xmark.circle.fill") // 或者文字 "关闭"
+                            .foregroundColor(.gray)
+                    }
+                }
+            }
             .navigationDestination(for: FaceAINaviDestination.self) { destination in
                 switch destination {
                     
@@ -104,9 +117,11 @@ struct FaceAINaviView: View {
                         }
                     })
                 
-                case .VerifyFacePageView(let param):
+                case .VerifyFacePageView(let faceID,let threshold,let livenessType,let motionLiveness):
                     //设置的相似度阈值threshold越高，对人脸角度，环境光线和摄像头宽动态要求越高
-                    VerifyFaceView(faceID: param,threshold: 0.85, onDismiss: { resultCode in
+                    VerifyFaceView(faceID: faceID,threshold: 0.85,
+                                   livenessType: livenessType,
+                                   motionLiveness:motionLiveness,onDismiss: { resultCode in
                         
                         // resultCode, 参考 VerifyResultCode
                         // -2  人脸识别动作活体检测超过10秒
@@ -129,10 +144,12 @@ struct FaceAINaviView: View {
                         }
                     })
 
-                case .LivenessView(let param):
+                case .LivenessView(let livenessType,let motionLiveness):
                     // Code 含义同上
-                    LivenessDetectView(faceID: param,onDismiss: { result in
-                        print("Motion Liveness Result：\(result.tips) \(result.code)")
+                    LivenessDetectView(livenessType: livenessType,
+                                       motionLiveness:motionLiveness,
+                                       onDismiss: { resultCode in
+                        print("Motion Liveness Result \(resultCode)")
                         if !navigationPath.isEmpty { // 检查路径是否为空
                             navigationPath.removeLast()
                         }
@@ -145,6 +162,9 @@ struct FaceAINaviView: View {
             //在合适的场景，提前一点初始化FaceAISDK
             FaceAISDK.initSDK()
         }
+        // 3. 【核心修复】将 ignore 加在 NavigationStack 整体上
+        // 这样整个导航栈（包括导航栏区域）都会延伸到屏幕边缘
+        .ignoresSafeArea()
     }
     
 }
@@ -152,8 +172,8 @@ struct FaceAINaviView: View {
 enum FaceAINaviDestination: Hashable {
     case AddFaceFromAlbum(String)
     case AddFacePageView(String)
-    case VerifyFacePageView(String)
-    case LivenessView(String)
+    case VerifyFacePageView(String,Float,Int,String)
+    case LivenessView(Int,String)
 }
 
 
