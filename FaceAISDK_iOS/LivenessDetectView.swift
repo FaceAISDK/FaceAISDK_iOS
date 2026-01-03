@@ -11,11 +11,14 @@ struct LivenessDetectView: View {
     @State private var showToast = false
     @State private var showLightHighDialog = false
     @Environment(\.dismiss) private var dismiss
+    @State private var originalBrightness: CGFloat = UIScreen.main.brightness
     
-     @State private var originalBrightness: CGFloat = UIScreen.main.brightness
+    //0.无需活体检测 1.仅仅动作 2.动作+炫彩 3.炫彩
+    let livenessType:Int
+    //动作活体种类：1. 张张嘴  2.微笑  3.眨眨眼  4.摇摇头  5.点头
+    let motionLiveness:String
     
-    let faceID: String
-    let onDismiss: (FaceVerifyResult) -> Void
+    let onDismiss: (Int) -> Void
     
     // ... localizedTip 函数保持不变 ...
     private func localizedTip(for code: Int) -> String {
@@ -87,7 +90,7 @@ struct LivenessDetectView: View {
                         Button(action: {
                             withAnimation {
                                 showLightHighDialog = false
-                                onDismiss(viewModel.faceVerifyResult)
+                                onDismiss(viewModel.faceVerifyResult.code)
                                 dismiss()
                             }
                         }) {
@@ -118,9 +121,7 @@ struct LivenessDetectView: View {
                 UIScreen.main.brightness = 1.0
             }
             
-            //活体类型：  //0.无需活体检测 1.仅仅动作 2.动作+炫彩 3.炫彩
-            //动作活体种类： 1. 张张嘴  2.微笑  3.眨眨眼  4.摇摇头  5.点头
-            viewModel.initFaceAISDK(faceIDFeature: "", livenessType: 2, onlyLiveness: true, motionLiveness: "1, 2, 3, 4, 5")
+            viewModel.initFaceAISDK(faceIDFeature: "", livenessType: livenessType, onlyLiveness: true, motionLiveness: motionLiveness)
         }
         .onChange(of: viewModel.faceVerifyResult.code) { newValue in
             if newValue == VerifyResultCode.COLOR_LIVENESS_LIGHT_TOO_HIGH{
@@ -132,10 +133,10 @@ struct LivenessDetectView: View {
                 showToast = true
                 print("动作活体检测返回 ： \(viewModel.faceVerifyResult)")
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                    withAnimation { 
+                    withAnimation {
                         showToast = false
                     }
-                    onDismiss(viewModel.faceVerifyResult)
+                    onDismiss(viewModel.faceVerifyResult.code)
                     dismiss()
                 }
             }

@@ -18,6 +18,12 @@ struct VerifyFaceView: View {
     // 业务参数
     let faceID: String
     let threshold: Float
+    
+    //0.无需活体检测 1.仅仅动作 2.动作+炫彩 3.炫彩
+    let livenessType:Int
+    //动作活体种类：1. 张张嘴  2.微笑  3.眨眨眼  4.摇摇头  5.点头
+    let motionLiveness:String
+    
     let onDismiss: (Int) -> Void
 
     // 多语言提示
@@ -154,9 +160,9 @@ struct VerifyFaceView: View {
             viewModel.initFaceAISDK(
                 faceIDFeature: faceFeature,
                 threshold: threshold,
-                livenessType: 1,
+                livenessType: livenessType,
                 onlyLiveness: false,
-                motionLiveness: "1, 3, 4, 5"
+                motionLiveness: motionLiveness
             )
         }
         .onChange(of: viewModel.faceVerifyResult.code) { newValue in

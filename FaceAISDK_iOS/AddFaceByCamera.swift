@@ -58,7 +58,7 @@ public struct AddFaceByCamera: View {
                             print("FaceFeature: \(String(describing: viewModel.faceFeatureBySDKCamera))")
 
                             // 人脸图保存逻辑
-                            let _ = viewModel.confirmSaveFace(fileName: faceID)
+//                            let _ = viewModel.confirmSaveFace(fileName: faceID)
 
                             onDismiss(viewModel.faceFeatureBySDKCamera)
                         }
