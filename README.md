@@ -14,7 +14,7 @@ FaceAISDK_iOS SDK是设备端可完全离线不需联网实现人脸录入、动
   ![FaceAISDK](/Doc/SDK_WORK_FLOW.jpg)  
 
 
-## 更新说明 V2025.12.24
+## 更新说明 V2025.12.31
 - 新加炫彩活体检测beat
 - 优化UI交互细节和多语言
 - 提高不同设备相机的兼容性

@@ -1,5 +1,4 @@
 import SwiftUI
-import AVFoundation
 import FaceAISDK_Core
 
 /**
@@ -13,11 +12,17 @@ struct VerifyFaceView: View {
     @State private var showToast = false
     @State private var toastViewTips: String = ""
     
-     @State private var originalBrightness: CGFloat = UIScreen.main.brightness
+    @State private var originalBrightness: CGFloat = UIScreen.main.brightness
     
     // 业务参数
     let faceID: String
     let threshold: Float
+    
+    //0.无需活体检测 1.仅仅动作 2.动作+炫彩 3.炫彩
+    let livenessType:Int
+    //动作活体种类：1. 张张嘴  2.微笑  3.眨眨眼  4.摇摇头  5.点头
+    let motionLiveness:String
+    
     let onDismiss: (Int) -> Void
 
     // 多语言提示
@@ -30,6 +35,27 @@ struct VerifyFaceView: View {
     var body: some View {
         ZStack {
             VStack {
+                // MARK: 自定义顶部栏 (关闭按钮)
+                HStack {
+                    Button(action: {
+                        // 0 代表用户取消
+                        onDismiss(0)
+                        dismiss()
+                    }) {
+                        Image(systemName: "chevron.left")
+                            .fontWeight(.semibold)
+                            .font(.system(size: 16))
+                            .foregroundColor(.black)
+                            .padding(10)
+                            .background(Color.gray.opacity(0.1))
+                            .clipShape(Circle())
+                    }
+                    Spacer()
+                }
+                .padding(.horizontal, 2)
+                .padding(.top, 10)
+                
+                // 原有内容
                 Text(localizedTip(for: viewModel.sdkInterfaceTips.code))
                     .font(.system(size: 20).bold())
                     .padding(.horizontal, 20)
@@ -59,6 +85,9 @@ struct VerifyFaceView: View {
             .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(viewModel.colorFlash.ignoresSafeArea())
+            //隐藏系统导航栏
+            .navigationBarBackButtonHidden(true)
+            .toolbar(.hidden, for: .navigationBar)
 
             if showToast {
                 // 计算显示内容
@@ -84,7 +113,6 @@ struct VerifyFaceView: View {
                 .zIndex(1)
             }
             
-            
             // --- 顶层：光线过强自定义弹窗 (Dialog) ---
             if showLightHighDialog {
                 ZStack {
@@ -94,12 +122,15 @@ struct VerifyFaceView: View {
                             .fontWeight(.semibold)
                             .multilineTextAlignment(.center)
                             .foregroundColor(.black)
-                            .padding(.horizontal,9)
-                        
-                        Image("light_too_high")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(height: 120)
+                            .padding(.horizontal,25)
+
+
+                        if let uiImage = UIImage(named: "light_too_high") {
+                                    Image(uiImage: uiImage)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(maxHeight: 120)
+                                        .padding(.horizontal,1)}
                         
                         Button(action: {
                             withAnimation {
@@ -124,7 +155,7 @@ struct VerifyFaceView: View {
                     .shadow(color: Color.black.opacity(0.2), radius: 20, x: 0, y: 10)
                     .padding(.horizontal, 30) // 设置弹窗左右边距
                 }
-                .zIndex(2)  
+                .zIndex(2)
                 .transition(.scale(scale: 0.8).combined(with: .opacity)) // 添加出现动画
             }
         }
@@ -148,15 +179,12 @@ struct VerifyFaceView: View {
                 return
             }
             
-            // 初始化 SDK
-            // 活体类型： //0.无需活体检测 1.仅仅动作 2.动作+炫彩 3.炫彩
-            // 动作活体种类： 1. 张张嘴  2.微笑  3.眨眨眼  4.摇摇头  5.点头
             viewModel.initFaceAISDK(
                 faceIDFeature: faceFeature,
                 threshold: threshold,
-                livenessType: 1,
+                livenessType: livenessType,
                 onlyLiveness: false,
-                motionLiveness: "1, 3, 4, 5"
+                motionLiveness: motionLiveness
             )
         }
         .onChange(of: viewModel.faceVerifyResult.code) { newValue in
@@ -169,6 +197,7 @@ struct VerifyFaceView: View {
                     showLightHighDialog = true
                 }
             }else{
+
                 showToast = true
                 print("检测返回 ： \(viewModel.faceVerifyResult)")
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
@@ -179,9 +208,6 @@ struct VerifyFaceView: View {
                     dismiss()
                 }
             }
-            
-            
-            
         }
         .onDisappear {
              withAnimation(.easeInOut(duration: 0.3)) {
@@ -193,16 +219,3 @@ struct VerifyFaceView: View {
         .animation(.easeInOut(duration: 0.3), value: showToast)
     }
 }
-// -2  人脸识别动作活体检测超过10秒
-// -1  多次切换人脸或检查失败
-// 0   默认值
-// 1   人脸识别对比成功大于设置的threshold
-// 2   人脸识别对比识别小于设置的threshold
-// 3   动作活体检测成功
-// 4   动作活体超时
-// 5   多次没有检测到人脸
-// 6   没有对应的人脸特征值
-// 7   炫彩活体成功
-// 8   炫彩活体失败
-// 9   炫彩活体失败，光线亮度过高
-// 10  所有的活体检测完成(包括动作和炫彩)
