@@ -56,7 +56,9 @@ fatal: unable to access 'https://github.com/FaceAISDK/FaceAISDK_Core.git/': Erro
   Email: FaceAISDK.Service@gmail.com   
   iOS SDK： https://github.com/FaceAISDK/FaceAISDK_iOS  
   Android： https://github.com/FaceAISDK/FaceAISDK_Android     
-
+  **其他实现**  
+  **React native** https://github.com/zkteco-home/react-native-face-ai  
+  **uniApp UTS插件：**  https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS  
   
   ![FaceAISDK](/Doc/FaceAISDK.png)  
   
