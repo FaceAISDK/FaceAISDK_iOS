@@ -6,72 +6,96 @@ import FaceAISDK_Core
  *
  */
 struct FaceAINaviView: View {
-    // 1. 【新增】定义一个闭包属性，用来接收外部传入的关闭逻辑
+    //定义一个闭包属性，用来接收外部传入的关闭逻辑
     var onDismiss: (() -> Void)?
-    @State private var navigationPath = NavigationPath()
+    @State private var addFaceResult: Int?
     
     //录入保存的FaceID 值。一般是你的业务体系中个人的唯一编码，比如账号 身份证
-    private let faceID="yourFaceID";
+    private let faceID = "yourFaceID";
     
     var body: some View {
-        NavigationStack(path: $navigationPath) {
+        // 1. 使用 NavigationView 替代 NavigationStack (兼容 iOS 15)
+        NavigationView {
             ZStack {
                 Color.brown.ignoresSafeArea()
                 VStack(spacing: 20) {
                     
                     //通过SDK相机录入人脸
-                    Button("Add Face By Camera") {
-                        navigationPath.append(FaceAINaviDestination.AddFacePageView(faceID))
+                    NavigationLink(destination: AddFaceByCamera(faceID: faceID, onDismiss: { result in
+                        addFaceResult = result
+                    })) {
+                        Text("Add Face By Camera")
+                            .font(.system(size: 20).bold())
+                            .foregroundColor(Color.white)
+                            .frame(maxWidth: .infinity) // 增加点击区域
                     }
-                    .font(.system(size: 20).bold())
-                    .controlSize(.large)
-                    .foregroundColor(Color.white)
-                    .padding(.top,30)
+                    .controlSize(.large) // iOS 15+ 支持
+                    .padding(.top, 30)
                     
                     //通过相册录入人脸
-                    Button("Add Face From Album") {
-                        navigationPath.append(FaceAINaviDestination.AddFaceFromAlbum(faceID))
+                    NavigationLink(destination: AddFaceByUIImage(faceID: faceID, onDismiss: { result in
+                        addFaceResult = result
+                    })) {
+                        Text("Add Face From Album")
+                            .font(.system(size: 19).bold())
+                            .foregroundColor(Color.white)
+                            .frame(maxWidth: .infinity)
                     }
-                    .font(.system(size: 19).bold())
                     .controlSize(.large)
-                    .foregroundColor(Color.white)
-                    .padding(.top,15)
+                    .padding(.top, 15)
                     
                     //人脸识别+活体检测
-                    Button("Face Verify and Liveness Detection") {
-                        navigationPath.append(FaceAINaviDestination.VerifyFacePageView(faceID,0.85,1,"1,2,3,4,5"))
+                    NavigationLink(destination: VerifyFaceView(
+                        faceID: faceID,
+                        threshold: 0.85,
+                        livenessType: 1, // 1.仅仅动作 2.动作+炫彩 3.炫彩
+                        motionLiveness: "1,2,3,4,5", //1. 张张嘴  2.微笑  3.眨眨眼  4.摇摇头  5.点头
+                        motionLivenessTimeOut: 11, //超时时间3-22秒
+                        motionLivenessSteps:2,     //动作步骤个数
+                        onDismiss: { resultCode in
+                            print("VerifyResultCode ：\(resultCode)")
+                        }
+                    )) {
+                        Text("Face Verify and Liveness Detection")
+                            .font(.system(size: 20).bold())
+                            .foregroundColor(Color.white)
+                            .multilineTextAlignment(.center)
+                            .frame(maxWidth: .infinity)
                     }
-                    .font(.system(size: 20).bold())
-                    .foregroundColor(Color.white)
-                    .padding(.top,22)
+                    .padding(.top, 22)
                     
                     //仅动作活体检测
-                    Button("ONLY Liveness Detection") {
-                        navigationPath.append(FaceAINaviDestination.LivenessView(2,"1,2,3,4,5"))
+                    NavigationLink(destination: LivenessDetectView(
+                        livenessType: 2,
+                        motionLiveness: "1,2,3,4,5", // 1.仅仅动作 2.动作+炫彩 3.炫彩
+                        motionLivenessTimeOut: 5,
+                        motionLivenessSteps:2,
+                        onDismiss: { resultCode in
+                            print("Motion Liveness Result \(resultCode)")
+                        }
+                    )) {
+                        Text("ONLY Liveness Detection")
+                            .font(.system(size: 20).bold())
+                            .foregroundColor(Color.white)
+                            .frame(maxWidth: .infinity)
                     }
-                    .font(.system(size: 20).bold())
-                    .foregroundColor(Color.white)
-                    .padding(.top,20)
+                    .padding(.top, 20)
                     
-                    //判断faceID对应人脸特征值是否存在
+                    // 判断faceID对应人脸特征值是否存在
                     Button("is Face Feature Exist") {
-                        //人脸特征值是一个1024长度的字符串，已经和Android 同步实现了数据互联互通
                         guard let faceFeature = UserDefaults.standard.string(forKey: faceID) else {
                             print("isFaceFeatureExist？ ： No ! ")
                             return
                         }
-                        
                         print("\n😊FaceFeature: \(faceFeature)")
                     }
-                    
                     .font(.system(size: 18).bold())
                     .foregroundColor(Color.white)
-                    .padding(.top,33)
+                    .padding(.top, 33)
 
                     Spacer()
                     
                     Button("About us"){
-                        // 记得切换成iOS 的介绍版本
                         let url = URL(string: "https://mp.weixin.qq.com/s/R43s70guLqxA6JPEdWtjcA")
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             if UIApplication.shared.canOpenURL(url!) {
@@ -82,89 +106,13 @@ struct FaceAINaviView: View {
                     .foregroundColor(Color.white)
                     .font(.system(size: 16).bold())
                 }
+                .padding(.horizontal) // 添加一点水平间距防止贴边
             }
             .navigationTitle("🧭 FaceAISDK")
-            .navigationDestination(for: FaceAINaviDestination.self) { destination in
-                switch destination {
-                    
-                case .AddFacePageView(let param):
-                    AddFaceByCamera(faceID: param,onDismiss: { result in
-                        // result //0 用户取消， 1 添加成功
-                        if !navigationPath.isEmpty { // 检查路径是否为空
-                            navigationPath.removeLast()
-                        }
-                    })
-                    
-                case .AddFaceFromAlbum(let param):
-
-                    AddFaceByUIImage(faceID: param,onDismiss: { result in
-                        // result //0 用户取消， 1 添加成功
-                        if !navigationPath.isEmpty { // 检查路径是否为空
-                            navigationPath.removeLast()
-                        }
-                    })
-                
-                case .VerifyFacePageView(let faceID,let threshold,let livenessType,let motionLiveness):
-                    //设置的相似度阈值threshold越高，对人脸角度，环境光线和摄像头宽动态要求越高
-                    VerifyFaceView(faceID: faceID,threshold: 0.85,
-                                   livenessType: livenessType,
-                                   motionLiveness:motionLiveness,onDismiss: { resultCode in
-                        
-                        // resultCode, 参考 VerifyResultCode
-                        // 0   默认值
-                        // 1   人脸识别对比成功大于设置的threshold
-                        // 2   人脸识别对比识别小于设置的threshold
-                        // 3   动作活体检测成功
-                        // 4   动作活体超时
-                        // 5   多次没有检测到人脸
-                        // 6   没有对应的人脸特征值
-                        // 7   炫彩活体成功
-                        // 8   炫彩活体失败
-                        // 9   炫彩活体失败，光线亮度过高
-                        // 10  所有的活体检测完成(包括动作和炫彩)
-                        print("VerifyResultCode ：\(resultCode)")
-
-                        if !navigationPath.isEmpty { // 检查路径是否为空
-                            navigationPath.removeLast()
-                        }
-                    })
-
-                case .LivenessView(let livenessType,let motionLiveness):
-                    // Code 含义同上
-                    LivenessDetectView(livenessType: livenessType,
-                                       motionLiveness:motionLiveness,
-                                       onDismiss: { resultCode in
-                        print("Motion Liveness Result \(resultCode)")
-                        if !navigationPath.isEmpty { // 检查路径是否为空
-                            navigationPath.removeLast()
-                        }
-                    })
-                    
-                }
-            }
+            .navigationBarTitleDisplayMode(.inline) // 可选：iOS 15 风格
         }
-        .onAppear {
-            //在合适的场景，提前一点初始化FaceAISDK
-            FaceAISDK.initSDK()
-        }
-        // 3. 【核心修复】将 ignore 加在 NavigationStack 整体上
-        // 这样整个导航栈（包括导航栏区域）都会延伸到屏幕边缘
+        .navigationViewStyle(.stack) // 3. 强制使用堆栈导航风格
         .ignoresSafeArea()
     }
-    
 }
-
-enum FaceAINaviDestination: Hashable {
-    case AddFaceFromAlbum(String)
-    case AddFacePageView(String)
-    case VerifyFacePageView(String,Float,Int,String)
-    case LivenessView(Int,String)
-}
-
-
-
-//#Preview {
-//    FaceAINaviView()
-//}
-
 

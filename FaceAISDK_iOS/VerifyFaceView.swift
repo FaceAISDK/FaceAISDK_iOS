@@ -23,7 +23,10 @@ struct VerifyFaceView: View {
     //动作活体种类：1. 张张嘴  2.微笑  3.眨眨眼  4.摇摇头  5.点头
     let motionLiveness:String
     
-    let onDismiss: (Int) -> Void
+    let motionLivenessTimeOut:Int  //时间为秒
+    let motionLivenessSteps:Int    //动作活体个数
+    
+    let onDismiss: (Int) -> Void 
 
     // 多语言提示
     private func localizedTip(for code: Int) -> String {
@@ -35,16 +38,13 @@ struct VerifyFaceView: View {
     var body: some View {
         ZStack {
             VStack {
-                // MARK: 自定义顶部栏 (关闭按钮)
-                HStack {
+                 HStack {
                     Button(action: {
-                        // 0 代表用户取消
-                        onDismiss(0)
+                        onDismiss(0) // 0 代表用户取消
                         dismiss()
                     }) {
                         Image(systemName: "chevron.left")
-                            .fontWeight(.semibold)
-                            .font(.system(size: 16))
+                            .font(.system(size: 16, weight: .semibold))
                             .foregroundColor(.black)
                             .padding(10)
                             .background(Color.gray.opacity(0.1))
@@ -55,13 +55,12 @@ struct VerifyFaceView: View {
                 .padding(.horizontal, 2)
                 .padding(.top, 10)
                 
-                // 原有内容
-                Text(localizedTip(for: viewModel.sdkInterfaceTips.code))
+                 Text(localizedTip(for: viewModel.sdkInterfaceTips.code))
                     .font(.system(size: 20).bold())
                     .padding(.horizontal, 20)
                     .padding(.vertical, 8)
                     .foregroundColor(.white)
-                    .background(Color.brown) // 假设 Color.brown 为 blue
+                    .background(Color.brown)
                     .cornerRadius(20)
                 
                 Text(localizedTip(for: viewModel.sdkInterfaceTipsExtra.code))
@@ -87,8 +86,7 @@ struct VerifyFaceView: View {
             .background(viewModel.colorFlash.ignoresSafeArea())
             //隐藏系统导航栏
             .navigationBarBackButtonHidden(true)
-            .toolbar(.hidden, for: .navigationBar)
-
+            .navigationBarHidden(true)
             if showToast {
                 // 计算显示内容
                 let similarity = String(format: "%.2f", viewModel.faceVerifyResult.similarity)
@@ -184,7 +182,9 @@ struct VerifyFaceView: View {
                 threshold: threshold,
                 livenessType: livenessType,
                 onlyLiveness: false,
-                motionLiveness: motionLiveness
+                motionLiveness: motionLiveness,
+                motionLivenessTimeOut:motionLivenessTimeOut,
+                motionLivenessSteps:motionLivenessSteps
             )
         }
         .onChange(of: viewModel.faceVerifyResult.code) { newValue in
@@ -192,15 +192,13 @@ struct VerifyFaceView: View {
             toastViewTips = ""
             
             if newValue == VerifyResultCode.COLOR_LIVENESS_LIGHT_TOO_HIGH{
-                //光线太强了
-                withAnimation {
+                withAnimation { //光线太强了
                     showLightHighDialog = true
                 }
             }else{
-
                 showToast = true
                 print("检测返回 ： \(viewModel.faceVerifyResult)")
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     withAnimation {
                         showToast = false
                     }

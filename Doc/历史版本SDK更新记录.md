@@ -7,6 +7,16 @@
   pod update FaceAISDK_Core 
  ```
 
+ 
+## V2026.01.03
+- 最低支持iOS 15系统，对齐微信
+- 新加炫彩活体检测beat
+- 优化UI交互细节和多语言
+- 提高不同设备相机的兼容性
+
+## V2025.12.22
+- 修改细节以便封装UTS api插件助力uniapp开发者
+
 ## V2025.12.03
 - 解决运行时tensorflow Interpreter delegates 无法访问问题
 

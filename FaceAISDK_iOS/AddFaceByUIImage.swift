@@ -1,24 +1,28 @@
 import SwiftUI
-import PhotosUI // PhotosUI 框架
+import PhotosUI
 import FaceAISDK_Core
 
+
+//从相册添加人脸
 public struct AddFaceByUIImage: View {
 
-    @State private var selectedItem: PhotosPickerItem?
+    // 状态管理
+    @State private var showImagePicker = false // 控制相册弹窗
     @State private var isLoading = false
     @State private var canSave = false
 
-    // 用于存储最终加载并用于显示的 SwiftUI Image
+    // 用于显示和处理的 Image
     @State private var selectedImage: UIImage?
     
     @StateObject private var viewModel: addFaceByUIImageModel = addFaceByUIImageModel()
     
-    // 录入保存的FaceID 值。一般是你的业务体系中个人的唯一编码，比如账号 身份证
     let faceID: String
-    let onDismiss: (Int) -> Void  // 0 用户取消， 1 添加成功
+    let onDismiss: (Int) -> Void
     
-    // 根据提示状态码多语言展示文本
-    // 添加人脸状态码参考 AddFaceTipsCode
+    //引入 dismiss 环境遍历，用于手动控制页面退出
+    @Environment(\.dismiss) private var dismiss
+    
+    // 辅助函数
     private func localizedTip(for code: Int) -> String {
         let key = "Face_Tips_Code_\(code)"
         let defaultValue = "LivenessDetect Tips Code=\(code)"
@@ -26,19 +30,18 @@ public struct AddFaceByUIImage: View {
     }
     
     public var body: some View {
-        // 使用 ZStack 以便扩展未来的悬浮层 (如 Toast)
         ZStack {
             VStack(spacing: 20) {
                 
-                // 自定义顶部栏 (关闭按钮)
+                // MARK: - 自定义顶部栏
                 HStack {
                     Button(action: {
-                        // 0 代表用户取消
-                        onDismiss(0)
+                        onDismiss(0)  // 传递取消状态
+                        dismiss()     // 触发导航栏返回（Pop）
                     }) {
-                        Image(systemName: "chevron.left") // 保持统一风格
-                            .fontWeight(.semibold)
-                            .font(.system(size: 16))
+                        Image(systemName: "chevron.left")
+                            // 🔴 iOS 15 兼容修复：fontWeight 合并在 font 中设置
+                            .font(.system(size: 16, weight: .semibold))
                             .foregroundColor(.black)
                             .padding(10)
                             .background(Color.gray.opacity(0.1))
@@ -47,15 +50,15 @@ public struct AddFaceByUIImage: View {
                     Spacer()
                 }
                 .padding(.horizontal, 20)
-                .padding(.top, 10) // 顶部留白
+                .padding(.top, 10)
                 
                 // MARK: - 主内容区域
-                ScrollView { // 使用 ScrollView 以防内容在小屏幕上溢出
+                ScrollView {
                     VStack(spacing: 25) {
                         
-                        // 1. 状态提示文字
+                        // 1. 状态提示
                         Text(localizedTip(for: viewModel.sdkInterfaceTips.code))
-                            .font(.system(size: 16).bold()) // 统一字体大小
+                            .font(.system(size: 16).bold())
                             .padding(.vertical, 12)
                             .padding(.horizontal, 24)
                             .foregroundColor(.white)
@@ -63,13 +66,13 @@ public struct AddFaceByUIImage: View {
                             .cornerRadius(20)
                             .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
                         
-                        // 2. 图片展示区域
+                        // 2. 图片预览区
                         if let selectedImage {
                             ZStack {
                                 Image(uiImage: selectedImage)
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(maxWidth: 166, maxHeight: 166) // 稍微调大一点
+                                    .frame(maxWidth: 166, maxHeight: 166)
                                     .clipShape(RoundedRectangle(cornerRadius: 16))
                                     .shadow(radius: 8)
                                 
@@ -85,15 +88,15 @@ public struct AddFaceByUIImage: View {
                                 }
                             }
                         } else {
-                            // 默认占位符视图
+                            // 占位符
                             VStack(spacing: 12) {
                                 Image(systemName: "photo.fill")
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(width: 100, height: 100)
-                                    .foregroundStyle(.tertiary)
+                                    .frame(width: 80, height: 80)
+                                    .foregroundStyle(.tertiary) // iOS 15+ 支持
                                 
-                                Text("请从相册中选择一张图片")
+                                Text("Select from album")
                                     .font(.system(size: 13))
                                     .foregroundStyle(.secondary)
                             }
@@ -106,35 +109,32 @@ public struct AddFaceByUIImage: View {
                             )
                         }
                         
-                        // 3. PhotosPicker 按钮
-                        PhotosPicker(
-                            selection: $selectedItem,
-                            matching: .images,
-                            label: {
-                                Label("选择图片", systemImage: "photo.on.rectangle.angled")
-                                    .font(.headline)
-                                    .frame(maxWidth: .infinity)
-                                    .frame(height: 40)
-                            }
-                        )
+                        Button(action: {
+                            showImagePicker = true
+                        }) {
+                            Label("Select Image", systemImage: "photo.on.rectangle.angled")
+                                .font(.headline)
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 40)
+                        }
                         .buttonStyle(.borderedProminent)
                         .tint(.blue)
                         .padding(.horizontal, 40)
                         
-                        // 4. 保存按钮 (条件显示)
+                        // 4. 保存按钮
                         if canSave {
                             Button(action: {
-                                // 保存逻辑
                                 if let image = selectedImage {
                                     let faceFeature = viewModel.getFaceFeature(faceUIImage: image)
                                     UserDefaults.standard.set(faceFeature, forKey: faceID)
                                     print("UIImage 特征值: \(faceFeature)")
                                     
-//                                    let _ = viewModel.confirmSaveFace(fileName: faceID)
-                                    onDismiss(1)
+                                    // let _ = viewModel.confirmSaveFace(fileName: faceID)
+                                    onDismiss(1)  // 传递取消状态
+                                    dismiss()     // 触发导航栏返回（Pop）
                                 }
                             }) {
-                                Text("保存人脸数据")
+                                Text("Save Face Feature")
                                     .font(.headline)
                                     .frame(maxWidth: .infinity)
                                     .frame(height: 40)
@@ -142,39 +142,81 @@ public struct AddFaceByUIImage: View {
                             .buttonStyle(.borderedProminent)
                             .tint(.green)
                             .padding(.horizontal, 40)
-                            .transition(.opacity.combined(with: .move(edge: .bottom))) // 添加动画
+                            .transition(.opacity.combined(with: .move(edge: .bottom)))
                         }
                     }
                     .padding(.bottom, 20)
                 }
             }
             .background(Color.white.ignoresSafeArea())
-            // 隐藏系统导航栏
             .navigationBarBackButtonHidden(true)
-            .toolbar(.hidden, for: .navigationBar)
+            .navigationBarHidden(true)
             
-            // 监听图片选择
-            .onChange(of: selectedItem) { newValue in
-                Task {
-                    if let data = try? await newValue?.loadTransferable(type: Data.self),
-                       let uiImage = UIImage(data: data) {
-                        
-                        await MainActor.run {
-                            isLoading = true
-                            canSave = false
-                            selectedImage = uiImage
-                            // 开始检测
-                            viewModel.addFaceByUIImage(faceUIImage: uiImage)
-                        }
-                    }
-                }
-            }
-            // 监听检测结果 (裁剪后的图片)
             .onChange(of: viewModel.croppedFaceImage) { newValue in
                 withAnimation {
                     selectedImage = newValue
                     isLoading = false
                     canSave = true
+                }
+            }
+            .sheet(isPresented: $showImagePicker) {
+                ImagePicker(selectedImage: $selectedImage) { uiImage in
+                    // 图片选择完成后的回调
+                    isLoading = true
+                    canSave = false
+                    // 触发 SDK 检测逻辑
+                    viewModel.addFaceByUIImage(faceUIImage: uiImage)
+                }
+            }
+        }
+    }
+}
+
+
+struct ImagePicker: UIViewControllerRepresentable {
+    @Binding var selectedImage: UIImage?
+    @Environment(\.dismiss) private var dismiss
+    
+    // 回调：当用户选择照片后触发
+    var onImagePicked: ((UIImage) -> Void)?
+
+    func makeUIViewController(context: Context) -> PHPickerViewController {
+        var config = PHPickerConfiguration()
+        config.filter = .images // 只显示图片
+        config.selectionLimit = 1 // 只能选一张
+        
+        let picker = PHPickerViewController(configuration: config)
+        picker.delegate = context.coordinator
+        return picker
+    }
+
+    func updateUIViewController(_ uiViewController: PHPickerViewController, context: Context) {}
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+
+    class Coordinator: NSObject, PHPickerViewControllerDelegate {
+        let parent: ImagePicker
+
+        init(_ parent: ImagePicker) {
+            self.parent = parent
+        }
+
+        func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+            parent.dismiss()
+
+            guard let provider = results.first?.itemProvider,
+                  provider.canLoadObject(ofClass: UIImage.self) else {
+                return
+            }
+
+            provider.loadObject(ofClass: UIImage.self) { image, error in
+                if let uiImage = image as? UIImage {
+                    DispatchQueue.main.async {
+                        self.parent.selectedImage = uiImage
+                        self.parent.onImagePicked?(uiImage)
+                    }
                 }
             }
         }

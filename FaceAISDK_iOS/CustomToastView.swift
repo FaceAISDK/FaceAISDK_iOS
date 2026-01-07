@@ -1,5 +1,3 @@
-
-
 import Foundation
 import SwiftUI
 
@@ -8,7 +6,6 @@ import SwiftUI
 //  SDKDebug
 //
 //  Created by anylife on 2025/12/2.
-
 
 // 定义 Toast 样式
 enum ToastStyle {
@@ -24,7 +21,6 @@ enum ToastStyle {
 struct CustomToastView: View {
     let message: String
     let style: ToastStyle
-    // ... CustomToastView 的实现如上所示 ...
     var body: some View {
         VStack {
             HStack {
