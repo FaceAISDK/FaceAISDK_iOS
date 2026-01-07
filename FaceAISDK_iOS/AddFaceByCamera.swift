@@ -13,6 +13,9 @@ public struct AddFaceByCamera: View {
     let faceID: String
     let onDismiss: (Int) -> Void //0 用户取消， 1 添加成功
     
+    //引入 dismiss 环境遍历，用于手动控制页面退出
+    @Environment(\.dismiss) private var dismiss
+    
     @StateObject private var viewModel: AddFaceByCameraModel = AddFaceByCameraModel()
     
     // 辅助函数：获取本地化提示
@@ -28,13 +31,13 @@ public struct AddFaceByCamera: View {
                 // 自定义顶部栏 (关闭按钮)
                 HStack {
                     Button(action: {
-                        onDismiss(0)  //取消
+                        onDismiss(0)  // 传递取消状态
+                        dismiss()     // 触发导航栏返回（Pop）
                     }) {
-                        Image(systemName: "chevron.left") // 使用系统图标 "xmark" 或 "chevron.left"
-                            .fontWeight(.semibold)
-                            .font(.system(size: 16))
+                        Image(systemName: "chevron.left") // 系统图标 "xmark" 或 "chevron.left"
+                            .font(.system(size: 16, weight: .semibold))
                             .foregroundColor(.black) // 图标颜色
-                            .padding(10) // 增加点击区域和内边距
+                            .padding(10)
                             .background(Color.gray.opacity(0.1)) // 浅灰色圆形背景
                             .clipShape(Circle())
                     }
@@ -75,8 +78,9 @@ public struct AddFaceByCamera: View {
                                 // 保存人脸特征值
                                 UserDefaults.standard.set(viewModel.faceFeatureBySDKCamera, forKey: faceID)
                                 
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                                    onDismiss(1)
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    onDismiss(1)  // 传递取消状态
+                                    dismiss()     // 触发导航栏返回（Pop）
                                 }
                             }
                         )
@@ -93,8 +97,7 @@ public struct AddFaceByCamera: View {
             .background(Color.white.ignoresSafeArea())
             // 隐藏系统导航栏和返回按钮
             .navigationBarBackButtonHidden(true)
-            .toolbar(.hidden, for: .navigationBar) // iOS 16+ 隐藏导航栏
-            //.navigationBarHidden(true) // 如果需要兼容 iOS 15 及以下，请解开此行注释
+            .navigationBarHidden(true) // 兼容 iOS 15 及以下
             
             // 生命周期事件
             .onAppear {
@@ -150,7 +153,7 @@ struct ConfirmAddFaceDialog: View {
                         .font(.system(size: 16, weight: .medium))
                         .frame(maxWidth: .infinity)
                         .frame(height: 44)
-                        .background(Color.gray.opacity(0.15))
+                        .background(Color.gray.opacity(0.6))
                         .foregroundColor(.primary)
                         .cornerRadius(8)
                 }
