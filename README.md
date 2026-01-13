@@ -24,7 +24,7 @@ FaceAISDK_iOS SDK是设备端可完全离线不需联网实现人脸录入、动
 
 ## 集成步骤
 
-SDK默认的开发环境为Xcode 15.2 ,Swift 5.9；UI全部使用SwiftUI实现，支持iOS[16,26]
+SDK默认的开发环境为Xcode 15.2,Swift 5.9；UI全部使用SwiftUI实现，支持iOS[15,26]
 
 **集成运行本SDK示范工程，你的电脑需要能科学上网翻墙同步依赖，因为部分资源托管在GitHub，否则无法编译成功**
 首次跑起来本工程还是有点挑战的，但一定难不倒厉害的你。
@@ -83,8 +83,8 @@ fatal: unable to access 'https://github.com/FaceAISDK/FaceAISDK_Core.git/': Erro
   iOS SDK： https://github.com/FaceAISDK/FaceAISDK_iOS  
   Android： https://github.com/FaceAISDK/FaceAISDK_Android     
   **其他实现**  
-  **React native** https://github.com/zkteco-home/react-native-face-ai  
   **uniApp UTS插件：**  https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS  
+  **React native** https://github.com/zkteco-home/react-native-face-ai  
   
   ![FaceAISDK](/Doc/FaceAISDK.png)  
   
