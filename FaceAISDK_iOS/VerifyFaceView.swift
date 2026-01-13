@@ -12,8 +12,8 @@ struct VerifyFaceView: View {
     @State private var showToast = false
     @State private var toastViewTips: String = ""
     
-    @State private var originalBrightness: CGFloat = UIScreen.main.brightness
-    
+    var autoControlBrightness: Bool = true
+
     // 业务参数
     let faceID: String
     let threshold: Float
@@ -158,7 +158,10 @@ struct VerifyFaceView: View {
             }
         }
          .onAppear {
-             originalBrightness = UIScreen.main.brightness
+             if autoControlBrightness {
+                 ScreenBrightnessHelper.shared.maximizeBrightness()
+             }
+             
              withAnimation(.easeInOut(duration: 0.3)) {
                 UIScreen.main.brightness = 1.0
             }
@@ -208,8 +211,8 @@ struct VerifyFaceView: View {
             }
         }
         .onDisappear {
-             withAnimation(.easeInOut(duration: 0.3)) {
-                UIScreen.main.brightness = originalBrightness
+            if autoControlBrightness {
+                ScreenBrightnessHelper.shared.restoreBrightness()
             }
             
             viewModel.stopFaceVerify()

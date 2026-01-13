@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7C600D4F2EDEB8A3005EEEDD /* CustomToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C600D4E2EDEB8A3005EEEDD /* CustomToastView.swift */; };
+		7C784BBA2F1635AC0086B329 /* ScreenBrightnessHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C784BB92F1635AB0086B329 /* ScreenBrightnessHelper.swift */; };
 		7CC0A3532F04EFB700857F23 /* FaceAISDK_demoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC0A3522F04EFB700857F23 /* FaceAISDK_demoApp.swift */; };
 		7CD054CE2EDE7E6300EA3E37 /* FaceAINaviView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD054C72EDE7E6300EA3E37 /* FaceAINaviView.swift */; };
 		7CD054D02EDE7E6300EA3E37 /* AddFaceByUIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD054C92EDE7E6300EA3E37 /* AddFaceByUIImage.swift */; };
@@ -23,6 +24,7 @@
 		3055E22F49718251F69290DD /* Pods-FaceAISDK_iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FaceAISDK_iOS.release.xcconfig"; path = "Target Support Files/Pods-FaceAISDK_iOS/Pods-FaceAISDK_iOS.release.xcconfig"; sourceTree = "<group>"; };
 		4EE5EDF11DB0DDBA7F1E58BD /* Pods_FaceAISDK_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FaceAISDK_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C600D4E2EDEB8A3005EEEDD /* CustomToastView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomToastView.swift; sourceTree = "<group>"; };
+		7C784BB92F1635AB0086B329 /* ScreenBrightnessHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenBrightnessHelper.swift; sourceTree = "<group>"; };
 		7CC0A3522F04EFB700857F23 /* FaceAISDK_demoApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceAISDK_demoApp.swift; sourceTree = "<group>"; };
 		7CD054C72EDE7E6300EA3E37 /* FaceAINaviView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceAINaviView.swift; sourceTree = "<group>"; };
 		7CD054C92EDE7E6300EA3E37 /* AddFaceByUIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFaceByUIImage.swift; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 			children = (
 				7CD054CA2EDE7E6300EA3E37 /* AddFaceByCamera.swift */,
 				7C600D4E2EDEB8A3005EEEDD /* CustomToastView.swift */,
+				7C784BB92F1635AB0086B329 /* ScreenBrightnessHelper.swift */,
 				7CD054C92EDE7E6300EA3E37 /* AddFaceByUIImage.swift */,
 				7CD054C72EDE7E6300EA3E37 /* FaceAINaviView.swift */,
 				7CD054CD2EDE7E6300EA3E37 /* LivenessDetectView.swift */,
@@ -230,6 +233,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C784BBA2F1635AC0086B329 /* ScreenBrightnessHelper.swift in Sources */,
 				7C600D4F2EDEB8A3005EEEDD /* CustomToastView.swift in Sources */,
 				7CC0A3532F04EFB700857F23 /* FaceAISDK_demoApp.swift in Sources */,
 				7CD054D02EDE7E6300EA3E37 /* AddFaceByUIImage.swift in Sources */,

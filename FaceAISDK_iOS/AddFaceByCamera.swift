@@ -13,6 +13,10 @@ public struct AddFaceByCamera: View {
     let faceID: String
     let onDismiss: (Int) -> Void //0 用户取消， 1 添加成功
     
+    // 【新增】控制开关，默认为 true (原生友好)
+    // 如果是 UTS Manager 调用，会将其设为 false，由 Manager 在外部控制亮度
+    var autoControlBrightness: Bool = true
+    
     //引入 dismiss 环境遍历，用于手动控制页面退出
     @Environment(\.dismiss) private var dismiss
     
@@ -101,12 +105,22 @@ public struct AddFaceByCamera: View {
             
             // 生命周期事件
             .onAppear {
+                // 【新增】如果是自动模式（原生），则在此处调亮
+                if autoControlBrightness {
+                    ScreenBrightnessHelper.shared.maximizeBrightness()
+                }
+                
                 viewModel.initAddFace()
             }
             .onChange(of: viewModel.sdkInterfaceTips.code) { newValue in
                 print("🔔 AddFaceBySDKCamera： \(viewModel.sdkInterfaceTips.message)")
             }
             .onDisappear {
+                // 【新增】如果是自动模式（原生），则在此处恢复
+                if autoControlBrightness {
+                    ScreenBrightnessHelper.shared.restoreBrightness()
+                }
+                
                 viewModel.stopAddFace()
             }
         }
