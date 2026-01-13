@@ -11,7 +11,9 @@ struct LivenessDetectView: View {
     @State private var showToast = false
     @State private var showLightHighDialog = false
     @Environment(\.dismiss) private var dismiss
-    @State private var originalBrightness: CGFloat = UIScreen.main.brightness
+
+    // 【新增】控制开关，默认为 true (原生友好)
+    var autoControlBrightness: Bool = true
     
     // 0.无需活体检测 1.仅仅动作 2.动作+炫彩 3.炫彩
     let livenessType:Int
@@ -142,8 +144,11 @@ struct LivenessDetectView: View {
             
         }
         .onAppear {
-             originalBrightness = UIScreen.main.brightness
-             withAnimation(.easeInOut(duration: 0.3)) {
+            if autoControlBrightness {
+                ScreenBrightnessHelper.shared.maximizeBrightness()
+            }
+            
+            withAnimation(.easeInOut(duration: 0.3)) {
                 UIScreen.main.brightness = 1.0
             }
             
@@ -172,8 +177,8 @@ struct LivenessDetectView: View {
             }
         }
         .onDisappear {
-             withAnimation(.easeInOut(duration: 0.3)) {
-                UIScreen.main.brightness = originalBrightness
+            if autoControlBrightness {
+                ScreenBrightnessHelper.shared.restoreBrightness()
             }
             
             viewModel.stopFaceVerify()
