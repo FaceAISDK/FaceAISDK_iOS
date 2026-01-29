@@ -13,7 +13,7 @@ enum ToastStyle {
     case failure
     var backgroundColor: Color {
         switch self {
-        case .success: return Color.brown
+        case .success: return Color.faceMain
         case .failure: return Color.yellow
         }
     }

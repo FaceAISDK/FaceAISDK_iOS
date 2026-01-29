@@ -56,7 +56,7 @@ public struct AddFaceByCamera: View {
                     .padding(.horizontal, 20)
                     .padding(.vertical, 8)
                     .foregroundColor(.white)
-                    .background(Color.brown)
+                    .background(Color.faceMain)
                     .cornerRadius(20)
                 
                 // 2. 核心区域：相机与确认弹窗的容器
@@ -143,7 +143,7 @@ struct ConfirmAddFaceDialog: View {
             
             Text("Confirm Add Face")
                 .font(.system(size: 18, weight: .semibold))
-                .foregroundColor(Color.brown)
+                .foregroundColor(Color.faceMain)
                 .padding(.top, 16)
 
             Image(uiImage: viewModel.croppedFaceImage)
@@ -184,7 +184,7 @@ struct ConfirmAddFaceDialog: View {
                         .font(.system(size: 16, weight: .bold))
                         .frame(maxWidth: .infinity)
                         .frame(height: 44)
-                        .background(Color.brown)
+                        .background(Color.faceMain)
                         .foregroundColor(.white)
                         .cornerRadius(8)
                 }
