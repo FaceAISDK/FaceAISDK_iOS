@@ -12,6 +12,7 @@ struct VerifyFaceView: View {
     @State private var showToast = false
     @State private var toastViewTips: String = ""
     
+    // 如果是三方uniapp,RN,Flutter插件调用，会将其设为 false，由 Manager 在外部控制亮度
     var autoControlBrightness: Bool = true
 
     // 业务参数
@@ -88,7 +89,7 @@ struct VerifyFaceView: View {
             .navigationBarBackButtonHidden(true)
             .navigationBarHidden(true)
             if showToast {
-                // 计算显示内容
+
                 let similarity = String(format: "%.2f", viewModel.faceVerifyResult.similarity)
                 // 优先使用手动设置的 toastViewTips (用于处理无特征值的情况)，否则使用 SDK 返回的 tips
                 let displayTips = toastViewTips.isEmpty ? viewModel.faceVerifyResult.tips : toastViewTips
@@ -201,6 +202,11 @@ struct VerifyFaceView: View {
             }else{
                 showToast = true
                 print("检测返回 ： \(viewModel.faceVerifyResult)")
+                
+                if FaceImageManger.saveFaceImage(faceName: faceID, faceImage: viewModel.faceVerifyResult.faceImage){
+                    print("Base64: \(String(describing: FaceImageManger.faceImageToBase64(fileName:faceID)))")
+                }
+
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     withAnimation {
                         showToast = false

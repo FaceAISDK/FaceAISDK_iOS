@@ -12,12 +12,13 @@ struct LivenessDetectView: View {
     @State private var showLightHighDialog = false
     @Environment(\.dismiss) private var dismiss
 
-    // 【新增】控制开关，默认为 true (原生友好)
+    // 屏幕亮度控制开关，默认为 true (原生友好)
+    // 如果是三方uniapp,RN,Flutter插件调用，会将其设为 false，由 Manager 在外部控制亮度
     var autoControlBrightness: Bool = true
     
     // 0.无需活体检测 1.仅仅动作 2.动作+炫彩 3.炫彩
     let livenessType:Int
-    //动作活体种类：1. 张张嘴  2.微笑  3.眨眨眼  4.摇摇头  5.点头
+    // 动作活体种类：1. 张张嘴  2.微笑  3.眨眨眼  4.摇摇头  5.点头
     let motionLiveness:String
     
     let motionLivenessTimeOut:Int //时间为秒
@@ -167,6 +168,12 @@ struct LivenessDetectView: View {
             }else{
                 showToast = true
                 print("动作活体检测返回 ： \(viewModel.faceVerifyResult)")
+                
+                if FaceImageManger.saveFaceImage(faceName: "Liveness", faceImage: viewModel.faceVerifyResult.faceImage){
+                    print("Base64: \(String(describing: FaceImageManger.faceImageToBase64(fileName:"Liveness")))")
+                }
+                
+                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                     withAnimation {
                         showToast = false
