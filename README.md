@@ -11,10 +11,10 @@ iPhone&iPad iOS FaceAISDK is on_device Offline Face Detection 、Recognition 、
 FaceAISDK_iOS SDK是设备端可完全离线不需联网实现人脸录入、动作活体检测、人脸识别，集成后可快速实现相关功能。  
 
 
-  ![FaceAISDK](/Doc/SDK_WORK_FLOW.jpg)  
+![FaceAISDK](/Doc/SDK_WORK_FLOW.jpg)  
 
 
-## 更新说明 V2026.01.04
+## 更新说明 V2026.01.20
 - 最低支持iOS 15系统，对齐微信
 - 新加炫彩活体检测beat
 - 优化UI交互细节和多语言
@@ -78,13 +78,14 @@ fatal: unable to access 'https://github.com/FaceAISDK/FaceAISDK_Core.git/': Erro
 
 ## 其他说明 
   
-  微信：FaceAISDK  
-  Email: FaceAISDK.Service@gmail.com   
   iOS SDK： https://github.com/FaceAISDK/FaceAISDK_iOS  
   Android： https://github.com/FaceAISDK/FaceAISDK_Android     
   **其他实现**  
   **uniApp UTS插件：**  https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS  
   **React native** https://github.com/zkteco-home/react-native-face-ai  
+  
+  微信：FaceAISDK  
+  Email: FaceAISDK.Service@gmail.com   
   
   ![FaceAISDK](/Doc/FaceAISDK.png)  
   
