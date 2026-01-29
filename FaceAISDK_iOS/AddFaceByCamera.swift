@@ -13,8 +13,8 @@ public struct AddFaceByCamera: View {
     let faceID: String
     let onDismiss: (Int) -> Void //0 用户取消， 1 添加成功
     
-    // 【新增】控制开关，默认为 true (原生友好)
-    // 如果是 UTS Manager 调用，会将其设为 false，由 Manager 在外部控制亮度
+    // 屏幕亮度控制开关，默认为 true (原生友好)
+    // 如果是三方uniapp,RN,Flutter插件调用，会将其设为 false，由 Manager 在外部控制亮度
     var autoControlBrightness: Bool = true
     
     //引入 dismiss 环境遍历，用于手动控制页面退出
@@ -78,9 +78,14 @@ public struct AddFaceByCamera: View {
                             viewModel: viewModel,
                             cameraSize: FaceCameraSize,
                             onConfirm: {
-                                print("FaceFeature: \(String(describing: viewModel.faceFeatureBySDKCamera))")
+//                                print("FaceFeature: \(String(describing: viewModel.faceFeatureBySDKCamera))")
                                 // 保存人脸特征值
                                 UserDefaults.standard.set(viewModel.faceFeatureBySDKCamera, forKey: faceID)
+                                
+                                // 报错人脸图（可选操作，非SDK运行必须）
+                                if FaceImageManger.saveFaceImage(faceName: faceID, faceImage: viewModel.croppedFaceImage){
+                                    print("Base64: \(String(describing: FaceImageManger.faceImageToBase64(fileName:faceID)))")
+                                }
                                 
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                     onDismiss(1)  // 传递取消状态
@@ -101,7 +106,7 @@ public struct AddFaceByCamera: View {
             .background(Color.white.ignoresSafeArea())
             // 隐藏系统导航栏和返回按钮
             .navigationBarBackButtonHidden(true)
-            .navigationBarHidden(true) // 兼容 iOS 15 及以下
+            .navigationBarHidden(true) //兼容iOS 15 及以下
             
             // 生命周期事件
             .onAppear {
