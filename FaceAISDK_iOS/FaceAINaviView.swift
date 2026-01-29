@@ -17,7 +17,7 @@ struct FaceAINaviView: View {
         // 1. 使用 NavigationView 替代 NavigationStack (兼容 iOS 15)
         NavigationView {
             ZStack {
-                Color.brown.ignoresSafeArea()
+                Color.faceMain.ignoresSafeArea()
                 VStack(spacing: 20) {
                     
                     //通过SDK相机录入人脸

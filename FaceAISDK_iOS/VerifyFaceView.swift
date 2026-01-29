@@ -61,7 +61,7 @@ struct VerifyFaceView: View {
                     .padding(.horizontal, 20)
                     .padding(.vertical, 8)
                     .foregroundColor(.white)
-                    .background(Color.brown)
+                    .background(Color.faceMain)
                     .cornerRadius(20)
                 
                 Text(localizedTip(for: viewModel.sdkInterfaceTipsExtra.code))
@@ -143,7 +143,7 @@ struct VerifyFaceView: View {
                                 .foregroundColor(.white)
                                 .frame(maxWidth: .infinity)
                                 .padding(.vertical, 10)
-                                .background(Color.brown)
+                                .background(Color.faceMain)
                                 .cornerRadius(10)
                         }
                         .padding(.horizontal, 30)
