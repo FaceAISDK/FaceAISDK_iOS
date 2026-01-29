@@ -170,7 +170,7 @@ struct LivenessDetectView: View {
                 print("动作活体检测返回 ： \(viewModel.faceVerifyResult)")
                 
                 if FaceImageManger.saveFaceImage(faceName: "Liveness", faceImage: viewModel.faceVerifyResult.faceImage){
-                    print("Base64: \(String(describing: FaceImageManger.faceImageToBase64(fileName:"Liveness")))")
+                   // print("Base64: \(String(describing: FaceImageManger.faceImageToBase64(fileName:"Liveness")))")
                 }
                 
                 

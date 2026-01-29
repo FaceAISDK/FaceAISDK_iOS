@@ -204,7 +204,7 @@ struct VerifyFaceView: View {
                 print("检测返回 ： \(viewModel.faceVerifyResult)")
                 
                 if FaceImageManger.saveFaceImage(faceName: faceID, faceImage: viewModel.faceVerifyResult.faceImage){
-                    print("Base64: \(String(describing: FaceImageManger.faceImageToBase64(fileName:faceID)))")
+                   // print("Base64: \(String(describing: FaceImageManger.faceImageToBase64(fileName:faceID)))")
                 }
 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
