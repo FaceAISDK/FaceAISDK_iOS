@@ -62,7 +62,7 @@ fatal: unable to access 'https://github.com/FaceAISDK/FaceAISDK_Core.git/': Erro
     fatal: early EOF
    ```
     这表明：
-    1. 仓库过大：TensorFlowLiteSwift 的源仓库（TensorFlow）非常庞大（几个 GB）。
+    1. 仓库过大：TensorFlowLiteSwift 的源仓库（TensorFlow）比较大
     2. 网络中断：编译环境（无论是本地还是云端）连接 GitHub 的速度不够快，或者发生了超时，导致在下载完成前连接被切断。
     如果是本地 Mac 编译（推荐尝试）
     如果你是在自己的 Mac 上运行 HBuilderX 进行打包，可以通过修改 Git 配置来解决：
