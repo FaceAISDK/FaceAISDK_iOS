@@ -1,10 +1,6 @@
 import Foundation
 import SwiftUI
 
-//
-//  CustomToastView.swift
-//  SDKDebug
-//
 //  Created by anylife on 2025/12/2.
 
 // 定义 Toast 样式

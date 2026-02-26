@@ -14,7 +14,7 @@ struct FaceAINaviView: View {
     private let faceID = "yourFaceID";
     
     var body: some View {
-        // 1. 使用 NavigationView 替代 NavigationStack (兼容 iOS 15)
+        // 1. 使用 NavigationView(兼容 iOS 15)
         NavigationView {
             ZStack {
                 Color.faceMain.ignoresSafeArea()
@@ -27,7 +27,7 @@ struct FaceAINaviView: View {
                         Text("Add Face By Camera")
                             .font(.system(size: 20).bold())
                             .foregroundColor(Color.white)
-                            .frame(maxWidth: .infinity) // 增加点击区域
+                            .frame(maxWidth: .infinity)  
                     }
                     .controlSize(.large) // iOS 15+ 支持
                     .padding(.top, 30)

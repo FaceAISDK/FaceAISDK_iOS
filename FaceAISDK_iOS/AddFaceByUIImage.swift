@@ -40,7 +40,7 @@ public struct AddFaceByUIImage: View {
                         dismiss()     // 触发导航栏返回（Pop）
                     }) {
                         Image(systemName: "chevron.left")
-                            // 🔴 iOS 15 兼容修复：fontWeight 合并在 font 中设置
+                            // iOS 15 兼容修复：fontWeight 合并在 font 中设置
                             .font(.system(size: 16, weight: .semibold))
                             .foregroundColor(.black)
                             .padding(10)
@@ -88,7 +88,6 @@ public struct AddFaceByUIImage: View {
                                 }
                             }
                         } else {
-                            // 占位符
                             VStack(spacing: 12) {
                                 Image(systemName: "photo.fill")
                                     .resizable()
@@ -127,7 +126,7 @@ public struct AddFaceByUIImage: View {
                                 if let image = selectedImage {
                                     let faceFeature = viewModel.getFaceFeature(faceUIImage: image)
                                     UserDefaults.standard.set(faceFeature, forKey: faceID)
-                                    print("UIImage 特征值: \(faceFeature)")
+                                    //print("UIImage 特征值: \(faceFeature)")
                                     
                                     // let _ = viewModel.confirmSaveFace(fileName: faceID)
                                     onDismiss(1)  // 传递取消状态
