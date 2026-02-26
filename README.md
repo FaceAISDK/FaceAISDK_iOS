@@ -40,7 +40,7 @@ https://github.com/tensorflow/tensorflow/archive/refs/heads/master.zip
 「没有翻墙的错误提示」
 Updating local specs repositories
 Downloading dependencies
-Installing FaceAISDK_Core 2025.10.17 
+Installing FaceAISDK_Core 2026.01.22 
 
 [!] Error installing FaceAISDK_Core
 [!] /usr/bin/git clone https://github.com/FaceAISDK/FaceAISDK_Core.git /var/folders/gh/p4wv4ytj4tn5xrhgq0n_jnbm0000gn/T/d20251020-8626-c57agm --template= --single-branch --depth 1 --branch 2025.10.17
@@ -53,7 +53,7 @@ fatal: unable to access 'https://github.com/FaceAISDK/FaceAISDK_Core.git/': Erro
  ### 2. 下载依赖TensorFlowLiteSwift出错了
    ```
     [!] Error installing TensorFlowLiteSwift
-    [!] /usr/bin/git clone https://github.com/tensorflow/tensorflow.git /var/folders/ft/7cxjq5ss2094sj67mbhnzjrc0000gn/T/d20260113-17932-1xwealt --template=
+    [!] /usr/bin/git clone https://github.com/tensorflow/tensorflow.git /var/folders/ft/7cxjq5ss2094sj67mbhnzn/T/d20260213-17932-1xw1alt --template=
     
     Cloning into '/var/folders/ft/7cxjq5ss2094sj67mbhnzjrc0000gn/T/d20260113-17932-1xwealt'...
     error: RPC failed; curl 18 transfer closed with outstanding read data remaining
@@ -63,17 +63,20 @@ fatal: unable to access 'https://github.com/FaceAISDK/FaceAISDK_Core.git/': Erro
    ```
     这表明：
     1. 仓库过大：TensorFlowLiteSwift 的源仓库（TensorFlow）比较大
-    2. 网络中断：编译环境（无论是本地还是云端）连接 GitHub 的速度不够快，或者发生了超时，导致在下载完成前连接被切断。
+    2. 网络中断：编译环境连接 GitHub 的速度不够快或者发生了超时，导致在下载完成前连接被切断。
     如果是本地 Mac 编译（推荐尝试）
-    如果你是在自己的 Mac 上运行 HBuilderX 进行打包，可以通过修改 Git 配置来解决：
-    打开终端 (Terminal)。
     增加 Git 缓存大小（这是最直接的修复方法，将缓存设为 1GB）：
     Bash
     git config --global http.postBuffer 1048576000
     git config --global https.postBuffer 1048576000
 
-    开启 VPN/代理：确保终端走了代理流量，因为 TensorFlow 的服务器在海外。
-    设置完后，重新在 HBuilderX 中点击打包。TensorFlowLiteSwift只要成功同步一次后就好了
+  ### 3.首次运行/更新版本发生闪退
+    TensorFlowLiteSwift首次运行或更新版本后发生闪退并报错
+    ```
+        X Thread 1: EXC BAD ACCESS (code=1, address=0x800008)
+    ```
+    在Xcode菜单Product执行clean all Issues后
+    再次执行pod命令升级FaceAISDK:  pod update FaceAISDK_Core
      
 
 ## 其他说明 
