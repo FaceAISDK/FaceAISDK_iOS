@@ -1,6 +1,6 @@
 import UIKit
 
-// 亮度控制单例工具
+// 亮度控制单例工具，为了兼容uniapp Flutter等插件
 public class ScreenBrightnessHelper {
     
     // 单例入口
@@ -14,9 +14,7 @@ public class ScreenBrightnessHelper {
     private var isMaximized = false
     
     private init() {}
-    
-    // MARK: - 公开 API
-    
+        
     /// 保存当前环境并调至最亮 (线程安全)
     public func maximizeBrightness() {
         runOnMain { [weak self] in

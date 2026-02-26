@@ -38,17 +38,17 @@ public struct AddFaceByCamera: View {
                         onDismiss(0)  // 传递取消状态
                         dismiss()     // 触发导航栏返回（Pop）
                     }) {
-                        Image(systemName: "chevron.left") // 系统图标 "xmark" 或 "chevron.left"
+                        Image(systemName: "chevron.left")
                             .font(.system(size: 16, weight: .semibold))
-                            .foregroundColor(.black) // 图标颜色
+                            .foregroundColor(.black)
                             .padding(10)
-                            .background(Color.gray.opacity(0.1)) // 浅灰色圆形背景
+                            .background(Color.gray.opacity(0.1))
                             .clipShape(Circle())
                     }
-                    Spacer() // 将按钮推到左边
+                    Spacer()
                 }
                 .padding(.horizontal, 2)
-                .padding(.top, 10) // 顶部留白
+                .padding(.top, 10)
                 
                 // 1. 顶部提示区域
                 Text(localizedTip(for: viewModel.sdkInterfaceTips.code))
@@ -64,7 +64,7 @@ public struct AddFaceByCamera: View {
                     // 图层 A: 相机预览 (底层)
                     FaceAICameraView(session: viewModel.captureSession, cameraSize: FaceCameraSize)
                         .aspectRatio(1.0, contentMode: .fit)
-                        .clipShape(Circle()) // 裁剪为圆形
+                        .clipShape(Circle())
                         .background(Circle().fill(Color.white)) // 相机背景
                         .overlay(Circle().stroke(Color.gray, lineWidth: 1))
                     
@@ -78,11 +78,10 @@ public struct AddFaceByCamera: View {
                             viewModel: viewModel,
                             cameraSize: FaceCameraSize,
                             onConfirm: {
-//                                print("FaceFeature: \(String(describing: viewModel.faceFeatureBySDKCamera))")
                                 // 保存人脸特征值
                                 UserDefaults.standard.set(viewModel.faceFeatureBySDKCamera, forKey: faceID)
                                 
-                                // 报错人脸图（可选操作，非SDK运行必须）
+                                // 保存人脸图（可选操作，非SDK运行必须）
                                 if FaceImageManger.saveFaceImage(faceName: faceID, faceImage: viewModel.croppedFaceImage){
                                     print("Base64: \(String(describing: FaceImageManger.faceImageToBase64(fileName:faceID)))")
                                 }
@@ -110,7 +109,7 @@ public struct AddFaceByCamera: View {
             
             // 生命周期事件
             .onAppear {
-                // 【新增】如果是自动模式（原生），则在此处调亮
+                // 如果是原生app自动模式，则在此处调亮（为了兼容uniapp Flutter等插件）
                 if autoControlBrightness {
                     ScreenBrightnessHelper.shared.maximizeBrightness()
                 }
