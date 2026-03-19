@@ -8,7 +8,7 @@
 
 ## FaceAISDK 介绍
 iPhone&iPad iOS FaceAISDK is on_device Offline Face Detection 、Recognition 、Liveness Detection Anti Spoofing SDK.  
-FaceAISDK_iOS SDK是设备端可完全离线不需联网实现人脸录入、动作活体检测、人脸识别，集成后可快速实现相关功能。  
+FaceAISDK_iOS SDK是设备端可完全离线不需联网实现人脸录入、活体检测、人脸识别，集成后可快速实现相关功能。  
 
 
 ![FaceAISDK](/Doc/SDK_WORK_FLOW.jpg)  
