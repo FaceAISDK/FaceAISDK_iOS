@@ -14,7 +14,7 @@ public struct AddFaceByUIImage: View {
     // 用于显示和处理的 Image
     @State private var selectedImage: UIImage?
     
-    @StateObject private var viewModel: addFaceByUIImageModel = addFaceByUIImageModel()
+    @StateObject private var viewModel: AddFaceByUIImageModel = AddFaceByUIImageModel()
     
     let faceID: String
     let onDismiss: (Int) -> Void
