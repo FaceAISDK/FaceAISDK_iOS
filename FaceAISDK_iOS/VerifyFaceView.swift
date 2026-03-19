@@ -27,7 +27,8 @@ struct VerifyFaceView: View {
     let motionLivenessTimeOut:Int  //时间为秒
     let motionLivenessSteps:Int    //动作活体个数
     
-    let onDismiss: (Int) -> Void 
+    //onDismiss 增加2个Float 参数返回相似度和活体分数
+    let onDismiss: (Int, Float, Float) -> Void
 
     // 多语言提示
     private func localizedTip(for code: Int) -> String {
@@ -41,7 +42,7 @@ struct VerifyFaceView: View {
             VStack {
                  HStack {
                     Button(action: {
-                        onDismiss(0) // 0 代表用户取消
+                        onDismiss(0, 0.0, 0.0) // 0 代表用户取消
                         dismiss()
                     }) {
                         Image(systemName: "chevron.left")
@@ -134,7 +135,7 @@ struct VerifyFaceView: View {
                         Button(action: {
                             withAnimation {
                                 showLightHighDialog = false
-                                onDismiss(viewModel.faceVerifyResult.code)
+                                onDismiss(viewModel.faceVerifyResult.code,viewModel.faceVerifyResult.similarity,viewModel.faceVerifyResult.liveness)
                                 dismiss()
                             }
                         }) {
@@ -175,7 +176,7 @@ struct VerifyFaceView: View {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                     showToast = false
                     // 假设 VerifyResultCode.NO_FACE_FEATURE 是 6 (参考注释)
-                    onDismiss(6)
+                    onDismiss(6,0.0,0.0)
                     dismiss()
                 }
                 return
@@ -204,14 +205,14 @@ struct VerifyFaceView: View {
                 print("检测返回 ： \(viewModel.faceVerifyResult)")
                 
                 if FaceImageManger.saveFaceImage(faceName: faceID, faceImage: viewModel.faceVerifyResult.faceImage){
-                    print("Base64: \(String(describing: FaceImageManger.faceImageToBase64(fileName:faceID)))")
+                    print("saveFaceImage success ")
                 }
 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     withAnimation {
                         showToast = false
                     }
-                    onDismiss(viewModel.faceVerifyResult.code)
+                    onDismiss(viewModel.faceVerifyResult.code,viewModel.faceVerifyResult.similarity,viewModel.faceVerifyResult.liveness)
                     dismiss()
                 }
             }

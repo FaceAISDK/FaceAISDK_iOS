@@ -11,7 +11,9 @@ var FaceCameraSize: CGFloat {
 
 public struct AddFaceByCamera: View {
     let faceID: String
-    let onDismiss: (Int) -> Void //0 用户取消， 1 添加成功
+    
+    // 修改：增加 String 参数返回特征值
+    let onDismiss: (Int, String?) -> Void //0 用户取消， 1 添加成功
     
     // 屏幕亮度控制开关，默认为 true (原生友好)
     // 如果是三方uniapp,RN,Flutter插件调用，会将其设为 false，由 Manager 在外部控制亮度
@@ -35,7 +37,7 @@ public struct AddFaceByCamera: View {
                 // 自定义顶部栏 (关闭按钮)
                 HStack {
                     Button(action: {
-                        onDismiss(0)  // 传递取消状态
+                        onDismiss(0,nil)  // 传递取消状态
                         dismiss()     // 触发导航栏返回（Pop）
                     }) {
                         Image(systemName: "chevron.left")
@@ -83,11 +85,11 @@ public struct AddFaceByCamera: View {
                                 
                                 // 保存人脸图（可选操作，非SDK运行必须）
                                 if FaceImageManger.saveFaceImage(faceName: faceID, faceImage: viewModel.croppedFaceImage){
-                                    print("Base64: \(String(describing: FaceImageManger.faceImageToBase64(fileName:faceID)))")
+                                    print("saveFaceImage success")
                                 }
                                 
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                    onDismiss(1)  // 传递取消状态
+                                    onDismiss(1,viewModel.faceFeatureBySDKCamera)  // 传递取消状态
                                     dismiss()     // 触发导航栏返回（Pop）
                                 }
                             }
