@@ -24,7 +24,8 @@ struct LivenessDetectView: View {
     let motionLivenessTimeOut:Int //时间为秒
     let motionLivenessSteps:Int  //动作活体个数
     
-    let onDismiss: (Int) -> Void
+    // 修改：增加 Float 参数返回活体分数
+    let onDismiss: (Int, Float) -> Void
     
     // 可以根据Code进行多语言提示
     private func localizedTip(for code: Int) -> String {
@@ -39,7 +40,7 @@ struct LivenessDetectView: View {
             VStack {
                 HStack {
                     Button(action: {
-                        onDismiss(0) // 0 代表用户取消
+                        onDismiss(0,0.0) // 0 代表用户取消
                         dismiss()
                     }) {
                         Image(systemName: "chevron.left")
@@ -119,7 +120,7 @@ struct LivenessDetectView: View {
                         Button(action: {
                             withAnimation {
                                 showLightHighDialog = false
-                                onDismiss(viewModel.faceVerifyResult.code)
+                                onDismiss(viewModel.faceVerifyResult.code,viewModel.faceVerifyResult.liveness)
                                 dismiss()
                             }
                         }) {
@@ -177,7 +178,7 @@ struct LivenessDetectView: View {
                     withAnimation {
                         showToast = false
                     }
-                    onDismiss(viewModel.faceVerifyResult.code)
+                    onDismiss(viewModel.faceVerifyResult.code,viewModel.faceVerifyResult.liveness)
                     dismiss()
                 }
             }

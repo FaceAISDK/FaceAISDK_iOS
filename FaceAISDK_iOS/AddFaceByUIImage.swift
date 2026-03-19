@@ -17,7 +17,8 @@ public struct AddFaceByUIImage: View {
     @StateObject private var viewModel: AddFaceByUIImageModel = AddFaceByUIImageModel()
     
     let faceID: String
-    let onDismiss: (Int) -> Void
+    let onDismiss: (Int, String?) -> Void //0 用户取消， 1 添加成功
+
     
     //引入 dismiss 环境遍历，用于手动控制页面退出
     @Environment(\.dismiss) private var dismiss
@@ -36,7 +37,7 @@ public struct AddFaceByUIImage: View {
                 // MARK: - 自定义顶部栏
                 HStack {
                     Button(action: {
-                        onDismiss(0)  // 传递取消状态
+                        onDismiss(0,nil)  // 传递取消状态
                         dismiss()     // 触发导航栏返回（Pop）
                     }) {
                         Image(systemName: "chevron.left")
@@ -126,10 +127,9 @@ public struct AddFaceByUIImage: View {
                                 if let image = selectedImage {
                                     let faceFeature = viewModel.getFaceFeature(faceUIImage: image)
                                     UserDefaults.standard.set(faceFeature, forKey: faceID)
-                                    //print("UIImage 特征值: \(faceFeature)")
                                     
                                     // let _ = viewModel.confirmSaveFace(fileName: faceID)
-                                    onDismiss(1)  // 传递取消状态
+                                    onDismiss(1,faceFeature)  // 传递取消状态
                                     dismiss()     // 触发导航栏返回（Pop）
                                 }
                             }) {

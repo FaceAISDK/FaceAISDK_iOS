@@ -8,7 +8,6 @@ import FaceAISDK_Core
 struct FaceAINaviView: View {
     //定义一个闭包属性，用来接收外部传入的关闭逻辑
     var onDismiss: (() -> Void)?
-    @State private var addFaceResult: Int?
     
     //录入保存的FaceID 值。一般是你的业务体系中个人的唯一编码，比如账号 身份证
     private let faceID = "yourFaceID";
@@ -21,8 +20,8 @@ struct FaceAINaviView: View {
                 VStack(spacing: 20) {
                     
                     //通过SDK相机录入人脸
-                    NavigationLink(destination: AddFaceByCamera(faceID: faceID, onDismiss: { result in
-                        addFaceResult = result
+                    NavigationLink(destination: AddFaceByCamera(faceID: faceID, onDismiss: { result, feature in
+                        print("🎆 AddFace   Status: \(result), Feature: \(feature ?? "")")
                     })) {
                         Text("Add Face By Camera")
                             .font(.system(size: 20).bold())
@@ -33,8 +32,8 @@ struct FaceAINaviView: View {
                     .padding(.top, 30)
                     
                     //通过相册录入人脸
-                    NavigationLink(destination: AddFaceByUIImage(faceID: faceID, onDismiss: { result in
-                        addFaceResult = result
+                    NavigationLink(destination: AddFaceByUIImage(faceID: faceID, onDismiss: { result, feature in
+                        print("🎆  AddFace  Status: \(result), Feature: \(feature ?? "")")
                     })) {
                         Text("Add Face From Album")
                             .font(.system(size: 19).bold())
@@ -48,12 +47,12 @@ struct FaceAINaviView: View {
                     NavigationLink(destination: VerifyFaceView(
                         faceID: faceID,
                         threshold: 0.85,
-                        livenessType: 1, // 1.仅仅动作 2.动作+炫彩 3.炫彩
+                        livenessType: 4, // 1.动作活体 2.动作+炫彩 3.炫彩 4.仅静默活体(前三种都会带静默)
                         motionLiveness: "1,2,3,4,5", //1. 张张嘴  2.微笑  3.眨眨眼  4.摇摇头  5.点头
                         motionLivenessTimeOut: 11, //超时时间3-22秒
                         motionLivenessSteps:2,     //动作步骤个数
-                        onDismiss: { resultCode in
-                            print("VerifyResultCode ：\(resultCode)")
+                        onDismiss: {code, similarity, liveness in
+                            print("🎆 Face Verify  Status: \(code), Similarity: \(similarity), Liveness: \(liveness)")
                         }
                     )) {
                         Text("Face Verify and Liveness Detection")
@@ -67,11 +66,11 @@ struct FaceAINaviView: View {
                     //仅动作活体检测
                     NavigationLink(destination: LivenessDetectView(
                         livenessType: 2,
-                        motionLiveness: "1,2,3,4,5", // 1.仅仅动作 2.动作+炫彩 3.炫彩
+                        motionLiveness: "1,2,3,4,5", // 1.仅仅动作 2.动作+炫彩 3.炫彩 4.仅静默活体(用户无感)
                         motionLivenessTimeOut: 5,
                         motionLivenessSteps:2,
-                        onDismiss: { resultCode in
-                            print("Motion Liveness Result \(resultCode)")
+                        onDismiss: { code,liveness in
+                            print("🎆 Liveness Result: \(code), Liveness Score: \(liveness)")                       
                         }
                     )) {
                         Text("ONLY Liveness Detection")
@@ -109,9 +108,9 @@ struct FaceAINaviView: View {
                 .padding(.horizontal) // 添加一点水平间距防止贴边
             }
             .navigationTitle("🧭 FaceAISDK")
-            .navigationBarTitleDisplayMode(.inline) // 可选：iOS 15 风格
+            .navigationBarTitleDisplayMode(.inline)
         }
-        .navigationViewStyle(.stack) // 3. 强制使用堆栈导航风格
+        .navigationViewStyle(.stack)
         .ignoresSafeArea()
     }
 }
