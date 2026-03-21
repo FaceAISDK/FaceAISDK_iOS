@@ -94,10 +94,10 @@ struct VerifyFaceView: View {
                 let similarity = String(format: "%.2f", viewModel.faceVerifyResult.similarity)
                 // 优先使用手动设置的 toastViewTips (用于处理无特征值的情况)，否则使用 SDK 返回的 tips
                 let displayTips = toastViewTips.isEmpty ? viewModel.faceVerifyResult.tips : toastViewTips
-                let displayMessage = (toastViewTips.isEmpty) ? "\(displayTips) \(similarity)" : displayTips
+                let displayMessage = (toastViewTips.isEmpty) ? "\(displayTips)" : displayTips
                 
                 // 计算样式：如果是无特征值错误，或者相似度低，则为 failure
-                let isSuccess = viewModel.faceVerifyResult.similarity > threshold && toastViewTips.isEmpty
+                let isSuccess = viewModel.faceVerifyResult.similarity > threshold && viewModel.faceVerifyResult.liveness>0.8
                 let toastStyle: ToastStyle = isSuccess ? .success : .failure
                 
                 VStack {
