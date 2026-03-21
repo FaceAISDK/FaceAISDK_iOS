@@ -85,11 +85,15 @@ struct LivenessDetectView: View {
             .navigationBarHidden(true)  
 
              if showToast {
+                
+                 let isSuccess = viewModel.faceVerifyResult.liveness > 0.8
+                 let toastStyle: ToastStyle = isSuccess ? .success : .failure
+                 
                 VStack {
                     Spacer() // 将 Toast 推到底部
                     CustomToastView(
                         message: "\(viewModel.faceVerifyResult.tips)",
-                        style: .success
+                        style: toastStyle
                     )
                      .padding(.bottom, 77)
                 }
@@ -168,10 +172,9 @@ struct LivenessDetectView: View {
                 }
             }else{
                 showToast = true
-                print("动作活体检测返回 ： \(viewModel.faceVerifyResult)")
                 
                 if FaceImageManger.saveFaceImage(faceName: "Liveness", faceImage: viewModel.faceVerifyResult.faceImage){
-                    print("Base64: \(String(describing: FaceImageManger.faceImageToBase64(fileName:"Liveness")))")
+                    //print("Base64: \(String(describing: FaceImageManger.faceImageToBase64(fileName:"Liveness")))")
                 }
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {

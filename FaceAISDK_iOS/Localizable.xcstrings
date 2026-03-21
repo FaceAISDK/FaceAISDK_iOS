@@ -609,6 +609,23 @@
         }
       }
     },
+    "Face_Tips_Code_60" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Silent Liveness Failed"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "静默活体检测失败"
+          }
+        }
+      }
+    },
     "Face_Tips_Code_61" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -758,6 +775,7 @@
       }
     },
     "Select Image" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -784,7 +802,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "人脸相似度对比"
+            "value" : "静态人脸相似度对比"
           }
         }
       }
