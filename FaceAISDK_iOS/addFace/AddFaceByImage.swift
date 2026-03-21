@@ -4,7 +4,7 @@ import FaceAISDK_Core
 
 
 //从相册添加人脸
-public struct AddFaceByUIImage: View {
+public struct AddFaceByImage: View {
 
     // 状态管理
     @State private var showImagePicker = false // 控制相册弹窗
@@ -14,7 +14,7 @@ public struct AddFaceByUIImage: View {
     // 用于显示和处理的 Image
     @State private var selectedImage: UIImage?
     
-    @StateObject private var viewModel: AddFaceByUIImageModel = AddFaceByUIImageModel()
+    @StateObject private var viewModel: AddFaceByImageModel = AddFaceByImageModel()
     
     let faceID: String
     let onDismiss: (Int, String?) -> Void //0 用户取消， 1 添加成功
@@ -165,57 +165,6 @@ public struct AddFaceByUIImage: View {
                     canSave = false
                     // 触发 SDK 检测逻辑
                     viewModel.addFaceByUIImage(faceUIImage: uiImage)
-                }
-            }
-        }
-    }
-}
-
-
-struct ImagePicker: UIViewControllerRepresentable {
-    @Binding var selectedImage: UIImage?
-    @Environment(\.dismiss) private var dismiss
-    
-    // 回调：当用户选择照片后触发
-    var onImagePicked: ((UIImage) -> Void)?
-
-    func makeUIViewController(context: Context) -> PHPickerViewController {
-        var config = PHPickerConfiguration()
-        config.filter = .images // 只显示图片
-        config.selectionLimit = 1 // 只能选一张
-        
-        let picker = PHPickerViewController(configuration: config)
-        picker.delegate = context.coordinator
-        return picker
-    }
-
-    func updateUIViewController(_ uiViewController: PHPickerViewController, context: Context) {}
-
-    func makeCoordinator() -> Coordinator {
-        Coordinator(self)
-    }
-
-    class Coordinator: NSObject, PHPickerViewControllerDelegate {
-        let parent: ImagePicker
-
-        init(_ parent: ImagePicker) {
-            self.parent = parent
-        }
-
-        func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-            parent.dismiss()
-
-            guard let provider = results.first?.itemProvider,
-                  provider.canLoadObject(ofClass: UIImage.self) else {
-                return
-            }
-
-            provider.loadObject(ofClass: UIImage.self) { image, error in
-                if let uiImage = image as? UIImage {
-                    DispatchQueue.main.async {
-                        self.parent.selectedImage = uiImage
-                        self.parent.onImagePicked?(uiImage)
-                    }
                 }
             }
         }
