@@ -26,13 +26,13 @@ struct FaceAINaviView: View {
                         Text("Add Face By Camera")
                             .font(.system(size: 20).bold())
                             .foregroundColor(Color.white)
-                            .frame(maxWidth: .infinity)  
+                            .frame(maxWidth: .infinity)
                     }
                     .controlSize(.large) // iOS 15+ 支持
                     .padding(.top, 30)
                     
                     //通过相册录入人脸
-                    NavigationLink(destination: AddFaceByUIImage(faceID: faceID, onDismiss: { result, feature in
+                    NavigationLink(destination: AddFaceByImage(faceID: faceID, onDismiss: { result, feature in
                         print("🎆  AddFace  Status: \(result), Feature: \(feature ?? "")")
                     })) {
                         Text("Add Face From Album")
@@ -43,11 +43,11 @@ struct FaceAINaviView: View {
                     .controlSize(.large)
                     .padding(.top, 15)
                     
-                    //人脸识别+活体检测
+                    //人脸识别+活体检测(活体分数大于0.8以上才认为通过)
                     NavigationLink(destination: VerifyFaceView(
                         faceID: faceID,
                         threshold: 0.85,
-                        livenessType: 4, // 1.动作活体 2.动作+炫彩 3.炫彩 4.仅静默活体(前三种都会带静默)
+                        livenessType: 1, // 1.动作活体 2.动作+炫彩 3.炫彩 4.仅静默活体(前三种都会带静默)
                         motionLiveness: "1,2,3,4,5", //1. 张张嘴  2.微笑  3.眨眨眼  4.摇摇头  5.点头
                         motionLivenessTimeOut: 11, //超时时间3-22秒
                         motionLivenessSteps:2,     //动作步骤个数
@@ -63,14 +63,15 @@ struct FaceAINaviView: View {
                     }
                     .padding(.top, 22)
                     
-                    //仅动作活体检测
+                    //仅活体检测。1.动作活体 2.动作+炫彩 3.炫彩 4.仅静默活体(前三种都会带静默)
+                    //活体分数建议大于0.8才认为是真人活体
                     NavigationLink(destination: LivenessDetectView(
                         livenessType: 2,
                         motionLiveness: "1,2,3,4,5", // 1.仅仅动作 2.动作+炫彩 3.炫彩 4.仅静默活体(用户无感)
                         motionLivenessTimeOut: 5,
                         motionLivenessSteps:2,
                         onDismiss: { code,liveness in
-                            print("🎆 Liveness Result: \(code), Liveness Score: \(liveness)")                       
+                            print("🎆 Liveness Result: \(code), Liveness Score: \(liveness)")
                         }
                     )) {
                         Text("ONLY Liveness Detection")
@@ -90,7 +91,18 @@ struct FaceAINaviView: View {
                     }
                     .font(.system(size: 18).bold())
                     .foregroundColor(Color.white)
-                    .padding(.top, 33)
+                    .padding(.top, 22)
+                    
+                    
+                    // 静态人脸1:1对比 (已去除了多余的 onDismiss)
+                    NavigationLink(destination: VerifyTwoFaceSimiView()) {
+                        Text("Verify Two Face Similarity")
+                            .font(.system(size: 19).bold())
+                            .foregroundColor(Color.white)
+                            .frame(maxWidth: .infinity)
+                    }
+                    .padding(.top, 20)
+
 
                     Spacer()
                     
@@ -114,4 +126,3 @@ struct FaceAINaviView: View {
         .ignoresSafeArea()
     }
 }
-

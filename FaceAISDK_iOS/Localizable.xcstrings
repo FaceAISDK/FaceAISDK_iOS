@@ -315,7 +315,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "人脸采集确认中"
+            "value" : "人脸采集确认"
           }
         }
       }
@@ -704,7 +704,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "炫彩|动作 活体检测"
+            "value" : "仅仅活体检测"
           }
         }
       }
@@ -769,6 +769,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "选择图片"
+          }
+        }
+      }
+    },
+    "Verify Two Face Similarity" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verify Two Face Similarity"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "人脸相似度对比"
           }
         }
       }
