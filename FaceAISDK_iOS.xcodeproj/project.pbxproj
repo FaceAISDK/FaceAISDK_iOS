@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1667D0B6BFEFBF97187F7F33 /* Pods_FaceAISDK_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 212710F026668A4C0ACC0E40 /* Pods_FaceAISDK_iOS.framework */; };
 		7C600D4F2EDEB8A3005EEEDD /* CustomToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C600D4E2EDEB8A3005EEEDD /* CustomToastView.swift */; };
 		7C784BBA2F1635AC0086B329 /* ScreenBrightnessHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C784BB92F1635AB0086B329 /* ScreenBrightnessHelper.swift */; };
 		7CC0A3532F04EFB700857F23 /* FaceAISDK_demoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC0A3522F04EFB700857F23 /* FaceAISDK_demoApp.swift */; };
@@ -23,8 +22,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		04E5CBA7ACAF19ECC6C1EF0A /* Pods-FaceAISDK_iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FaceAISDK_iOS.release.xcconfig"; path = "Target Support Files/Pods-FaceAISDK_iOS/Pods-FaceAISDK_iOS.release.xcconfig"; sourceTree = "<group>"; };
-		212710F026668A4C0ACC0E40 /* Pods_FaceAISDK_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FaceAISDK_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C600D4E2EDEB8A3005EEEDD /* CustomToastView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomToastView.swift; sourceTree = "<group>"; };
 		7C784BB92F1635AB0086B329 /* ScreenBrightnessHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenBrightnessHelper.swift; sourceTree = "<group>"; };
 		7CC0A3522F04EFB700857F23 /* FaceAISDK_demoApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceAISDK_demoApp.swift; sourceTree = "<group>"; };
@@ -34,7 +31,6 @@
 		7CD054CD2EDE7E6300EA3E37 /* LivenessDetectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LivenessDetectView.swift; sourceTree = "<group>"; };
 		7CFB912B2EDE7D5F00F01A21 /* FaceAISDK_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FaceAISDK_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CFB91322EDE7D6200F01A21 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		ADE2C6356A502A99FE147A05 /* Pods-FaceAISDK_iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FaceAISDK_iOS.debug.xcconfig"; path = "Target Support Files/Pods-FaceAISDK_iOS/Pods-FaceAISDK_iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		CFB0BACF2F6E22BA00EF438F /* AddFaceByCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFaceByCamera.swift; sourceTree = "<group>"; };
 		CFB0BAD02F6E22BA00EF438F /* AddFaceByImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFaceByImage.swift; sourceTree = "<group>"; };
 		CFB0BAD12F6E22BA00EF438F /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
@@ -46,7 +42,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1667D0B6BFEFBF97187F7F33 /* Pods_FaceAISDK_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,7 +54,6 @@
 				7CFB912D2EDE7D5F00F01A21 /* FaceAISDK_iOS */,
 				7CFB912C2EDE7D5F00F01A21 /* Products */,
 				CA9698F986369A4029CA9251 /* Pods */,
-				8BE732F04CD32D75E7135397 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -87,19 +81,9 @@
 			path = FaceAISDK_iOS;
 			sourceTree = "<group>";
 		};
-		8BE732F04CD32D75E7135397 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				212710F026668A4C0ACC0E40 /* Pods_FaceAISDK_iOS.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		CA9698F986369A4029CA9251 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				ADE2C6356A502A99FE147A05 /* Pods-FaceAISDK_iOS.debug.xcconfig */,
-				04E5CBA7ACAF19ECC6C1EF0A /* Pods-FaceAISDK_iOS.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -122,12 +106,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7CFB91392EDE7D6200F01A21 /* Build configuration list for PBXNativeTarget "FaceAISDK_iOS" */;
 			buildPhases = (
-				AE044F415F5560BCA3B46881 /* [CP] Check Pods Manifest.lock */,
 				7CFB91272EDE7D5F00F01A21 /* Sources */,
 				7CFB91282EDE7D5F00F01A21 /* Frameworks */,
 				7CFB91292EDE7D5F00F01A21 /* Resources */,
-				2C49E8B9F0024B7BE2EF402A /* [CP] Embed Pods Frameworks */,
-				E25DED66846D6A0611BCB4C7 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -182,65 +163,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		2C49E8B9F0024B7BE2EF402A /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FaceAISDK_iOS/Pods-FaceAISDK_iOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FaceAISDK_iOS/Pods-FaceAISDK_iOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FaceAISDK_iOS/Pods-FaceAISDK_iOS-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		AE044F415F5560BCA3B46881 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-FaceAISDK_iOS-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E25DED66846D6A0611BCB4C7 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FaceAISDK_iOS/Pods-FaceAISDK_iOS-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FaceAISDK_iOS/Pods-FaceAISDK_iOS-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FaceAISDK_iOS/Pods-FaceAISDK_iOS-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7CFB91272EDE7D5F00F01A21 /* Sources */ = {
@@ -384,7 +306,6 @@
 		};
 		7CFB913A2EDE7D6200F01A21 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = ADE2C6356A502A99FE147A05 /* Pods-FaceAISDK_iOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -421,7 +342,6 @@
 		};
 		7CFB913B2EDE7D6200F01A21 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 04E5CBA7ACAF19ECC6C1EF0A /* Pods-FaceAISDK_iOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
