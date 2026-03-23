@@ -2,7 +2,8 @@ import SwiftUI
 import FaceAISDK_Core
 
 /**
- * 1:1 人脸识别+活体检测
+ * 1:1 人脸识别+活体检测，默认阈值改为0.83
+ *
  */
 struct VerifyFaceView: View {
     // 确保ViewModel的生命周期与视图一致

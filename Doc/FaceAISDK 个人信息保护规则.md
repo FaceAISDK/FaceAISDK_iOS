@@ -35,4 +35,4 @@ SDK接入方应遵守当地法律、法规收集、使用和处理终端用户�
 
 ## 如何联系我们
 
-在集成SDK 前如有疑问，请联系 FaceAISDK.Service@gmail.com
+更多请联系 FaceAISDK.Service@gmail.com

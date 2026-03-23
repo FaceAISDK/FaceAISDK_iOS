@@ -51,7 +51,6 @@ SDK默认的开发环境为Xcode 15.2,Swift 5.9；UI全部使用SwiftUI实现，
   Installing FaceAISDK_Core 2026.01.22 
 
   [!] Error installing FaceAISDK_Core
-  [!] /usr/bin/git clone https://github.com/FaceAISDK/FaceAISDK_Core.git /var/folders/gh/p4wv4ytj4tn5xrhgq0n_jnbm0000gn/T/d20251020-8626-c57agm --template= --single-branch --depth 1 --branch 2026.03.18
 
   Cloning into '/var/folders/gh/p4wv4ytj4tn5xrhgq0n_jnbm0000gn/T/d20251020-8626-c57agm'...
   fatal: unable to access 'https://github.com/FaceAISDK/FaceAISDK_Core.git/': Error in the HTTP2 framing layer
@@ -60,7 +59,6 @@ SDK默认的开发环境为Xcode 15.2,Swift 5.9；UI全部使用SwiftUI实现，
 ### 3. 下载依赖TensorFlowLiteSwift出错了
    ```
     [!] Error installing TensorFlowLiteSwift
-    [!] /usr/bin/git clone https://github.com/tensorflow/tensorflow.git /var/folders/ft/7cxjq5ss2094sj67mbhnzn/T/d20260213-17932-1xw1alt --template=
     
     Cloning into '/var/folders/ft/7cxjq5ss2094sj67mbhnzjrc0000gn/T/d20260113-17932-1xwealt'...
     error: RPC failed; curl 18 transfer closed with outstanding read data remaining
@@ -71,7 +69,6 @@ SDK默认的开发环境为Xcode 15.2,Swift 5.9；UI全部使用SwiftUI实现，
     这表明：
     1. 仓库过大：TensorFlowLiteSwift 的源仓库（TensorFlow）比较大
     2. 网络中断：编译环境连接 GitHub 的速度不够快或者发生了超时，导致在下载完成前连接被切断。
-    如果是本地 Mac 编译 
     增加 Git 缓存大小）：
     Bash
     git config --global http.postBuffer 1048576000
