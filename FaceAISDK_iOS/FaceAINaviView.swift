@@ -46,7 +46,7 @@ struct FaceAINaviView: View {
                     //人脸识别+活体检测(活体分数大于0.8以上才认为通过)
                     NavigationLink(destination: VerifyFaceView(
                         faceID: faceID,
-                        threshold: 0.85,
+                        threshold: 0.84, //范围【0.8，0.95】
                         livenessType: 1, // 1.动作活体 2.动作+炫彩 3.炫彩 4.仅静默活体(前三种都会带静默)
                         motionLiveness: "1,2,3,4,5", //1. 张张嘴  2.微笑  3.眨眨眼  4.摇摇头  5.点头
                         motionLivenessTimeOut: 11, //超时时间3-22秒

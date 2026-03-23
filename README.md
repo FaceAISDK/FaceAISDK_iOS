@@ -14,7 +14,8 @@ FaceAISDK_iOS SDK是设备端可完全离线不需联网实现人脸录入、活
 ![FaceAISDK](/Doc/SDK_WORK_FLOW.jpg)  
 
 
-## 更新说明 V2026.03.17.beta1
+## 更新说明 V2026.03.18
+- 默认识别通过阈值调整为0.83
 - 支持静默活体检测
 - 解决SDK内部问题
 - 优化人脸检测和识别精度
@@ -28,28 +29,35 @@ SDK默认的开发环境为Xcode 15.2,Swift 5.9；UI全部使用SwiftUI实现，
 **集成运行本SDK示范工程，你的电脑需要能科学上网翻墙同步依赖，因为部分资源托管在GitHub，否则无法编译成功**  
 首次跑起来本工程还是有点挑战的，但一定难不倒厉害的你。
 
-### 1. 确认电脑能科学上网翻墙后，使用Pod命令安装FaceAISDK和相关依赖库
-一般pod install 命令能完整的下载同步安装好所有依赖，也可以pod update FaceAISDK_Core仅更新人脸识别SDK
-**首次**安装基础依赖TensorFlowLiteSwift**耗时30分钟左右**（和网络环境和设备有关），建议此时去喝杯水活动一下颈椎😭
+### 1.首次运行/更新版本发生闪退异常
+  TensorFlowLiteSwift首次运行或更新版本后发生闪退并报错
+  ```
+    X Thread 1: EXC BAD ACCESS (code=1, address=0x800008)
+  ```
+  在Xcode菜单Product执行clean all Issues后
+  再次执行pod命令升级FaceAISDK:  **pod update FaceAISDK_Core**
 
-你也可以在浏览器中看看当前网络环境下载TensorFlowLiteSwift情况：  
-https://github.com/tensorflow/tensorflow/archive/refs/heads/master.zip
+### 2. 确认电脑能科学上网翻墙后，使用Pod命令安装FaceAISDK和相关依赖库
+  一般pod install 命令能完整的下载同步安装好所有依赖，也可以pod update FaceAISDK_Core仅更新人脸识别SDK
+ **首次**安装基础依赖TensorFlowLiteSwift**耗时30分钟左右**（和网络环境和设备有关），建议此时去喝杯水活动一下颈椎😭
 
-```
-「没有翻墙的错误提示」
-Updating local specs repositories
-Downloading dependencies
-Installing FaceAISDK_Core 2026.01.22 
+ 你也可以在浏览器中看看当前网络环境下载TensorFlowLiteSwift情况：  
+ https://github.com/tensorflow/tensorflow/archive/refs/heads/master.zip
 
-[!] Error installing FaceAISDK_Core
-[!] /usr/bin/git clone https://github.com/FaceAISDK/FaceAISDK_Core.git /var/folders/gh/p4wv4ytj4tn5xrhgq0n_jnbm0000gn/T/d20251020-8626-c57agm --template= --single-branch --depth 1 --branch 2025.10.17
+ ```
+ 「没有翻墙的错误提示」
+  Updating local specs repositories
+  Downloading dependencies
+  Installing FaceAISDK_Core 2026.01.22 
 
-Cloning into '/var/folders/gh/p4wv4ytj4tn5xrhgq0n_jnbm0000gn/T/d20251020-8626-c57agm'...
-fatal: unable to access 'https://github.com/FaceAISDK/FaceAISDK_Core.git/': Error in the HTTP2 framing layer
-```
- **经过漫长的等待，编译完成后 就可以在体验效果了**
+  [!] Error installing FaceAISDK_Core
+  [!] /usr/bin/git clone https://github.com/FaceAISDK/FaceAISDK_Core.git /var/folders/gh/p4wv4ytj4tn5xrhgq0n_jnbm0000gn/T/d20251020-8626-c57agm --template= --single-branch --depth 1 --branch 2026.03.18
+
+  Cloning into '/var/folders/gh/p4wv4ytj4tn5xrhgq0n_jnbm0000gn/T/d20251020-8626-c57agm'...
+  fatal: unable to access 'https://github.com/FaceAISDK/FaceAISDK_Core.git/': Error in the HTTP2 framing layer
+ ```
  
- ### 2. 下载依赖TensorFlowLiteSwift出错了
+### 3. 下载依赖TensorFlowLiteSwift出错了
    ```
     [!] Error installing TensorFlowLiteSwift
     [!] /usr/bin/git clone https://github.com/tensorflow/tensorflow.git /var/folders/ft/7cxjq5ss2094sj67mbhnzn/T/d20260213-17932-1xw1alt --template=
@@ -63,20 +71,11 @@ fatal: unable to access 'https://github.com/FaceAISDK/FaceAISDK_Core.git/': Erro
     这表明：
     1. 仓库过大：TensorFlowLiteSwift 的源仓库（TensorFlow）比较大
     2. 网络中断：编译环境连接 GitHub 的速度不够快或者发生了超时，导致在下载完成前连接被切断。
-    如果是本地 Mac 编译（推荐尝试）
-    增加 Git 缓存大小（这是最直接的修复方法，将缓存设为 1GB）：
+    如果是本地 Mac 编译 
+    增加 Git 缓存大小）：
     Bash
     git config --global http.postBuffer 1048576000
     git config --global https.postBuffer 1048576000
-
-  ### 3.首次运行/更新版本发生闪退
-    TensorFlowLiteSwift首次运行或更新版本后发生闪退并报错
-    ```
-        X Thread 1: EXC BAD ACCESS (code=1, address=0x800008)
-    ```
-    在Xcode菜单Product执行clean all Issues后
-    再次执行pod命令升级FaceAISDK:  pod update FaceAISDK_Core
-     
 
 ## 其他说明 
   
