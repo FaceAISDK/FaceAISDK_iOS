@@ -66,7 +66,7 @@ struct FaceAINaviView: View {
                     //仅活体检测。1.动作活体 2.动作+炫彩 3.炫彩 4.仅静默活体(前三种都会带静默)
                     //活体分数建议大于0.8才认为是真人活体
                     NavigationLink(destination: LivenessDetectView(
-                        livenessType: 1,
+                        livenessType: 2,
                         motionLiveness: "1,2,3,4,5", // 1.仅仅动作 2.动作+炫彩 3.炫彩 4.仅静默活体(用户无感)
                         motionLivenessTimeOut: 5,
                         motionLivenessSteps:2,
