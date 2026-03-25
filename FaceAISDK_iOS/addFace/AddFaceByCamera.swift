@@ -6,7 +6,7 @@ import FaceAISDK_Core
 @MainActor
 var FaceCameraSize: CGFloat {
     // 保持相机区域为屏幕宽度或高度的 70%，确保是正方形
-    7 * min(UIScreen.main.bounds.width, UIScreen.main.bounds.height) / 10
+    15 * min(UIScreen.main.bounds.width, UIScreen.main.bounds.height) / 20
 }
 
 public struct AddFaceByCamera: View {
@@ -140,17 +140,17 @@ struct ConfirmAddFaceDialog: View {
     let onConfirm: () -> Void
     
     var body: some View {
-        VStack(alignment: .center, spacing: 16) {
+        VStack(alignment: .center, spacing: 15) {
             
             Text("Confirm Add Face")
-                .font(.system(size: 18, weight: .semibold))
+                .font(.system(size: 19, weight: .semibold))
                 .foregroundColor(Color.faceMain)
                 .padding(.top, 16)
 
             Image(uiImage: viewModel.croppedFaceImage)
                 .resizable()
                 .scaledToFill()
-                .frame(width: 120, height: 120)
+                .frame(width: 130, height: 130)
                 .clipShape(RoundedRectangle(cornerRadius: 12))
                 .overlay(
                     RoundedRectangle(cornerRadius: 12)
@@ -159,7 +159,7 @@ struct ConfirmAddFaceDialog: View {
                 .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
 
             Text("Ensure face is clear")
-                .font(.system(size: 14))
+                .font(.system(size: 15))
                 .foregroundColor(.gray)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
@@ -191,7 +191,8 @@ struct ConfirmAddFaceDialog: View {
                 }
             }
             .padding(.horizontal, 16)
-            .padding(.bottom, 16)
+            .padding(.bottom, 18)
+            .padding(.top, 5)
         }
         .frame(width: cameraSize * 1.11)
         .background(Color.white)
