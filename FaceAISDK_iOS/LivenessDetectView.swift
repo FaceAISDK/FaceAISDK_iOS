@@ -92,7 +92,7 @@ struct LivenessDetectView: View {
                 VStack {
                     Spacer() // 将 Toast 推到底部
                     CustomToastView(
-                        message: "\(viewModel.faceVerifyResult.tips)",
+                        message: "\(viewModel.faceVerifyResult.tips) \(viewModel.faceVerifyResult.liveness)",
                         style: toastStyle
                     )
                      .padding(.bottom, 77)
