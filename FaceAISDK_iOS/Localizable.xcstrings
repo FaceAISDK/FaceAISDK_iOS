@@ -116,9 +116,6 @@
         }
       }
     },
-    "Face_Tips_Code_(code)" : {
-
-    },
     "Face_Tips_Code_0" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -608,6 +605,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "炫彩活体检测失败,光线亮度过高;如图遮挡高亮光源或室内光线柔和环境使用"
+          }
+        }
+      }
+    },
+    "Face_Tips_Code_58" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Light too strong. Move away from direct or back lighting"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "光线过强,避免阳光直射或背对光源"
           }
         }
       }

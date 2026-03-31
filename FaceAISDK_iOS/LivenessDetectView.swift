@@ -3,7 +3,7 @@ import AVFoundation
 import FaceAISDK_Core
 
 /**
- * 动作活体检测，（iOS 目前仅支持动作活体，炫彩活体，静默活体下一版本添加）
+ * 活体检测，（iOS 已经支持动作活体，炫彩活体，静默活体也已经20260327稳定）
  * UI 样式仅供参考，根据你的业务可自行调整
  */
 struct LivenessDetectView: View {
@@ -55,17 +55,25 @@ struct LivenessDetectView: View {
                 .padding(.horizontal, 10)
                 .padding(.top, 10)
                 
+//                Text("亮度： \(viewModel.brightnessValue)")
+//                    .font(.system(size: 12).bold())
+//                    .padding(.bottom, 8)
+//                    .frame(minHeight: 30)
+//                    .foregroundColor(.black)
+                
                 // 原有内容
                 Text(localizedTip(for: viewModel.sdkInterfaceTips.code))
                     .font(.system(size: 20).bold())
                     .padding(.horizontal, 20)
                     .padding(.vertical, 9)
                     .foregroundColor(.white)
-                    .background(Color.faceMain)  
+                    .multilineTextAlignment(.center) // 设置多行居中对齐
+                    .background(Color.faceMain)
                     .cornerRadius(20)
                 
                 Text(localizedTip(for: viewModel.sdkInterfaceTipsExtra.code))
-                    .font(.system(size: 19).bold())
+                    .font(.system(size: 20).bold())
+                    .multilineTextAlignment(.center) // 设置多行居中对齐
                     .padding(.bottom, 8)
                     .frame(minHeight: 30)
                     .foregroundColor(.black)
@@ -92,7 +100,7 @@ struct LivenessDetectView: View {
                 VStack {
                     Spacer() // 将 Toast 推到底部
                     CustomToastView(
-                        message: "\(viewModel.faceVerifyResult.tips) \(viewModel.faceVerifyResult.liveness)",
+                        message: "\(viewModel.faceVerifyResult.tips)",
                         style: toastStyle
                     )
                      .padding(.bottom, 77)

@@ -66,7 +66,7 @@ struct VerifyFaceView: View {
                     .cornerRadius(20)
                 
                 Text(localizedTip(for: viewModel.sdkInterfaceTipsExtra.code))
-                    .font(.system(size: 19).bold())
+                    .font(.system(size: 20).bold())
                     .padding(.bottom, 6)
                     .frame(minHeight: 30)
                     .foregroundColor(.black)
@@ -202,7 +202,6 @@ struct VerifyFaceView: View {
                 }
             }else{
                 showToast = true
-//                print("检测返回 ： \(viewModel.faceVerifyResult)")
                 
                 if FaceImageManger.saveFaceImage(faceName: faceID, faceImage: viewModel.faceVerifyResult.faceImage){
                     print("saveFaceImage success ")

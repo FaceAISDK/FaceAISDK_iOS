@@ -14,10 +14,8 @@ FaceAISDK_iOS SDK是设备端可完全离线不需联网实现人脸录入、活
 ![FaceAISDK](/Doc/SDK_WORK_FLOW.jpg)  
 
 
-## 更新说明 V2026.03.25
-- 静默活体检测Beta4,不同光线环境优化
-- 默认识别通过阈值调整为0.83
-- 解决SDK内部问题
+## 更新说明 V2026.03.27
+- 静默活体检测稳定版本
 - 优化人脸检测和识别精度
 
 [更多历史版本介绍见](/Doc/历史版本SDK更新记录.md)  
@@ -71,8 +69,8 @@ SDK默认的开发环境为Xcode 15.2,Swift 5.9；UI全部使用SwiftUI实现，
     2. 网络中断：编译环境连接 GitHub 的速度不够快或者发生了超时，导致在下载完成前连接被切断。
     增加 Git 缓存大小）：
     Bash
-    git config --global http.postBuffer 1048576000
-    git config --global https.postBuffer 1048576000
+    git config --global http.postBuffer 548576000
+    git config --global https.postBuffer 548576000
 
 ## 其他说明 
   
