@@ -20,7 +20,10 @@ struct FaceAINaviView: View {
                 VStack(spacing: 20) {
                     
                     //通过SDK相机录入人脸
-                    NavigationLink(destination: AddFaceByCamera(faceID: faceID, onDismiss: { result, feature in
+                    NavigationLink(destination: AddFaceByCamera(faceID: faceID, 
+                                                                addFacePerformanceMode: 1,
+                                                                needShowConfirmDialog: true,
+                                                                onDismiss: { result, feature in
                         print("🎆 AddFace   Status: \(result), Feature: \(feature ?? "")")
                     })) {
                         Text("Add Face By Camera")
@@ -52,7 +55,7 @@ struct FaceAINaviView: View {
                         motionLivenessTimeOut: 11, //超时时间3-22秒
                         motionLivenessSteps:2,     //动作步骤个数
                         onDismiss: {code, similarity, liveness in
-                            print("🎆 Face Verify  Status: \(code), Similarity: \(similarity), Liveness: \(liveness)")
+                            print("🎆 Face Verify  Status: \(code), Similarity: \(similarity)")
                         }
                     )) {
                         Text("Face Verify and Liveness Detection")

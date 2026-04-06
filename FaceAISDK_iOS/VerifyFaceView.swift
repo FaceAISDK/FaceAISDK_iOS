@@ -97,7 +97,7 @@ struct VerifyFaceView: View {
                 let displayMessage = (toastViewTips.isEmpty) ? "\(displayTips)" : displayTips
                 
                 // 计算样式：如果是无特征值错误，或者相似度低，则为 failure
-                let isSuccess = viewModel.faceVerifyResult.similarity > threshold && viewModel.faceVerifyResult.liveness>0.8
+                let isSuccess = viewModel.faceVerifyResult.similarity > threshold && viewModel.faceVerifyResult.liveness>0.7
                 let toastStyle: ToastStyle = isSuccess ? .success : .failure
                 
                 VStack {
