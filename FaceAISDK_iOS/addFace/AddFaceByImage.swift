@@ -126,6 +126,7 @@ public struct AddFaceByImage: View {
                             if let image = selectedImage {
                                 let faceFeature = viewModel.getFaceFeature(faceUIImage: image)
                                 UserDefaults.standard.set(faceFeature, forKey: faceID)
+                                UserDefaults.standard.synchronize()
                                 onDismiss(1, faceFeature)
                                 dismiss()
                             }
