@@ -13,7 +13,6 @@ public struct AddFaceByCamera: View {
     let faceID: String
     let addFacePerformanceMode: Int
     let needShowConfirmDialog: Bool
-
     
     // 修改：增加 String 参数返回特征值
     let onDismiss: (Int, String) -> Void //0 用户取消， 1 添加成功
@@ -85,6 +84,7 @@ public struct AddFaceByCamera: View {
                             onConfirm: {
                                 // 保存人脸特征值
                                 UserDefaults.standard.set(viewModel.faceFeatureBySDKCamera, forKey: faceID)
+                                UserDefaults.standard.synchronize()
                                 // 保存人脸图（可选操作，非SDK运行必须）
                                 if FaceImageManger.saveFaceImage(faceName: faceID, faceImage: viewModel.croppedFaceImage){
                                     print("saveFaceImage success")

@@ -116,6 +116,23 @@
         }
       }
     },
+    "Face_Tips_Code_-1" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FaceSDK Version Too Old"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FaceSDK Version Too Old"
+          }
+        }
+      }
+    },
     "Face_Tips_Code_0" : {
       "extractionState" : "manual",
       "localizations" : {

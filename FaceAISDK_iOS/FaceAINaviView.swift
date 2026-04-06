@@ -55,7 +55,7 @@ struct FaceAINaviView: View {
                         motionLivenessTimeOut: 11, //超时时间3-22秒
                         motionLivenessSteps:2,     //动作步骤个数
                         onDismiss: {code, similarity, liveness in
-                            print("🎆 Face Verify  Status: \(code), Similarity: \(similarity)")
+                            print("🎆 Face Verify  Status: \(code), Similarity: \(similarity), Liveness: \(liveness)")
                         }
                     )) {
                         Text("Face Verify and Liveness Detection")

@@ -170,7 +170,7 @@ struct VerifyFaceView: View {
             
             // 校验本地是否有特征值
             guard let faceFeature = UserDefaults.standard.string(forKey: faceID) else {
-                toastViewTips = "No Face Feature for key: \(faceID)"
+                toastViewTips = "No Face Feature for : \(faceID)"
                 showToast = true
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
@@ -181,6 +181,21 @@ struct VerifyFaceView: View {
                 }
                 return
             }
+             
+             
+             guard faceFeature.count >= 1024 else {
+                 toastViewTips = "Invalid Feature length for : \(faceID)"
+                 showToast = true
+                 
+                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                     showToast = false
+                     onDismiss(6, 0.0, 0.0)
+                     dismiss()
+                 }
+                 return
+             }
+             
+             
             
             viewModel.initFaceAISDK(
                 faceIDFeature: faceFeature,
