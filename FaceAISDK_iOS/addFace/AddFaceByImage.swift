@@ -63,16 +63,14 @@ public struct AddFaceByImage: View {
                 ScrollView {
                     VStack(spacing: 25) {
                         
-                        // 1. 状态提示 (默认隐藏)
-                        if viewModel.sdkInterfaceTips.code != 0 {
-                            Text(localizedTip(for: viewModel.sdkInterfaceTips.code))
+                        Text(viewModel.message)
                                 .font(.system(size: 17).bold())
                                 .padding(.vertical, 12)
                                 .padding(.horizontal, 24)
                                 .foregroundColor(Color.faceMain)
                                 .cornerRadius(20)
                                 .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
-                        }
+                    
                         
                         // 2. 图片预览区 (作为点击触发热区)
                         Group {
@@ -123,13 +121,15 @@ public struct AddFaceByImage: View {
                         
                         // 3. 保存按钮 (受控于 canSave)
                         Button(action: {
-                            if let image = selectedImage {
-                                let faceFeature = viewModel.getFaceFeature(faceUIImage: image)
-                                UserDefaults.standard.set(faceFeature, forKey: faceID)
-                                
-                                onDismiss(1, faceFeature)
+                            // 此时 viewModel.croppedFaceImage 已经被 async 方法更新为对齐后的图
+                            let feature = viewModel.getFaceFeature(faceUIImage: viewModel.croppedFaceImage)
+                            if !feature.isEmpty {
+                                UserDefaults.standard.set(feature, forKey: faceID)
+                                UserDefaults.standard.synchronize()
+                                onDismiss(1, feature)
                                 dismiss()
                             }
+                            
                         }) {
                             Text("Save Face Feature")
                                 .font(.headline)
@@ -155,13 +155,26 @@ public struct AddFaceByImage: View {
                     canSave = true
                 }
             }
+            
             .sheet(isPresented: $showImagePicker) {
                 ImagePicker(selectedImage: $selectedImage) { uiImage in
                     isLoading = true
                     canSave = false
-                    viewModel.addFaceByUIImage(faceUIImage: uiImage)
+                    
+                    // 修复：异步方法必须在 Task 中调用
+                    Task {
+                        await viewModel.addFaceByUIImageAsync(faceUIImage: uiImage)
+                    }
+                    
+                    
+                    Task {
+                        let faceFeature = await viewModel.addFaceByBase64Async(base64: "your Base64 String")
+                        print("return faceFeature:"+faceFeature)
+                    }
+                    
                 }
             }
+            
         }
     }
 }
