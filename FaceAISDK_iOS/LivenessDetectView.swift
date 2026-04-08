@@ -93,8 +93,8 @@ struct LivenessDetectView: View {
             .navigationBarHidden(true)  
 
              if showToast {
-                
-                 let isSuccess = viewModel.faceVerifyResult.liveness > 0.8
+                //iOS 静默活体阈值降低一点
+                 let isSuccess = viewModel.faceVerifyResult.liveness > 0.7
                  let toastStyle: ToastStyle = isSuccess ? .success : .failure
                  
                 VStack {

@@ -15,6 +15,6 @@ target 'FaceAISDK_iOS' do
 #  pod 'FaceAISDK_Core', '2026.03.27'
   
   # Demo调试直接从GitHub同步更快捷, 不用等cocoapods同步更新 
-  pod 'FaceAISDK_Core', :git => 'https://github.com/FaceAISDK/FaceAISDK_Core.git', :tag => '2026.03.27'
+  pod 'FaceAISDK_Core', :git => 'https://github.com/FaceAISDK/FaceAISDK_Core.git', :tag => '2026.03.28.silent'
 
 end
