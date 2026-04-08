@@ -20,7 +20,10 @@ struct FaceAINaviView: View {
                 VStack(spacing: 20) {
                     
                     //通过SDK相机录入人脸
-                    NavigationLink(destination: AddFaceByCamera(faceID: faceID, onDismiss: { result, feature in
+                    NavigationLink(destination: AddFaceByCamera(faceID: faceID, 
+                                                                addFacePerformanceMode: 1,
+                                                                needShowConfirmDialog: true,
+                                                                onDismiss: { result, feature in
                         print("🎆 AddFace   Status: \(result), Feature: \(feature ?? "")")
                     })) {
                         Text("Add Face By Camera")

@@ -96,7 +96,7 @@ struct VerifyFaceView: View {
                 let displayTips = toastViewTips.isEmpty ? viewModel.faceVerifyResult.tips : toastViewTips
                 let displayMessage = (toastViewTips.isEmpty) ? "\(displayTips)" : displayTips
                 
-                ////iOS 静默活体阈值降低一点到 0.7
+                // 计算样式：如果是无特征值错误，或者相似度低，则为 failure
                 let isSuccess = viewModel.faceVerifyResult.similarity > threshold && viewModel.faceVerifyResult.liveness>0.7
                 let toastStyle: ToastStyle = isSuccess ? .success : .failure
                 
@@ -170,7 +170,7 @@ struct VerifyFaceView: View {
             
             // 校验本地是否有特征值
             guard let faceFeature = UserDefaults.standard.string(forKey: faceID) else {
-                toastViewTips = "No Face Feature for key: \(faceID)"
+                toastViewTips = "No Face Feature for : \(faceID)"
                 showToast = true
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
@@ -181,6 +181,21 @@ struct VerifyFaceView: View {
                 }
                 return
             }
+             
+             
+             guard faceFeature.count >= 1024 else {
+                 toastViewTips = "Invalid Feature length for : \(faceID)"
+                 showToast = true
+                 
+                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                     showToast = false
+                     onDismiss(6, 0.0, 0.0)
+                     dismiss()
+                 }
+                 return
+             }
+             
+             
             
             viewModel.initFaceAISDK(
                 faceIDFeature: faceFeature,
