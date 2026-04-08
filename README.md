@@ -77,7 +77,8 @@ SDK默认的开发环境为Xcode 15.2,Swift 5.9；UI全部使用SwiftUI实现，
   iOS SDK： https://github.com/FaceAISDK/FaceAISDK_iOS  
   Android： https://github.com/FaceAISDK/FaceAISDK_Android     
   **其他实现**  
-  **uniApp UTS插件：**  https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS  
+  **Flutter 插件：** https://github.com/FaceAISDK/FaceAISDK_Flutter_Plugin  
+  **uniApp UTS插件：** https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS  
   **React native** https://github.com/zkteco-home/react-native-face-ai  
   
   微信：FaceAISDK  
