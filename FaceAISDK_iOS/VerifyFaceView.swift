@@ -2,34 +2,46 @@ import SwiftUI
 import FaceAISDK_Core
 
 /**
- * 1:1 人脸识别+活体检测
+ * 1:1 Face Verification and Liveness Detection
+ * 1:1 人脸识别以及活体检测
  */
 struct VerifyFaceView: View {
-    // 确保ViewModel的生命周期与视图一致
     @StateObject private var viewModel: VerifyFaceModel = VerifyFaceModel()
     @Environment(\.dismiss) private var dismiss
+    // Prompt that the ambient light is too bright
+    // 提示环境光太亮
     @State private var showLightHighDialog = false
     @State private var showToast = false
     @State private var toastViewTips: String = ""
     
-    // 如果是三方uniapp,RN,Flutter插件调用，会将其设为 false，由 Manager 在外部控制亮度
+    // Automatically control screen brightness
+    // 自动控制屏幕亮度
     var autoControlBrightness: Bool = true
 
-    // 业务参数
     let faceID: String
     let threshold: Float
     
-    //0.无需活体检测 1.仅仅动作 2.动作+炫彩 3.炫彩
+    // 0. No liveness detection 1. Motion only 2. Motion + Color flash 3. Color flash only
+    // 0.无需活体检测 1.仅仅动作 2.动作+炫彩 3.炫彩
     let livenessType:Int
-    //动作活体种类：1. 张张嘴  2.微笑  3.眨眨眼  4.摇摇头  5.点头
+    
+    // Types of motion liveness: 1. Open mouth 2. Smile 3. Blink 4. Shake head 5. Nod
+    // 动作活体种类：1. 张张嘴  2.微笑  3.眨眨眼  4.摇摇头  5.点头
     let motionLiveness:String
     
-    let motionLivenessTimeOut:Int  //时间为秒
-    let motionLivenessSteps:Int    //动作活体个数
+    // Motion liveness timeout (seconds)
+    // 动作活体超时（秒）
+    let motionLivenessTimeOut:Int
     
-    //onDismiss 增加2个Float 参数返回相似度和活体分数
+    // Number of motion liveness steps
+    // 动作活体步骤个数
+    let motionLivenessSteps:Int
+    
+    // Callback status, face similarity, liveness score
+    // 返回状态，人脸相似度，活体分数
     let onDismiss: (Int, Float, Float) -> Void
 
+    // Multi-language tips
     // 多语言提示
     private func localizedTip(for code: Int) -> String {
         let key = "Face_Tips_Code_\(code)"
@@ -42,7 +54,9 @@ struct VerifyFaceView: View {
             VStack {
                  HStack {
                     Button(action: {
-                        onDismiss(0, 0.0, 0.0) // 0 代表用户取消
+                        // 0 represents user cancellation
+                        // 0 代表用户取消
+                        onDismiss(0, 0.0, 0.0)
                         dismiss()
                     }) {
                         Image(systemName: "chevron.left")
@@ -86,16 +100,20 @@ struct VerifyFaceView: View {
             .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(viewModel.colorFlash.ignoresSafeArea())
-            //隐藏系统导航栏
+            // Hide system navigation bar
+            // 隐藏系统导航栏
             .navigationBarBackButtonHidden(true)
             .navigationBarHidden(true)
+            
             if showToast {
 
                 let similarity = String(format: "%.2f", viewModel.faceVerifyResult.similarity)
+                // Prefer manually set toastViewTips (for handling missing feature values), otherwise use tips returned by SDK
                 // 优先使用手动设置的 toastViewTips (用于处理无特征值的情况)，否则使用 SDK 返回的 tips
                 let displayTips = toastViewTips.isEmpty ? viewModel.faceVerifyResult.tips : toastViewTips
                 let displayMessage = (toastViewTips.isEmpty) ? "\(displayTips)" : displayTips
                 
+                // Calculate style: If it's a missing feature error or low similarity, it's a failure
                 // 计算样式：如果是无特征值错误，或者相似度低，则为 failure
                 let isSuccess = viewModel.faceVerifyResult.similarity > threshold && viewModel.faceVerifyResult.liveness>0.7
                 let toastStyle: ToastStyle = isSuccess ? .success : .failure
@@ -113,7 +131,8 @@ struct VerifyFaceView: View {
                 .zIndex(1)
             }
             
-            // --- 顶层：光线过强自定义弹窗 (Dialog) ---
+            // Custom dialog for high light levels
+            // 光线过强自定义弹窗 (Dialog)
             if showLightHighDialog {
                 ZStack {
                     VStack(spacing: 22) {
@@ -153,7 +172,7 @@ struct VerifyFaceView: View {
                     .background(Color.white)
                     .cornerRadius(20)
                     .shadow(color: Color.black.opacity(0.2), radius: 20, x: 0, y: 10)
-                    .padding(.horizontal, 30) // 设置弹窗左右边距
+                    .padding(.horizontal, 30)
                 }
                 .zIndex(2)
                 .transition(.scale(scale: 0.8).combined(with: .opacity))
@@ -168,6 +187,7 @@ struct VerifyFaceView: View {
                 UIScreen.main.brightness = 1.0
             }
             
+            // Check if there is a local feature value
             // 校验本地是否有特征值
             guard let faceFeature = UserDefaults.standard.string(forKey: faceID) else {
                 toastViewTips = "No Face Feature for : \(faceID)"
@@ -175,7 +195,8 @@ struct VerifyFaceView: View {
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                     showToast = false
-                    // 假设 VerifyResultCode.NO_FACE_FEATURE 是 6 (参考注释)
+                    // Callback NO_FACE_FEATURE
+                    // 返回无特征值状态
                     onDismiss(6,0.0,0.0)
                     dismiss()
                 }
@@ -208,11 +229,14 @@ struct VerifyFaceView: View {
             )
         }
         .onChange(of: viewModel.faceVerifyResult.code) { newValue in
+            // Clear manual tips, use SDK results
             // 清空手动的 tips，使用 SDK 的结果
             toastViewTips = ""
             
             if newValue == VerifyResultCode.COLOR_LIVENESS_LIGHT_TOO_HIGH{
-                withAnimation { //光线太强了
+                // Light is too strong
+                // 光线太强了
+                withAnimation {
                     showLightHighDialog = true
                 }
             }else{

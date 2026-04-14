@@ -5,8 +5,7 @@ import FaceAISDK_Core
 // 从相册添加人脸
 public struct AddFaceByImage: View {
 
-    // 状态管理
-    @State private var showImagePicker = false // 控制相册弹窗
+    @State private var showImagePicker = false
     @State private var isLoading = false
     @State private var canSave = false
 
@@ -18,10 +17,9 @@ public struct AddFaceByImage: View {
     let faceID: String
     let onDismiss: (Int, String?) -> Void // 0 用户取消， 1 添加成功
 
-    // 引入 dismiss 环境遍历，用于手动控制页面退出
     @Environment(\.dismiss) private var dismiss
     
-    // 辅助函数
+
     private func localizedTip(for code: Int) -> String {
         let key = "Face_Tips_Code_\(code)"
         let defaultValue = "LivenessDetect Tips Code=\(code)"
@@ -32,7 +30,6 @@ public struct AddFaceByImage: View {
         ZStack {
             VStack(spacing: 20) {
                 
-                // MARK: - 自定义顶部导航栏
                 HStack {
                     // 左侧返回按钮
                     Button(action: {
@@ -47,7 +44,6 @@ public struct AddFaceByImage: View {
                             .clipShape(Circle())
                     }
                     
-                    
                     // 中间标题
                     Text("Add Face From Album")
                         .font(.system(size: 18, weight: .bold))
@@ -59,7 +55,6 @@ public struct AddFaceByImage: View {
                 .padding(.horizontal, 20)
                 .padding(.top, 10)
                 
-                // MARK: - 主内容区域
                 ScrollView {
                     VStack(spacing: 25) {
                         
@@ -71,7 +66,6 @@ public struct AddFaceByImage: View {
                                 .cornerRadius(20)
                                 .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
                     
-                        
                         // 2. 图片预览区 (作为点击触发热区)
                         Group {
                             if let selectedImage {
@@ -119,13 +113,13 @@ public struct AddFaceByImage: View {
                             showImagePicker = true
                         }
                         
-                        // 3. 保存按钮 (受控于 canSave)
                         Button(action: {
                             // 此时 viewModel.croppedFaceImage 已经被 async 方法更新为对齐后的图
                             let feature = viewModel.getFaceFeature(faceUIImage: viewModel.croppedFaceImage)
                             if !feature.isEmpty {
+                                
+                                //保存人脸特征信息，Save face feature
                                 UserDefaults.standard.set(feature, forKey: faceID)
-                                UserDefaults.standard.synchronize()
                                 onDismiss(1, feature)
                                 dismiss()
                             }
@@ -161,16 +155,16 @@ public struct AddFaceByImage: View {
                     isLoading = true
                     canSave = false
                     
-                    // 修复：异步方法必须在 Task 中调用
+                    // 异步方法必须在 Task 中调用
                     Task {
                         await viewModel.addFaceByUIImageAsync(faceUIImage: uiImage)
                     }
                     
                     
-                    Task {
-                        let faceFeature = await viewModel.addFaceByBase64Async(base64: "your Base64 String")
-                        print("return faceFeature:"+faceFeature)
-                    }
+//                    Task {
+//                        let faceFeature = await viewModel.addFaceByBase64Async(base64: "your Base64 String")
+//                        print("return faceFeature:"+faceFeature)
+//                    }
                     
                 }
             }

@@ -1,7 +1,7 @@
 import SwiftUI
 import PhotosUI
 
-// 将其标记为 public（如果你需要在其他模块访问）
+// Select image from album
 struct ImagePicker: UIViewControllerRepresentable {
     @Binding var selectedImage: UIImage?
     @Environment(\.dismiss) private var dismiss
