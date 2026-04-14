@@ -3,8 +3,9 @@ import AVFoundation
 import FaceAISDK_Core
 
 /**
- * 活体检测，（iOS 已经支持动作活体，炫彩活体，静默活体也已经20260327稳定）
- * UI 样式仅供参考，根据你的业务可自行调整
+ * Liveness Detection (Supports motion, color flash, and silent liveness)
+ * UI style is for reference only and can be adjusted according to your business needs
+ * 活体检测（支持动作活体，炫彩活体，静默活体）UI 样式仅供参考，根据你的业务可自行调整
  */
 struct LivenessDetectView: View {
     @StateObject private var viewModel: VerifyFaceModel = VerifyFaceModel()
@@ -12,21 +13,30 @@ struct LivenessDetectView: View {
     @State private var showLightHighDialog = false
     @Environment(\.dismiss) private var dismiss
 
-    // 屏幕亮度控制开关，默认为 true (原生友好)
-    // 如果是三方uniapp,RN,Flutter插件调用，会将其设为 false，由 Manager 在外部控制亮度
+    // Automatically control screen brightness
+    // 自动控制屏幕亮度
     var autoControlBrightness: Bool = true
     
-    // 0.无需活体检测 1.仅仅动作 2.动作+炫彩 3.炫彩
+    // 0. No liveness detection  1. Motion only  2. Motion + Color flash  3. Color flash only
+    // 0. 无需活体检测 1.仅仅动作 2.动作+炫彩 3.炫彩
     let livenessType:Int
+    
+    // Types of motion liveness:  1. Open mouth  2. Smile  3. Blink  4. Shake head  5. Nod
     // 动作活体种类：1. 张张嘴  2.微笑  3.眨眨眼  4.摇摇头  5.点头
     let motionLiveness:String
     
-    let motionLivenessTimeOut:Int //时间为秒
-    let motionLivenessSteps:Int  //动作活体个数
+    // Timeout in seconds
+    // 动作活体超时时间，秒
+    let motionLivenessTimeOut:Int
     
-    // 修改：增加 Float 参数返回活体分数
+    // Number of motion steps
+    // 动作活体个数
+    let motionLivenessSteps:Int
+    
+    // callback status liveness score
     let onDismiss: (Int, Float) -> Void
     
+    // Multi-language tips can be provided based on the Code
     // 可以根据Code进行多语言提示
     private func localizedTip(for code: Int) -> String {
         let key = "Face_Tips_Code_\(code)"
@@ -40,7 +50,8 @@ struct LivenessDetectView: View {
             VStack {
                 HStack {
                     Button(action: {
-                        onDismiss(0,0.0) // 0 代表用户取消
+                        // 0 represents user cancellation 0代表用户取消
+                        onDismiss(0,0.0)
                         dismiss()
                     }) {
                         Image(systemName: "chevron.left")
@@ -55,25 +66,19 @@ struct LivenessDetectView: View {
                 .padding(.horizontal, 10)
                 .padding(.top, 10)
                 
-//                Text("亮度： \(viewModel.brightnessValue)")
-//                    .font(.system(size: 12).bold())
-//                    .padding(.bottom, 8)
-//                    .frame(minHeight: 30)
-//                    .foregroundColor(.black)
-                
-                // 原有内容
+
                 Text(localizedTip(for: viewModel.sdkInterfaceTips.code))
                     .font(.system(size: 20).bold())
                     .padding(.horizontal, 20)
                     .padding(.vertical, 9)
                     .foregroundColor(.white)
-                    .multilineTextAlignment(.center) // 设置多行居中对齐
+                    .multilineTextAlignment(.center)
                     .background(Color.faceMain)
                     .cornerRadius(20)
                 
                 Text(localizedTip(for: viewModel.sdkInterfaceTipsExtra.code))
                     .font(.system(size: 20).bold())
-                    .multilineTextAlignment(.center) // 设置多行居中对齐
+                    .multilineTextAlignment(.center)
                     .padding(.bottom, 8)
                     .frame(minHeight: 30)
                     .foregroundColor(.black)
@@ -87,10 +92,10 @@ struct LivenessDetectView: View {
                 Spacer()
             }
             .padding()
-            .frame(maxWidth: .infinity, maxHeight: .infinity) //确保主视图撑满
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(viewModel.colorFlash.ignoresSafeArea())
             .navigationBarBackButtonHidden(true)
-            .navigationBarHidden(true)  
+            .navigationBarHidden(true)
 
              if showToast {
                 
@@ -98,19 +103,21 @@ struct LivenessDetectView: View {
                  let toastStyle: ToastStyle = isSuccess ? .success : .failure
                  
                 VStack {
-                    Spacer() // 将 Toast 推到底部
+
+                    Spacer()
                     CustomToastView(
                         message: "\(viewModel.faceVerifyResult.tips) \(viewModel.faceVerifyResult.liveness)",
                         style: toastStyle
                     )
                      .padding(.bottom, 77)
                 }
-                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .transition(.move(edge: .bottom).combined(with: .opacity))
-                .zIndex(1) // 确保在最上层
+                .zIndex(1)
             }
             
-            // 光线过强自定义弹窗 (Dialog) ---
+            // Custom dialog for high light levels
+            // 光线过强自定义弹窗 (Dialog)
             if showLightHighDialog {
                 ZStack {
                     VStack(spacing: 22) {
@@ -150,9 +157,13 @@ struct LivenessDetectView: View {
                     .background(Color.white)
                     .cornerRadius(20)
                     .shadow(color: Color.black.opacity(0.2), radius: 20, x: 0, y: 10)
-                    .padding(.horizontal, 30) // 设置弹窗左右边距
+                    // Set left and right padding for the dialog
+                    // 设置弹窗左右边距
+                    .padding(.horizontal, 30)
                 }
-                .zIndex(2) // 确保在最上层 (比 Toast 更高)
+                // Ensure it is on the top layer (higher than Toast)
+                // 确保在最上层 (比 Toast 更高)
+                .zIndex(2)
                 .transition(.scale(scale: 0.8).combined(with: .opacity))
             }
             
@@ -166,7 +177,7 @@ struct LivenessDetectView: View {
                 UIScreen.main.brightness = 1.0
             }
             
-            viewModel.initFaceAISDK(faceIDFeature: "", 
+            viewModel.initFaceAISDK(faceIDFeature: "",
                                     livenessType: livenessType,
                                     onlyLiveness: true,
                                     motionLiveness: motionLiveness,
@@ -175,7 +186,8 @@ struct LivenessDetectView: View {
         }
         .onChange(of: viewModel.faceVerifyResult.code) { newValue in
             if newValue == VerifyResultCode.COLOR_LIVENESS_LIGHT_TOO_HIGH{
-                withAnimation {  //光线太强了
+                // Light is too strong 光线太强了
+                withAnimation {
                     showLightHighDialog = true
                 }
             }else{
@@ -201,7 +213,6 @@ struct LivenessDetectView: View {
             
             viewModel.stopFaceVerify()
         }
-        .animation(.easeInOut(duration: 0.3), value: showToast) // 统一控制 Toast 动画
+        .animation(.easeInOut(duration: 0.3), value: showToast)
     }
 }
-

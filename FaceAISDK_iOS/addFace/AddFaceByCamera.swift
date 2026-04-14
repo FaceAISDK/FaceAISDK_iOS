@@ -2,45 +2,57 @@ import SwiftUI
 import AVFoundation
 import FaceAISDK_Core
 
-// 使用 @MainActor 确保在主线程访问
 @MainActor
 var FaceCameraSize: CGFloat {
-    // 保持相机区域为屏幕宽度或高度的 70%，确保是正方形
     15 * min(UIScreen.main.bounds.width, UIScreen.main.bounds.height) / 20
 }
 
 public struct AddFaceByCamera: View {
     let faceID: String
-    let addFacePerformanceMode: Int
+    let addFacePerformanceMode: Int //Alternate fields备用字段
     let needShowConfirmDialog: Bool
     
-    // 修改：增加 String 参数返回特征值
-    let onDismiss: (Int, String) -> Void //0 用户取消， 1 添加成功
+    // callback Status , FaceFeature
+    let onDismiss: (Int, String) -> Void //status 0 cancel， 1 success
     
-    // 屏幕亮度控制开关，默认为 true (原生友好)
-    // 如果是三方uniapp,RN,Flutter插件调用，会将其设为 false，由 Manager 在外部控制亮度
     var autoControlBrightness: Bool = true
     
-    //引入 dismiss 环境遍历，用于手动控制页面退出
     @Environment(\.dismiss) private var dismiss
     
     @StateObject private var viewModel: AddFaceByCameraModel = AddFaceByCameraModel()
     
-    // 辅助函数：获取本地化提示
+    // 根据状态码转换为对应的文字提示
     private func localizedTip(for code: Int) -> String {
         let key = "Face_Tips_Code_\(code)"
         let defaultValue = "Add Face Tips Code=\(code)"
         return NSLocalizedString(key, value: defaultValue, comment: "")
     }
     
+    // 统一处理人脸录入成功的逻辑
+    private func handleFaceAddSuccess() {
+        // Optional
+        // if FaceImageManger.saveFaceImage(faceName: faceID, faceImage: viewModel.croppedFaceImage) {
+        //     print("saveFaceImage success")
+        // }
+        
+        // Save face feature 保存人脸特征信息，
+        UserDefaults.standard.set(viewModel.faceFeatureBySDKCamera, forKey: faceID)
+        
+        // Close Page, CallBack
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            onDismiss(1, viewModel.faceFeatureBySDKCamera)
+            dismiss()
+        }
+        
+    }
+    
     public var body: some View {
         ZStack {
             VStack(spacing: 20) {
-                // 自定义顶部栏 (关闭按钮)
                 HStack {
                     Button(action: {
-                        onDismiss(0,"")  // 传递取消状态
-                        dismiss()     // 触发导航栏返回（Pop）
+                        onDismiss(0, "")
+                        dismiss()
                     }) {
                         Image(systemName: "chevron.left")
                             .font(.system(size: 16, weight: .semibold))
@@ -54,7 +66,7 @@ public struct AddFaceByCamera: View {
                 .padding(.horizontal, 2)
                 .padding(.top, 10)
                 
-                // 1. 顶部提示区域
+                // Status Tips
                 Text(localizedTip(for: viewModel.sdkInterfaceTips.code))
                     .font(.system(size: 19).bold())
                     .padding(.horizontal, 20)
@@ -63,18 +75,16 @@ public struct AddFaceByCamera: View {
                     .background(Color.faceMain)
                     .cornerRadius(20)
                 
-                // 2. 核心区域：相机与确认弹窗的容器
                 ZStack {
-                    // 图层 A: 相机预览 (底层)
+                    // Camera
                     FaceAICameraView(session: viewModel.captureSession, cameraSize: FaceCameraSize)
                         .aspectRatio(1.0, contentMode: .fit)
                         .clipShape(Circle())
-                        .background(Circle().fill(Color.white)) // 相机背景
+                        .background(Circle().fill(Color.white))
                         .overlay(Circle().stroke(Color.gray, lineWidth: 1))
                     
-                    // 图层 B: 确认对话框 (顶层)
-                    if viewModel.readyConfirmFace {
-                        // 黑色半透明遮罩
+                    // Confirm Add Face
+                    if viewModel.readyConfirmFace && needShowConfirmDialog {
                         Color.black.opacity(0.3)
                             .clipShape(Circle())
                         
@@ -82,18 +92,7 @@ public struct AddFaceByCamera: View {
                             viewModel: viewModel,
                             cameraSize: FaceCameraSize,
                             onConfirm: {
-                                // 保存人脸特征值
-                                UserDefaults.standard.set(viewModel.faceFeatureBySDKCamera, forKey: faceID)
-                                UserDefaults.standard.synchronize()
-                                // 保存人脸图（可选操作，非SDK运行必须）
-                                if FaceImageManger.saveFaceImage(faceName: faceID, faceImage: viewModel.croppedFaceImage){
-                                    print("saveFaceImage success")
-                                }
-                                
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                    onDismiss(1,viewModel.faceFeatureBySDKCamera)  // 传递取消状态
-                                    dismiss()     // 触发导航栏返回（Pop）
-                                }
+                                handleFaceAddSuccess()
                             }
                         )
                         .transition(.scale.combined(with: .opacity))
@@ -107,35 +106,34 @@ public struct AddFaceByCamera: View {
             .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.white.ignoresSafeArea())
-            // 隐藏系统导航栏和返回按钮
             .navigationBarBackButtonHidden(true)
-            .navigationBarHidden(true) //兼容iOS 15 及以下
+            .navigationBarHidden(true)
             
-            // 生命周期事件
             .onAppear {
-                // 如果是原生app自动模式，则在此处调亮（为了兼容uniapp Flutter等插件）
                 if autoControlBrightness {
                     ScreenBrightnessHelper.shared.maximizeBrightness()
                 }
-                
                 viewModel.initAddFace()
+            }
+            .onDisappear {
+                if autoControlBrightness {
+                    ScreenBrightnessHelper.shared.restoreBrightness()
+                }
+                viewModel.stopAddFace()
             }
             .onChange(of: viewModel.sdkInterfaceTips.code) { newValue in
                 print("🔔 AddFaceBySDKCamera： \(viewModel.sdkInterfaceTips.message)")
             }
-            .onDisappear {
-                // 【新增】如果是自动模式（原生），则在此处恢复
-                if autoControlBrightness {
-                    ScreenBrightnessHelper.shared.restoreBrightness()
+            .onChange(of: viewModel.readyConfirmFace) { isReady in
+                if isReady && !needShowConfirmDialog {
+                    handleFaceAddSuccess()
                 }
-                
-                viewModel.stopAddFace()
             }
         }
     }
 }
 
-//ConfirmAddFaceDialog 保持不变
+
 struct ConfirmAddFaceDialog: View {
     let viewModel: AddFaceByCameraModel
     let cameraSize: CGFloat
@@ -147,7 +145,7 @@ struct ConfirmAddFaceDialog: View {
             Text("Confirm Add Face")
                 .font(.system(size: 19, weight: .semibold))
                 .foregroundColor(Color.faceMain)
-                .padding(.top, 16)
+                .padding(.top, 18)
 
             Image(uiImage: viewModel.croppedFaceImage)
                 .resizable()
@@ -174,7 +172,7 @@ struct ConfirmAddFaceDialog: View {
                     Text("Retry")
                         .font(.system(size: 16, weight: .medium))
                         .frame(maxWidth: .infinity)
-                        .frame(height: 44)
+                        .frame(height: 45)
                         .background(Color.gray.opacity(0.6))
                         .foregroundColor(.primary)
                         .cornerRadius(8)
@@ -186,15 +184,15 @@ struct ConfirmAddFaceDialog: View {
                     Text("Confirm")
                         .font(.system(size: 16, weight: .bold))
                         .frame(maxWidth: .infinity)
-                        .frame(height: 44)
+                        .frame(height: 45)
                         .background(Color.faceMain)
                         .foregroundColor(.white)
                         .cornerRadius(8)
                 }
             }
             .padding(.horizontal, 16)
-            .padding(.bottom, 18)
-            .padding(.top, 5)
+            .padding(.bottom, 20)
+            .padding(.top, 8)
         }
         .frame(width: cameraSize * 1.11)
         .background(Color.white)

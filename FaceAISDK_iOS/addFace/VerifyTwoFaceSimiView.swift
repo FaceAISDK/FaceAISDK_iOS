@@ -10,7 +10,7 @@ struct FaceSlot {
     var isLoading: Bool = false
 }
 
-//其实就是为演示一个API viewModel.evaluateSimilarity(f1: f1, f2: f2)
+//SDK API viewModel.evaluateSimilarity(f1: f1, f2: f2)
 public struct VerifyTwoFaceSimiView: View {
     // 恢复 dismiss 以支持自定义导航栏返回
     @Environment(\.dismiss) private var dismiss
@@ -38,7 +38,6 @@ public struct VerifyTwoFaceSimiView: View {
     public var body: some View {
         ZStack {
             VStack(spacing: 0) {
-                // MARK: - 1. 自定义顶部导航栏 (对齐 VerifyFaceView)
                 HStack {
                     Button(action: {
                         dismiss()
@@ -67,7 +66,6 @@ public struct VerifyTwoFaceSimiView: View {
                         .padding(.horizontal, 20)
                         .padding(.top, 25)
 
-                        // MARK: - 3. 结果显示
                         if !similarityResult.isEmpty {
                             VStack(spacing: 8) {
                                 Text(similarityResult)
@@ -97,11 +95,9 @@ public struct VerifyTwoFaceSimiView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.white.ignoresSafeArea())
-            // 隐藏系统导航栏
             .navigationBarBackButtonHidden(true)
             .navigationBarHidden(true)
             
-            // MARK: - 5. CustomToastView 提示层 (对齐 VerifyFaceView)
             if showToast {
                 VStack {
                     Spacer()
@@ -174,7 +170,7 @@ public struct VerifyTwoFaceSimiView: View {
                 rightSlot.croppedImage = croppedImage
                 rightSlot.feature = feature
             }
-            similarityResult = "" // 有新图片时，清空之前的结果
+            similarityResult = "" //清空之前的结果
         }
     }
 
