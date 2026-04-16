@@ -17,7 +17,10 @@
          location = "group:LICENSE">
       </FileRef>
       <FileRef
-         location = "group:FaceAISDK.png">
+         location = "group:FaceAISDK_CN.jpeg">
+      </FileRef>
+      <FileRef
+         location = "group:FaceAISDK.jpeg">
       </FileRef>
       <FileRef
          location = "group:SDK_WORK_FLOW.jpg">
