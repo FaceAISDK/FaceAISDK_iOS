@@ -1,11 +1,6 @@
 <img src="https://badgen.net/badge/FaceAI%20SDK/%20%E5%BF%AB%E9%80%9F%E5%AE%9E%E7%8E%B0%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E5%8A%9F%E8%83%BD" />
 
 
-<div align=center>
-<img src="https://github.com/user-attachments/assets/b1e0a9c4-8b43-4eb8-bf7a-7632901cfb2c" width = 15% />
-</div>
-
-
 ## FaceAISDK 介绍
 iPhone&iPad iOS FaceAISDK is on_device Offline Face Detection 、Recognition 、Liveness Detection Anti Spoofing SDK.  
 FaceAISDK_iOS SDK是设备端可完全离线不需联网实现人脸录入、活体检测、人脸识别，集成后可快速实现相关功能。  
@@ -75,7 +70,7 @@ SDK默认的开发环境为Xcode 15.2,Swift 5.9；UI全部使用SwiftUI实现，
   微信：FaceAISDK  
   Email: FaceAISDK.Service@gmail.com   
   
-  ![FaceAISDK](/Doc/FaceAISDK_EN.jpeg)  
+  ![FaceAISDK](/Doc/FaceAISDK.jpeg)  
   
 ## Android体验Demo APK下载如下  
   
