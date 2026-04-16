@@ -13,151 +13,203 @@ struct FaceAINaviView: View {
     
     var onDismiss: (() -> Void)?
 
-    
     var body: some View {
         NavigationView {
             ZStack {
+                // 背景色铺满
                 Color.faceMain.ignoresSafeArea()
-                VStack(spacing: 20) {
-                    
-                    // Add face through the SDK camera.
-                    // 通过 SDK 相机录入人脸。
-                    NavigationLink(destination: AddFaceByCamera(faceID: faceID,
-                                                                addFacePerformanceMode: 1,
-                                                                needShowConfirmDialog: true,
-                                                                onDismiss: { result, feature in
-                        print("🎆 AddFace   Status: \(result), Feature: \(feature)")
-                    })) {
-                        Text("Add Face By Camera")
-                            .font(.system(size: 20).bold())
-                            .foregroundColor(Color.white)
-                            .frame(maxWidth: .infinity)
-                    }
-                    .controlSize(.large)
-                    .padding(.top, 30)
-                    
-                    // Add face information from an image/album.
-                    // 通过图片录入人脸信息。
-                    NavigationLink(destination: AddFaceByImage(faceID: faceID, onDismiss: { result, feature in
-                        print("🎆  AddFace  Status: \(result), Feature: \(feature ?? "")")
-                    })) {
-                        Text("Add Face From Album")
-                            .font(.system(size: 19).bold())
-                            .foregroundColor(Color.white)
-                            .frame(maxWidth: .infinity)
-                    }
-                    .controlSize(.large)
-                    .padding(.top, 15)
-                    
-                    // Face Verification + Liveness Detection.
-                    // 人脸识别 + 活体检测。
-                    NavigationLink(destination: VerifyFaceView(
-                        faceID: faceID,
-                        // Threshold range [0.8, 0.95].
-                        // 阈值范围【0.8，0.95】。
-                        threshold: 0.84,
-                        // 1. Motion Liveness, 2. Motion + Color, 3. Color, 4. Silent Liveness only (the first three all include silent liveness).
-                        // 1.动作活体 2.动作+炫彩 3.炫彩 4.仅静默活体(前三种都会带静默)。
-                        livenessType: 1,
-                        // 1. Open mouth, 2. Smile, 3. Blink, 4. Shake head, 5. Nod.
-                        // 1.张嘴 2.微笑 3.眨眼 4.摇头 5.点头。
-                        motionLiveness: "1,2,3,4,5",
-                        // Timeout: 3-22 seconds.
-                        // 超时时间：3-22秒。
-                        motionLivenessTimeOut: 11,
-                        // Number of motion steps.
-                        // 动作步骤个数。
-                        motionLivenessSteps:2,
-                        onDismiss: {code, similarity, liveness in
-                            print("🎆 Face Verify  Status: \(code), Similarity: \(similarity), Liveness: \(liveness)")
-                        }
-                    )) {
-                        Text("Face Verify and Liveness Detection")
-                            .font(.system(size: 20).bold())
-                            .foregroundColor(Color.white)
-                            .multilineTextAlignment(.center)
-                            .frame(maxWidth: .infinity)
-                    }
-                    .padding(.top, 22)
-                    
-                    // ONLY Liveness Detection.
-                    // 仅活体检测。
-                    NavigationLink(destination: LivenessDetectView(
-                        // 1. Motion Liveness, 2. Motion + Color, 3. Color, 4. Silent Liveness only (the first three all include silent liveness).
-                        // 1.动作活体 2.动作+炫彩 3.炫彩 4.仅静默活体(前三种都会带静默)。
-                        livenessType: 1,
-                        // 1. Open mouth, 2. Smile, 3. Blink, 4. Shake head, 5. Nod.
-                        // 1.张嘴 2.微笑 3.眨眼 4.摇头 5.点头。
-                        motionLiveness: "1,2,3,4,5",
-                        // Timeout in seconds.
-                        // 超时时间(秒)。
-                        motionLivenessTimeOut: 5,
-                        // Number of motion steps.
-                        // 动作步骤个数。
-                        motionLivenessSteps:2,
-                        onDismiss: { code,liveness in
-                            print("🎆 Liveness Result: \(code), Liveness Score: \(liveness)")
-                        }
-                    )) {
-                        Text("ONLY Liveness Detection")
-                            .font(.system(size: 20).bold())
-                            .foregroundColor(Color.white)
-                            .frame(maxWidth: .infinity)
-                    }
-                    .padding(.top, 20)
-                    
-                    // Check if the face feature corresponding to the faceID exists.
-                    // 判断 faceID 对应人脸特征值是否存在。
-                    Button("is Face Feature Exist") {
-                        guard let faceFeature = UserDefaults.standard.string(forKey: faceID) else {
-                            print("isFaceFeatureExist？ ： No ! ")
-                            return
-                        }
-                        print("\n😊FaceFeature: \(faceFeature)")
-                    }
-                    .font(.system(size: 18).bold())
-                    .foregroundColor(Color.white)
-                    .padding(.top, 22)
-                    
-                    // Verify the similarity between two faces.
-                    // 验证两张人脸的相似度。
-                    NavigationLink(destination: VerifyTwoFaceSimiView()) {
-                        Text("Verify Two Face Similarity")
-                            .font(.system(size: 19).bold())
-                            .foregroundColor(Color.white)
-                            .frame(maxWidth: .infinity)
-                    }
-                    .padding(.top, 20)
-
-                    Spacer()
-                    
-                    // Open About Us external link.
-                    // 打开关于我们的外部链接。
-                    Button("About us"){
-                        let url = URL(string: "https://mp.weixin.qq.com/s/R43s70guLqxA6JPEdWtjcA")
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            if UIApplication.shared.canOpenURL(url!) {
-                                UIApplication.shared.open(url!)
+                
+                // 使用 ScrollView 适配小屏幕机型
+                ScrollView(.vertical, showsIndicators: false) {
+                    VStack(spacing: 18) {
+                        
+                        // --- 模块一：人脸录入 ---
+                        VStack(spacing: 16) {
+                            // 通过 SDK 相机录入人脸
+                            NavigationLink(destination: AddFaceByCamera(
+                                faceID: faceID,
+                                addFacePerformanceMode: 1,
+                                needShowConfirmDialog: true,
+                                onDismiss: { result, feature in
+                                    print("🎆 AddFace   Status: \(result), Feature: \(feature)")
+                                }
+                            )) {
+                                MenuRowView(icon: "camera.viewfinder", title: "Add Face By Camera")
+                            }
+                            
+                            // 通过图片录入人脸信息
+                            NavigationLink(destination: AddFaceByImage(
+                                faceID: faceID,
+                                onDismiss: { result, feature in
+                                    print("🎆  AddFace  Status: \(result), Feature: \(feature ?? "")")
+                                }
+                            )) {
+                                MenuRowView(icon: "photo.on.rectangle.angled", title: "Add Face From Album")
                             }
                         }
+                        .padding(.top, 20)
+                        
+                        // --- 模块二：识别与活体 ---
+                        VStack(spacing: 16) {
+                            // 人脸识别 + 活体检测
+                            NavigationLink(destination: VerifyFaceView(
+                                faceID: faceID,
+                                // Threshold range [0.8, 0.9].
+                                // 阈值范围【0.8，0.9】。
+                                threshold: 0.83,
+                                
+                                // 1. Motion Liveness, 2. Motion + Color, 3. Color, 4. Silent Liveness only (the first three all include silent liveness).
+                                // 1.动作活体 2.动作+炫彩 3.炫彩 4.仅静默活体(前三种都会带静默)。
+                                livenessType: 1,
+                                // 1. Open mouth, 2. Smile, 3. Blink, 4. Shake head, 5. Nod.
+                                // 1.张嘴 2.微笑 3.眨眼 4.摇头 5.点头。
+                                motionLiveness: "1,2,3,4,5",
+                                // Timeout: 3-22 seconds.
+                                // 超时时间：3-22秒。
+                                motionLivenessTimeOut: 11,
+                                // Number of motion steps.
+                                // 动作步骤个数。
+                                motionLivenessSteps:2,
+                                
+                                onDismiss: {code, similarity, liveness in
+                                    print("🎆 Face Verify  Status: \(code), Similarity: \(similarity), Liveness: \(liveness)")
+                                }
+                            )) {
+                                MenuRowView(icon: "faceid", title: "Face Verify & Liveness")
+                            }
+                            
+                            // 仅活体检测
+                            NavigationLink(destination: LivenessDetectView(
+                                // 1. Motion Liveness, 2. Motion + Color, 3. Color, 4. Silent Liveness only (the first three all include silent liveness).
+                                // 1.动作活体 2.动作+炫彩 3.炫彩 4.仅静默活体(前三种都会带静默)。
+                                livenessType: 1,
+                                // 1. Open mouth, 2. Smile, 3. Blink, 4. Shake head, 5. Nod.
+                                // 1.张嘴 2.微笑 3.眨眼 4.摇头 5.点头。
+                                motionLiveness: "1,2,3,4,5",
+                                // Timeout in seconds.
+                                // 超时时间(秒)。
+                                motionLivenessTimeOut: 5,
+                                // Number of motion steps.
+                                // 动作步骤个数。
+                                motionLivenessSteps:2,
+                                onDismiss: { code,liveness in
+                                    print("🎆 Liveness Result: \(code), Liveness Score: \(liveness)")
+                                }
+                            )) {
+                                MenuRowView(icon: "person.crop.circle.badge.checkmark", title: "ONLY Liveness Detection")
+                            }
+                        }
+                        .padding(.top, 8)
+                        
+                        // --- 模块三：功能辅助测试 ---
+                        VStack(spacing: 16) {
+                            // 判断 faceID 对应人脸特征值是否存在
+                            Button(action: {
+                                guard let faceFeature = UserDefaults.standard.string(forKey: faceID) else {
+                                    print("isFaceFeatureExist？ ： No ! ")
+                                    return
+                                }
+                                print("\n😊FaceFeature: \(faceFeature)")
+                            }) {
+                                MenuRowView(icon: "magnifyingglass.circle", title: "Is Face Feature Exist", showChevron: false)
+                            }
+                            
+                            // 验证两张人脸的相似度
+                            NavigationLink(destination: VerifyTwoFaceSimiView()) {
+                                MenuRowView(icon: "person.2.crop.square.stack", title: "Face Image Compare")
+                            }
+                        }
+                        .padding(.top, 8)
+
+                        Spacer().frame(height: 30)
+                        
+                        // 打开关于我们的外部链接 (保持简洁风格)
+                        Button(action: {
+                            if let url = URL(string: "https://mp.weixin.qq.com/s/R43s70guLqxA6JPEdWtjcA") {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    if UIApplication.shared.canOpenURL(url) {
+                                        UIApplication.shared.open(url)
+                                    }
+                                }
+                            }
+                        }) {
+                            Text("About us")
+                                .font(.system(size: 15, weight: .medium))
+                                .foregroundColor(Color.white.opacity(0.8))
+                                .underline()
+                        }
+                        .padding(.bottom, 40)
+                        .padding(.top, 22)
                     }
-                    .foregroundColor(Color.white)
-                    .font(.system(size: 16).bold())
+                    .padding(.horizontal, 22)
+                    .padding(.top, 22)
                 }
-                .padding(.horizontal)
             }
-            .navigationTitle("🧭Face SDK API Demo")
+            .navigationTitle("🧭 Face SDK API Demo")
             .navigationBarTitleDisplayMode(.inline)
+            // 顶部导航栏添加关闭按钮
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        onDismiss?()
+                    }) {
+                        Image(systemName: "xmark")
+                            .font(.system(size: 13, weight: .bold))
+                            .foregroundColor(.white)
+                            .padding(6)
+                            .background(Circle().fill(Color.white.opacity(0.2)))
+                    }
+                }
+            }
         }
         .navigationViewStyle(.stack)
-        .ignoresSafeArea()
         .onAppear {
-            // Maximize screen brightness when the view appears.
-            // 视图显示时将屏幕亮度调至最大。
+            // 视图显示时将屏幕亮度调至最大
             ScreenBrightnessHelper.shared.maximizeBrightness()
             withAnimation(.easeInOut(duration: 0.3)) {
                 UIScreen.main.brightness = 1.0
             }
         }
+    }
+}
+
+// MARK: - 统一的菜单行组件
+/// 用于美化导航列表的按钮卡片视图
+struct MenuRowView: View {
+    var icon: String
+    
+    // 【修复点】：将 String 改为 LocalizedStringKey，这样 SwiftUI 就会自动去 Localizable.strings 查找多语言
+    var title: LocalizedStringKey
+    
+    var showChevron: Bool = true // 是否显示右侧的小箭头
+    
+    var body: some View {
+        HStack(spacing: 16) {
+            Image(systemName: icon)
+                .font(.system(size: 22, weight: .light))
+                .frame(width: 30)
+            
+            Text(title)
+                .font(.system(size: 17, weight: .semibold))
+            
+            Spacer()
+            
+            if showChevron {
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 14, weight: .semibold))
+                    .foregroundColor(Color.white.opacity(0.5))
+            }
+        }
+        .foregroundColor(.white)
+        .padding(.horizontal, 20)
+        .padding(.vertical, 18)
+        .background(
+            RoundedRectangle(cornerRadius: 16)
+                .fill(Color.white.opacity(0.15))
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(Color.white.opacity(0.3), lineWidth: 1)
+        )
     }
 }

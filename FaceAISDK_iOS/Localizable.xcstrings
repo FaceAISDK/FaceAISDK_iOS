@@ -1,8 +1,15 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "🧭 FaceAISDK" : {
-
+    "🧭 Face SDK API Demo" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🧭 Face SDK API Demo"
+          }
+        }
+      }
     },
     "About us" : {
       "localizations" : {
@@ -100,12 +107,22 @@
         }
       }
     },
-    "Face Verify and Liveness Detection" : {
+    "Face Image Compare" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "人脸图相似度对比"
+          }
+        }
+      }
+    },
+    "Face Verify & Liveness" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Face Verify and Liveness Detection"
+            "value" : "Face Verify & Liveness"
           }
         },
         "zh-Hans" : {
@@ -399,7 +416,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "没有找到对应的人脸底片"
+            "value" : "没有找到对应的人脸"
           }
         }
       }
@@ -744,12 +761,12 @@
         }
       }
     },
-    "is Face Feature Exist" : {
+    "Is Face Feature Exist" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "is Face Feature Exist"
+            "value" : "Is Face Feature Exist"
           }
         },
         "zh-Hans" : {
@@ -760,20 +777,17 @@
         }
       }
     },
-    "Key" : {
-      "extractionState" : "manual"
-    },
     "ONLY Liveness Detection" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ONLY Liveness Detection"
+            "value" : "Liveness Detection"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "仅仅活体检测"
           }
         }
