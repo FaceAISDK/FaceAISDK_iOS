@@ -58,8 +58,8 @@ SDK默认的开发环境为Xcode 15.2,Swift 5.9；UI全部使用SwiftUI实现，
    ```
     这表明：
     1. 仓库过大：TensorFlowLiteSwift 的源仓库（TensorFlow）比较大
-    2. 网络中断：编译环境连接 GitHub 的速度不够快或者发生了超时，导致在下载完成前连接被切断。
-    增加 Git 缓存大小）：
+    2. 网络问题：编译环境连接GitHub不稳定
+    保证网络环境以及增加Git缓存大小
     Bash
     git config --global http.postBuffer 548576000
     git config --global https.postBuffer 548576000
@@ -75,7 +75,7 @@ SDK默认的开发环境为Xcode 15.2,Swift 5.9；UI全部使用SwiftUI实现，
   微信：FaceAISDK  
   Email: FaceAISDK.Service@gmail.com   
   
-  ![FaceAISDK](/Doc/FaceAISDK.png)  
+  ![FaceAISDK](/Doc/FaceAISDK_EN.jpeg)  
   
 ## Android体验Demo APK下载如下  
   
