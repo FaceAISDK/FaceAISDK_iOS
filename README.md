@@ -11,8 +11,7 @@ FaceAISDK_iOS SDK是设备端可完全离线不需联网实现人脸录入、活
 
 ## 集成步骤
 
-SDK默认的开发环境为Xcode 15.2,Swift 5.9；UI全部使用SwiftUI实现，支持iOS[15,26]
-
+SDK默认的开发环境为Xcode 15.2,Swift 5.9；UI全部使用SwiftUI实现，支持iOS[15,26]  
 
 ### 1.首次运行/更新版本发生闪退异常
   TensorFlowLiteSwift首次运行或更新版本后发生闪退并报错
@@ -33,10 +32,8 @@ SDK默认的开发环境为Xcode 15.2,Swift 5.9；UI全部使用SwiftUI实现，
  「没有翻墙的错误提示」
   Updating local specs repositories
   Downloading dependencies
-  Installing FaceAISDK_Core 2026.01.22 
-
+  Installing FaceAISDK_Core 2026.04.22 
   [!] Error installing FaceAISDK_Core
-
   Cloning into '/var/folders/gh/p4wv4ytj4tn5xrhgq0n_jnbm0000gn/T/d20251020-8626-c57agm'...
   fatal: unable to access 'https://github.com/FaceAISDK/FaceAISDK_Core.git/': Error in the HTTP2 framing layer
  ```
@@ -51,9 +48,6 @@ SDK默认的开发环境为Xcode 15.2,Swift 5.9；UI全部使用SwiftUI实现，
     fetch-pack: unexpected disconnect while reading sideband packet
     fatal: early EOF
    ```
-    这表明：
-    1. 仓库过大：TensorFlowLiteSwift 的源仓库（TensorFlow）比较大
-    2. 网络问题：编译环境连接GitHub不稳定
     保证网络环境以及增加Git缓存大小
     Bash
     git config --global http.postBuffer 548576000
@@ -61,13 +55,11 @@ SDK默认的开发环境为Xcode 15.2,Swift 5.9；UI全部使用SwiftUI实现，
 
 ## 其他说明 
   
-  iOS SDK： https://github.com/FaceAISDK/FaceAISDK_iOS  
-  Android： https://github.com/FaceAISDK/FaceAISDK_Android     
-  **其他实现**  
+  **iOS SDK：** https://github.com/FaceAISDK/FaceAISDK_iOS  
+  **Android：** https://github.com/FaceAISDK/FaceAISDK_Android     
   **Flutter 插件：** https://github.com/FaceAISDK/FaceAISDK_Flutter_Plugin  
   **uniApp UTS插件：** https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS  
   
-  微信：FaceAISDK  
   Email: FaceAISDK.Service@gmail.com   
   
   ![FaceAISDK](/Doc/FaceAISDK.jpeg)  

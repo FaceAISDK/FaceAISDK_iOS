@@ -24,7 +24,7 @@ struct FaceAINaviView: View {
                     VStack(spacing: 18) {
                         
                         // --- 模块一：人脸录入 ---
-                        VStack(spacing: 16) {
+                        VStack(spacing: 14) {
                             // 通过 SDK 相机录入人脸
                             NavigationLink(destination: AddFaceByCamera(
                                 faceID: faceID,
@@ -50,12 +50,11 @@ struct FaceAINaviView: View {
                         .padding(.top, 20)
                         
                         // --- 模块二：识别与活体 ---
-                        VStack(spacing: 16) {
+                        VStack(spacing: 14) {
                             // 人脸识别 + 活体检测
                             NavigationLink(destination: VerifyFaceView(
                                 faceID: faceID,
-                                // Threshold range [0.8, 0.9].
-                                // 阈值范围【0.8，0.9】。
+                                // Threshold range [0.8, 0.9].  阈值范围【0.8，0.9】。
                                 threshold: 0.83,
                                 
                                 // 1. Motion Liveness, 2. Motion + Color, 3. Color, 4. Silent Liveness only (the first three all include silent liveness).
@@ -64,11 +63,9 @@ struct FaceAINaviView: View {
                                 // 1. Open mouth, 2. Smile, 3. Blink, 4. Shake head, 5. Nod.
                                 // 1.张嘴 2.微笑 3.眨眼 4.摇头 5.点头。
                                 motionLiveness: "1,2,3,4,5",
-                                // Timeout: 3-22 seconds.
-                                // 超时时间：3-22秒。
+                                // Timeout: 3-22 seconds.  超时时间：3-22秒。
                                 motionLivenessTimeOut: 11,
-                                // Number of motion steps.
-                                // 动作步骤个数。
+                                // Number of motion steps.  动作步骤个数。
                                 motionLivenessSteps:2,
                                 
                                 onDismiss: {code, similarity, liveness in
@@ -82,15 +79,13 @@ struct FaceAINaviView: View {
                             NavigationLink(destination: LivenessDetectView(
                                 // 1. Motion Liveness, 2. Motion + Color, 3. Color, 4. Silent Liveness only (the first three all include silent liveness).
                                 // 1.动作活体 2.动作+炫彩 3.炫彩 4.仅静默活体(前三种都会带静默)。
-                                livenessType: 1,
+                                livenessType: 2,
                                 // 1. Open mouth, 2. Smile, 3. Blink, 4. Shake head, 5. Nod.
                                 // 1.张嘴 2.微笑 3.眨眼 4.摇头 5.点头。
                                 motionLiveness: "1,2,3,4,5",
-                                // Timeout in seconds.
-                                // 超时时间(秒)。
+                                // Timeout in seconds. 超时时间(秒)。
                                 motionLivenessTimeOut: 5,
-                                // Number of motion steps.
-                                // 动作步骤个数。
+                                // Number of motion steps. 动作步骤个数。
                                 motionLivenessSteps:2,
                                 onDismiss: { code,liveness in
                                     print("🎆 Liveness Result: \(code), Liveness Score: \(liveness)")
@@ -102,7 +97,7 @@ struct FaceAINaviView: View {
                         .padding(.top, 8)
                         
                         // --- 模块三：功能辅助测试 ---
-                        VStack(spacing: 16) {
+                        VStack(spacing: 14) {
                             // 判断 faceID 对应人脸特征值是否存在
                             Button(action: {
                                 guard let faceFeature = UserDefaults.standard.string(forKey: faceID) else {
@@ -116,7 +111,7 @@ struct FaceAINaviView: View {
                             
                             // 验证两张人脸的相似度
                             NavigationLink(destination: VerifyTwoFaceSimiView()) {
-                                MenuRowView(icon: "person.2.crop.square.stack", title: "Face Image Compare")
+                                MenuRowView(icon: "person.2.crop.square.stack", title: "Verify Two Face Similarity")
                             }
                         }
                         .padding(.top, 8)
@@ -125,7 +120,7 @@ struct FaceAINaviView: View {
                         
                         // 打开关于我们的外部链接 (保持简洁风格)
                         Button(action: {
-                            if let url = URL(string: "https://mp.weixin.qq.com/s/R43s70guLqxA6JPEdWtjcA") {
+                            if let url = URL(string: "https://faceaisdk.github.io/index") {
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                     if UIApplication.shared.canOpenURL(url) {
                                         UIApplication.shared.open(url)
@@ -145,18 +140,17 @@ struct FaceAINaviView: View {
                     .padding(.top, 22)
                 }
             }
-            .navigationTitle("🧭 Face SDK API Demo")
             .navigationBarTitleDisplayMode(.inline)
-            // 顶部导航栏添加关闭按钮
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
                         onDismiss?()
+                        UIControl().sendAction(#selector(URLSessionTask.suspend), to: UIApplication.shared, for: nil)
                     }) {
                         Image(systemName: "xmark")
                             .font(.system(size: 13, weight: .bold))
                             .foregroundColor(.white)
-                            .padding(6)
+                            .padding(8)
                             .background(Circle().fill(Color.white.opacity(0.2)))
                     }
                 }
@@ -174,7 +168,6 @@ struct FaceAINaviView: View {
 }
 
 // MARK: - 统一的菜单行组件
-/// 用于美化导航列表的按钮卡片视图
 struct MenuRowView: View {
     var icon: String
     

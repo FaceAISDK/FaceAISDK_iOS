@@ -77,7 +77,7 @@ public struct AddFaceByCamera: View {
                 
                 ZStack {
                     // Camera
-                    FaceAICameraView(session: viewModel.captureSession, cameraSize: FaceCameraSize)
+                    FaceSDKCameraView(session: viewModel.captureSession, cameraSize: FaceCameraSize)
                         .aspectRatio(1.0, contentMode: .fit)
                         .clipShape(Circle())
                         .background(Circle().fill(Color.white))

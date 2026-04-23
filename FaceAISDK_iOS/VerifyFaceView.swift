@@ -85,7 +85,7 @@ struct VerifyFaceView: View {
                     .frame(minHeight: 30)
                     .foregroundColor(.black)
                 
-                FaceAICameraView(session: viewModel.captureSession, cameraSize: FaceCameraSize)
+                FaceSDKCameraView(session: viewModel.captureSession, cameraSize: FaceCameraSize)
                     .frame(
                         width: FaceCameraSize,
                         height: FaceCameraSize
