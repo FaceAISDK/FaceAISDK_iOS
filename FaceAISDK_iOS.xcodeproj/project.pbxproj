@@ -11,6 +11,7 @@
 		7C600D4F2EDEB8A3005EEEDD /* CustomToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C600D4E2EDEB8A3005EEEDD /* CustomToastView.swift */; };
 		7C784BBA2F1635AC0086B329 /* ScreenBrightnessHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C784BB92F1635AB0086B329 /* ScreenBrightnessHelper.swift */; };
 		7CC0A3532F04EFB700857F23 /* FaceAISDK_demoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC0A3522F04EFB700857F23 /* FaceAISDK_demoApp.swift */; };
+		7CC46D2C2F9A1F350077B293 /* FaceSDKCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC46D2B2F9A1F350077B293 /* FaceSDKCameraView.swift */; };
 		7CD054CE2EDE7E6300EA3E37 /* FaceAINaviView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD054C72EDE7E6300EA3E37 /* FaceAINaviView.swift */; };
 		7CD054D22EDE7E6300EA3E37 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 7CD054CB2EDE7E6300EA3E37 /* Localizable.xcstrings */; };
 		7CD054D32EDE7E6300EA3E37 /* VerifyFaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD054CC2EDE7E6300EA3E37 /* VerifyFaceView.swift */; };
@@ -27,6 +28,7 @@
 		7C600D4E2EDEB8A3005EEEDD /* CustomToastView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomToastView.swift; sourceTree = "<group>"; };
 		7C784BB92F1635AB0086B329 /* ScreenBrightnessHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenBrightnessHelper.swift; sourceTree = "<group>"; };
 		7CC0A3522F04EFB700857F23 /* FaceAISDK_demoApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceAISDK_demoApp.swift; sourceTree = "<group>"; };
+		7CC46D2B2F9A1F350077B293 /* FaceSDKCameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceSDKCameraView.swift; sourceTree = "<group>"; };
 		7CD054C72EDE7E6300EA3E37 /* FaceAINaviView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceAINaviView.swift; sourceTree = "<group>"; };
 		7CD054CB2EDE7E6300EA3E37 /* Localizable.xcstrings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		7CD054CC2EDE7E6300EA3E37 /* VerifyFaceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifyFaceView.swift; sourceTree = "<group>"; };
@@ -85,11 +87,12 @@
 				CFB0BAD32F6E22BA00EF438F /* addFace */,
 				7C600D4E2EDEB8A3005EEEDD /* CustomToastView.swift */,
 				7C784BB92F1635AB0086B329 /* ScreenBrightnessHelper.swift */,
+				7CC46D2B2F9A1F350077B293 /* FaceSDKCameraView.swift */,
 				7CD054C72EDE7E6300EA3E37 /* FaceAINaviView.swift */,
 				7CD054CD2EDE7E6300EA3E37 /* LivenessDetectView.swift */,
 				7CC0A3522F04EFB700857F23 /* FaceAISDK_demoApp.swift */,
-				7CD054CB2EDE7E6300EA3E37 /* Localizable.xcstrings */,
 				7CD054CC2EDE7E6300EA3E37 /* VerifyFaceView.swift */,
+				7CD054CB2EDE7E6300EA3E37 /* Localizable.xcstrings */,
 				7CFB91322EDE7D6200F01A21 /* Assets.xcassets */,
 			);
 			path = FaceAISDK_iOS;
@@ -250,6 +253,7 @@
 				7C784BBA2F1635AC0086B329 /* ScreenBrightnessHelper.swift in Sources */,
 				7C600D4F2EDEB8A3005EEEDD /* CustomToastView.swift in Sources */,
 				CFB0BAD42F6E22BA00EF438F /* VerifyTwoFaceSimiView.swift in Sources */,
+				7CC46D2C2F9A1F350077B293 /* FaceSDKCameraView.swift in Sources */,
 				CFB0BAD52F6E22BA00EF438F /* AddFaceByImage.swift in Sources */,
 				CFB0BAD62F6E22BA00EF438F /* ImagePicker.swift in Sources */,
 				CFB0BAD72F6E22BA00EF438F /* AddFaceByCamera.swift in Sources */,

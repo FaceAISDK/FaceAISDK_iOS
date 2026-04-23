@@ -83,7 +83,7 @@ struct LivenessDetectView: View {
                     .frame(minHeight: 30)
                     .foregroundColor(.black)
                 
-                FaceAICameraView(session: viewModel.captureSession, cameraSize: FaceCameraSize)
+                FaceSDKCameraView(session: viewModel.captureSession, cameraSize: FaceCameraSize)
                     .frame(width: FaceCameraSize, height: FaceCameraSize)
                     .aspectRatio(1.0, contentMode: .fit)
                     .padding(.vertical, 8)

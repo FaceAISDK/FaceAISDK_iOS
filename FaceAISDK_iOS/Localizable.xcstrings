@@ -1,16 +1,6 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "🧭 Face SDK API Demo" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "🧭 Face SDK API Demo"
-          }
-        }
-      }
-    },
     "About us" : {
       "localizations" : {
         "en" : {
@@ -103,16 +93,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "请录入无遮挡正脸清晰图"
-          }
-        }
-      }
-    },
-    "Face Image Compare" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "人脸图相似度对比"
           }
         }
       }
@@ -416,7 +396,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "没有找到对应的人脸"
+            "value" : "没有找到对应的人脸底片"
           }
         }
       }
@@ -763,12 +743,6 @@
     },
     "Is Face Feature Exist" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Is Face Feature Exist"
-          }
-        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -782,12 +756,12 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Liveness Detection"
+            "value" : "ONLY Liveness Detection"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "仅仅活体检测"
           }
         }
