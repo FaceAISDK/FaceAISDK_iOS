@@ -47,8 +47,8 @@ SDK默认的开发环境为Xcode 15.2,Swift 5.9；UI全部使用SwiftUI实现，
    ```
     保证网络环境以及增加Git缓存大小
     Bash
-    git config --global http.postBuffer 548576000
-    git config --global https.postBuffer 548576000
+    git config --global http.postBuffer 998576000
+    git config --global https.postBuffer 998576000
 
 ## 其他说明 
   
