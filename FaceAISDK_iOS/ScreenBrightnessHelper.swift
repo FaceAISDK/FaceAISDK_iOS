@@ -72,17 +72,14 @@ public class ScreenBrightnessHelper {
         }
     }
     
-    /// 设置亮度 (兼容 iOS 15+)
     private func setBrightness(_ value: CGFloat) {
         if #available(iOS 15.0, *) {
-            // 尝试在 active 的 windowScene 上设置
             if let scene = UIApplication.shared.connectedScenes
                 .filter({ $0.activationState == .foregroundActive })
                 .compactMap({ $0 as? UIWindowScene })
                 .first {
                 scene.screen.brightness = value
             } else {
-                // 如果找不到活跃 Scene (极少情况)，回退到旧 API
                 UIScreen.main.brightness = value
             }
         } else {

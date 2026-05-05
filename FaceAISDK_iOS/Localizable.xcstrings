@@ -131,6 +131,7 @@
       }
     },
     "Face_Tips_Code_(code)" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -226,7 +227,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "录入中,保持正脸不晃动"
+            "value" : "保持正脸不要晃动"
           }
         }
       }
@@ -645,13 +646,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Light too strong. Move away from direct or back lighting"
+            "value" : "Excessive light, avoid strong light exposure."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "光线过强,避免阳光直射或背对光源"
+            "state" : "needs_review",
+            "value" : "光线过强,避免强光照射"
           }
         }
       }
