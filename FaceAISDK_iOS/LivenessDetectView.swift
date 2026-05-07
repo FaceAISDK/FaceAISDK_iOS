@@ -41,7 +41,11 @@ struct LivenessDetectView: View {
     private func localizedTip(for code: Int) -> String {
         let key = "Face_Tips_Code_\(code)"
         let defaultValue = "LivenessDetect Tips Code=\(code)"
-        return NSLocalizedString(key, value: defaultValue, comment: "")
+        let tipsString = NSLocalizedString(key, value: defaultValue, comment: "")
+        if code != 0 && code != 1 && code != 3 {
+            TTSPlayer.shared.speak(tipsString)
+        }
+        return tipsString
     }
     
     
@@ -99,7 +103,7 @@ struct LivenessDetectView: View {
 
              if showToast {
                 
-                 let isSuccess = viewModel.faceVerifyResult.liveness > 0.7
+                 let isSuccess = viewModel.faceVerifyResult.liveness > 0.8
                  let toastStyle: ToastStyle = isSuccess ? .success : .failure
                  
                 VStack {

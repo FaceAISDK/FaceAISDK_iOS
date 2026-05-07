@@ -4,7 +4,7 @@ import FaceAISDK_Core
 
 @MainActor
 var FaceCameraSize: CGFloat {
-    15 * min(UIScreen.main.bounds.width, UIScreen.main.bounds.height) / 20
+    14 * min(UIScreen.main.bounds.width, UIScreen.main.bounds.height) / 20
 }
 
 public struct AddFaceByCamera: View {
@@ -25,7 +25,11 @@ public struct AddFaceByCamera: View {
     private func localizedTip(for code: Int) -> String {
         let key = "Face_Tips_Code_\(code)"
         let defaultValue = "Add Face Tips Code=\(code)"
-        return NSLocalizedString(key, value: defaultValue, comment: "")
+        let tipsString = NSLocalizedString(key, value: defaultValue, comment: "")
+        if code != 0 && code != 1 && code != 11 {
+            TTSPlayer.shared.speak(tipsString)
+        }
+        return tipsString
     }
     
     // 统一处理人脸录入成功的逻辑

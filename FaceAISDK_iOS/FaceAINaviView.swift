@@ -141,6 +141,7 @@ struct FaceAINaviView: View {
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
+            // 顶部导航栏添加关闭按钮
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
@@ -168,6 +169,7 @@ struct FaceAINaviView: View {
 }
 
 // MARK: - 统一的菜单行组件
+/// 用于美化导航列表的按钮卡片视图
 struct MenuRowView: View {
     var icon: String
     

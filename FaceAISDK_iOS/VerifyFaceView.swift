@@ -46,7 +46,11 @@ struct VerifyFaceView: View {
     private func localizedTip(for code: Int) -> String {
         let key = "Face_Tips_Code_\(code)"
         let defaultValue = "VerifyFace Tips Code=\(code)"
-        return NSLocalizedString(key, value: defaultValue, comment: "")
+        let tipsString = NSLocalizedString(key, value: defaultValue, comment: "")
+        if code != 0 && code != 1 && code != 3 {
+            TTSPlayer.shared.speak(tipsString)
+        }
+        return tipsString
     }
     
     var body: some View {
