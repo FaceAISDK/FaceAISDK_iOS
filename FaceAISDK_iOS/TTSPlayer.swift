@@ -1,0 +1,335 @@
+import Foundation
+import AVFoundation
+import os.log
+#if canImport(UIKit)
+import UIKit
+#endif
+
+// MARK: - TTSPlayer
+
+/// iOS 原生语音播报管理器（兼容 iOS 15 ~ 26）
+final class TTSPlayer: NSObject {
+
+    static let shared = TTSPlayer()
+
+    // MARK: - 播报策略
+
+    enum Policy {
+        case interrupt
+        case enqueue
+        case dropIfBusy
+    }
+
+    // MARK: - 状态
+
+    enum State: Equatable {
+        case idle
+        case speaking(String)
+        case paused
+    }
+
+    var onStateChanged: ((State) -> Void)?
+
+    private(set) var state: State = .idle {
+        didSet {
+            guard state != oldValue else { return }
+            onStateChanged?(state)
+        }
+    }
+
+    var isSpeaking: Bool {
+        if case .speaking = state { return true }
+        return false
+    }
+
+    // MARK: - Private
+
+    private let synthesizer = AVSpeechSynthesizer()
+    private let log: OSLog
+
+    private var isSessionActive = false
+    private var pendingDeactivation: DispatchWorkItem?
+    private let sessionDeactivationDelay: TimeInterval = 1.5
+
+    private var voiceCache: [String: AVSpeechSynthesisVoice] = [:]
+
+    private var lastSpokenText: String?
+    private var lastSpokenTime: CFAbsoluteTime = 0
+    private let dedupInterval: TimeInterval = 0.5
+
+    private var interruptedBySystem = false
+
+    // MARK: - Init
+
+    private override init() {
+        self.log = OSLog(subsystem: "com.faceAI.sdk", category: "TTSPlayer")
+        super.init()
+        synthesizer.delegate = self
+        addObservers()
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    // MARK: - Public API
+
+    /// 播报文本
+    /// - Parameters:
+    ///   - text: 播报内容
+    ///   - language: 语言代码，nil 则自动匹配
+    ///   - rate: 语速。为了更像真人，默认值 0.5
+    ///   - pitch: 音调。默认 0.98，略微低沉，减少电子尖锐感
+    ///   - policy: 播报策略
+    func speak(_ text: String?,
+               language: String? = nil,
+               rate: Float = 0.5,
+               pitch: Float = 0.98,
+               policy: Policy = .dropIfBusy) {
+        guard let text = text, !text.isEmpty else { return }
+
+        guard Thread.isMainThread else {
+            DispatchQueue.main.async { [weak self] in
+                self?.speak(text, language: language, rate: rate, pitch: pitch, policy: policy)
+            }
+            return
+        }
+
+        let now = CFAbsoluteTimeGetCurrent()
+        if text == lastSpokenText && (now - lastSpokenTime) < dedupInterval {
+//            os_log("Dedup, skipping: %{public}@", log: log, type: .info, text)
+            return
+        }
+
+        switch policy {
+        case .interrupt:
+            synthesizer.stopSpeaking(at: .immediate)
+        case .enqueue:
+            break
+        case .dropIfBusy:
+            if synthesizer.isSpeaking {
+//                os_log("Busy, dropping: %{public}@", log: log, type: .info, text)
+                return
+            }
+        }
+
+        activateSessionIfNeeded()
+
+        let utterance = AVSpeechUtterance(string: text)
+        let clampedRate = min(max(rate, 0), 1)
+        utterance.rate = AVSpeechUtteranceMinimumSpeechRate
+            + clampedRate * (AVSpeechUtteranceMaximumSpeechRate - AVSpeechUtteranceMinimumSpeechRate)
+        
+        // 1. 调整音调，限制在合理范围内 (0.5 - 2.0)
+        utterance.pitchMultiplier = min(max(pitch, 0.5), 2.0)
+        
+        // 2. 增加发音前后的延迟，模拟真人换气和语义停顿
+        utterance.preUtteranceDelay = 0.05
+        utterance.postUtteranceDelay = 0.15
+        
+        utterance.voice = cachedVoice(for: language)
+
+        lastSpokenText = text
+        lastSpokenTime = now
+
+        synthesizer.speak(utterance)
+    }
+
+    func pause() {
+        onMainThread {
+            if self.synthesizer.isSpeaking {
+                self.synthesizer.pauseSpeaking(at: .word)
+            }
+        }
+    }
+
+    func resume() {
+        onMainThread {
+            if self.synthesizer.isPaused {
+                self.activateSessionIfNeeded()
+                self.synthesizer.continueSpeaking()
+            }
+        }
+    }
+
+    func stop() {
+        onMainThread {
+            if self.synthesizer.isSpeaking || self.synthesizer.isPaused {
+                self.synthesizer.stopSpeaking(at: .immediate)
+            }
+        }
+    }
+
+    func release() {
+        stop()
+        deactivateSessionNow()
+        voiceCache.removeAll()
+    }
+
+    // MARK: - Audio Session
+
+    private func activateSessionIfNeeded() {
+        pendingDeactivation?.cancel()
+        pendingDeactivation = nil
+
+        guard !isSessionActive else { return }
+        do {
+            let session = AVAudioSession.sharedInstance()
+            try session.setCategory(.playback, mode: .spokenAudio, options: [.duckOthers])
+            try session.setActive(true, options: .notifyOthersOnDeactivation)
+            isSessionActive = true
+        } catch {
+            os_log("AudioSession activate failed: %{public}@", log: log, type: .error, error.localizedDescription)
+        }
+    }
+
+    private func scheduleDeactivation() {
+        pendingDeactivation?.cancel()
+        let item = DispatchWorkItem { [weak self] in
+            self?.deactivateSessionNow()
+        }
+        pendingDeactivation = item
+        DispatchQueue.main.asyncAfter(deadline: .now() + sessionDeactivationDelay, execute: item)
+    }
+
+    private func deactivateSessionNow() {
+        pendingDeactivation?.cancel()
+        pendingDeactivation = nil
+        guard isSessionActive else { return }
+        do {
+            try AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
+            isSessionActive = false
+        } catch {
+            os_log("AudioSession deactivate failed: %{public}@", log: log, type: .error, error.localizedDescription)
+        }
+    }
+
+    // MARK: - Observers
+
+    private func addObservers() {
+        let nc = NotificationCenter.default
+        nc.addObserver(self, selector: #selector(handleInterruption),
+                       name: AVAudioSession.interruptionNotification, object: nil)
+        nc.addObserver(self, selector: #selector(handleRouteChange),
+                       name: AVAudioSession.routeChangeNotification, object: nil)
+        #if canImport(UIKit)
+        nc.addObserver(self, selector: #selector(handleDidEnterBackground),
+                       name: UIApplication.didEnterBackgroundNotification, object: nil)
+        #endif
+    }
+
+    @objc private func handleInterruption(_ notification: Notification) {
+        guard let info = notification.userInfo,
+              let typeValue = info[AVAudioSessionInterruptionTypeKey] as? UInt,
+              let type = AVAudioSession.InterruptionType(rawValue: typeValue) else { return }
+
+        switch type {
+        case .began:
+            interruptedBySystem = synthesizer.isSpeaking || synthesizer.isPaused
+            isSessionActive = false
+
+        case .ended:
+            let shouldResume = interruptedBySystem
+            interruptedBySystem = false
+
+            if shouldResume,
+               let options = info[AVAudioSessionInterruptionOptionKey] as? UInt,
+               AVAudioSession.InterruptionOptions(rawValue: options).contains(.shouldResume) {
+                activateSessionIfNeeded()
+                synthesizer.continueSpeaking()
+            } else if shouldResume {
+                stop()
+            }
+
+        @unknown default:
+            break
+        }
+    }
+
+    @objc private func handleRouteChange(_ notification: Notification) {
+        guard let info = notification.userInfo,
+              let reasonValue = info[AVAudioSessionRouteChangeReasonKey] as? UInt,
+              let reason = AVAudioSession.RouteChangeReason(rawValue: reasonValue) else { return }
+
+        if reason == .oldDeviceUnavailable {
+            pause()
+        }
+    }
+
+    @objc private func handleDidEnterBackground() {
+        if synthesizer.isSpeaking || synthesizer.isPaused {
+            stop()
+        }
+    }
+
+    // MARK: - Voice Selection
+
+    private func cachedVoice(for language: String?) -> AVSpeechSynthesisVoice? {
+        let lang = language ?? Locale.preferredLanguages.first ?? "en-US"
+        if let cached = voiceCache[lang] { return cached }
+        let voice = bestVoice(for: lang)
+        if let voice = voice { voiceCache[lang] = voice }
+        return voice
+    }
+
+    private func bestVoice(for lang: String) -> AVSpeechSynthesisVoice? {
+        let voices = AVSpeechSynthesisVoice.speechVoices()
+
+        let candidates: [AVSpeechSynthesisVoice] = {
+            let exact = voices.filter { $0.language == lang }
+            if !exact.isEmpty { return exact }
+
+            let prefix = lang.components(separatedBy: "-").first ?? lang
+            let prefixed = voices.filter { $0.language.hasPrefix(prefix) }
+            if !prefixed.isEmpty { return prefixed }
+
+            if prefix == "zh" {
+                let cn = voices.filter { $0.language == "zh-CN" }
+                if !cn.isEmpty { return cn }
+                let tw = voices.filter { $0.language == "zh-TW" }
+                if !tw.isEmpty { return tw }
+            }
+
+            return voices.filter { $0.language == "en-US" }
+        }()
+
+        return candidates.max(by: { $0.quality.rawValue < $1.quality.rawValue })
+    }
+
+    // MARK: - Helpers
+
+    private func onMainThread(_ block: @escaping () -> Void) {
+        if Thread.isMainThread {
+            block()
+        } else {
+            DispatchQueue.main.async(execute: block)
+        }
+    }
+}
+
+// MARK: - AVSpeechSynthesizerDelegate
+
+extension TTSPlayer: AVSpeechSynthesizerDelegate {
+
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
+        state = .speaking(utterance.speechString)
+    }
+
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+        state = .idle
+        scheduleDeactivation()
+    }
+
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didCancel utterance: AVSpeechUtterance) {
+        state = .idle
+        scheduleDeactivation()
+    }
+
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didPause utterance: AVSpeechUtterance) {
+        state = .paused
+    }
+
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didContinue utterance: AVSpeechUtterance) {
+        state = .speaking(utterance.speechString)
+    }
+}

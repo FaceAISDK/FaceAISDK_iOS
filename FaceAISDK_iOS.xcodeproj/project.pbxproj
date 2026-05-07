@@ -18,6 +18,7 @@
 		7CD054D32EDE7E6300EA3E37 /* VerifyFaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD054CC2EDE7E6300EA3E37 /* VerifyFaceView.swift */; };
 		7CD054D42EDE7E6300EA3E37 /* LivenessDetectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD054CD2EDE7E6300EA3E37 /* LivenessDetectView.swift */; };
 		7CFB91332EDE7D6200F01A21 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CFB91322EDE7D6200F01A21 /* Assets.xcassets */; };
+		CF7F7C8E2FA970470018164A /* TTSPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF7F7C8D2FA970470018164A /* TTSPlayer.swift */; };
 		CFB0BAD42F6E22BA00EF438F /* VerifyTwoFaceSimiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB0BAD22F6E22BA00EF438F /* VerifyTwoFaceSimiView.swift */; };
 		CFB0BAD52F6E22BA00EF438F /* AddFaceByImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB0BAD02F6E22BA00EF438F /* AddFaceByImage.swift */; };
 		CFB0BAD62F6E22BA00EF438F /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB0BAD12F6E22BA00EF438F /* ImagePicker.swift */; };
@@ -39,6 +40,7 @@
 		7CFB91322EDE7D6200F01A21 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		94D1A1B0234E7977167CE5E7 /* Pods_FaceAISDK_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FaceAISDK_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		962B8699098C6B58AB2997A8 /* Pods-FaceAISDK_iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FaceAISDK_iOS.debug.xcconfig"; path = "Target Support Files/Pods-FaceAISDK_iOS/Pods-FaceAISDK_iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		CF7F7C8D2FA970470018164A /* TTSPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSPlayer.swift; sourceTree = "<group>"; };
 		CFB0BACF2F6E22BA00EF438F /* AddFaceByCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFaceByCamera.swift; sourceTree = "<group>"; };
 		CFB0BAD02F6E22BA00EF438F /* AddFaceByImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFaceByImage.swift; sourceTree = "<group>"; };
 		CFB0BAD12F6E22BA00EF438F /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 				7C784BB92F1635AB0086B329 /* ScreenBrightnessHelper.swift */,
 				7CC46D2B2F9A1F350077B293 /* FaceSDKCameraView.swift */,
 				7CD054C72EDE7E6300EA3E37 /* FaceAINaviView.swift */,
+				CF7F7C8D2FA970470018164A /* TTSPlayer.swift */,
 				7CD054CD2EDE7E6300EA3E37 /* LivenessDetectView.swift */,
 				7CC0A3522F04EFB700857F23 /* FaceAISDK_demoApp.swift */,
 				7CD054CC2EDE7E6300EA3E37 /* VerifyFaceView.swift */,
@@ -256,6 +259,7 @@
 			files = (
 				7C784BBA2F1635AC0086B329 /* ScreenBrightnessHelper.swift in Sources */,
 				7C600D4F2EDEB8A3005EEEDD /* CustomToastView.swift in Sources */,
+				CF7F7C8E2FA970470018164A /* TTSPlayer.swift in Sources */,
 				CFB0BAD42F6E22BA00EF438F /* VerifyTwoFaceSimiView.swift in Sources */,
 				7CC46D2C2F9A1F350077B293 /* FaceSDKCameraView.swift in Sources */,
 				CFB0BAD52F6E22BA00EF438F /* AddFaceByImage.swift in Sources */,
@@ -399,7 +403,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = G35M5X479Y;
+				DEVELOPMENT_TEAM = ASM2N4Z832;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -419,7 +423,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.facesdk.demo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.facesdk.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -436,7 +440,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = G35M5X479Y;
+				DEVELOPMENT_TEAM = ASM2N4Z832;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -456,7 +460,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.facesdk.demo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.facesdk.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
