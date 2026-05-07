@@ -9,8 +9,10 @@ FaceAISDK_iOS SDK是设备端可完全离线不需联网实现人脸录入、活
 ## 集成步骤
 
 SDK默认的开发环境为Xcode 15.2,Swift 5.9；UI全部使用SwiftUI实现，支持iOS[15,26]  
+
   ```
-    X Thread 1: EXC BAD ACCESS (code=1, address=0x800008)
+    pod 'FaceAISDK_Core', :git => 'https://github.com/FaceAISDK/FaceAISDK_Core.git', :tag => '2026.04.26'
+    # pod 'FaceAISDK_Core', '2026.04.26'
   ```
 
 ### 1.首次运行/更新版本发生闪退异常
@@ -23,7 +25,7 @@ SDK默认的开发环境为Xcode 15.2,Swift 5.9；UI全部使用SwiftUI实现，
 
 ### 2. 确认电脑能科学上网翻墙后，使用Pod命令安装FaceAISDK和相关依赖库
   一般pod install 命令能完整的下载同步安装好所有依赖，也可以pod update FaceAISDK_Core仅更新人脸识别SDK
- **首次**安装基础依赖TensorFlowLiteSwift**耗时30分钟左右**（和网络环境和设备有关），建议此时去喝杯水活动一下颈椎😭
+ **首次**安装基础依赖TensorFlowLiteSwift**耗时30分钟左右**（和网络环境和设备有关）
 
  你也可以在浏览器中看看当前网络环境下载TensorFlowLiteSwift情况：  
  https://github.com/tensorflow/tensorflow/archive/refs/heads/master.zip
@@ -32,7 +34,7 @@ SDK默认的开发环境为Xcode 15.2,Swift 5.9；UI全部使用SwiftUI实现，
  「没有翻墙的错误提示」
   Updating local specs repositories
   Downloading dependencies
-  Installing FaceAISDK_Core 2026.04.22 
+  Installing FaceAISDK_Core 2026.04.26 
   [!] Error installing FaceAISDK_Core
   Cloning into '/var/folders/gh/p4wv4ytj4tn5xrhgq0n_jnbm0000gn/T/d20251020-8626-c57agm'...
   fatal: unable to access 'https://github.com/FaceAISDK/FaceAISDK_Core.git/': Error in the HTTP2 framing layer
