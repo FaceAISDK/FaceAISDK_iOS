@@ -10,7 +10,7 @@ target 'FaceAISDK_iOS' do
   use_frameworks!
   
   # pod update FaceAISDK_Core
-  pod 'FaceAISDK_Core', :git => 'https://github.com/FaceAISDK/FaceAISDK_Core.git', :tag => '2026.04.26'
-#  pod 'FaceAISDK_Core', '2026.04.22'
+  pod 'FaceAISDK_Core', :git => 'https://github.com/FaceAISDK/FaceAISDK_Core.git', :tag => '2026.04.27'
+#  pod 'FaceAISDK_Core', '2026.04.27'
 
 end

@@ -13,6 +13,8 @@ struct VerifyFaceView: View {
     @State private var showLightHighDialog = false
     @State private var showToast = false
     @State private var toastViewTips: String = ""
+    @State private var isTipAppeared = false
+    
     
     // Automatically control screen brightness
     // 自动控制屏幕亮度
@@ -58,8 +60,7 @@ struct VerifyFaceView: View {
             VStack {
                  HStack {
                     Button(action: {
-                        // 0 represents user cancellation
-                        // 0 代表用户取消
+                        // 0 represents user cancellation 代表用户取消
                         onDismiss(0, 0.0, 0.0)
                         dismiss()
                     }) {
@@ -75,13 +76,21 @@ struct VerifyFaceView: View {
                 .padding(.horizontal, 2)
                 .padding(.top, 10)
                 
-                 Text(localizedTip(for: viewModel.sdkInterfaceTips.code))
-                    .font(.system(size: 20).bold())
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 8)
-                    .foregroundColor(.white)
-                    .background(Color.faceMain)
-                    .cornerRadius(20)
+                if isTipAppeared {
+                    Text(localizedTip(for: viewModel.sdkInterfaceTips.code))
+                        .font(.system(size: 20).bold())
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 8)
+                        .foregroundColor(.white)
+                        .background(Color.faceMain)
+                        .cornerRadius(20)
+                        .id(viewModel.sdkInterfaceTips.code)
+                        .transition(.asymmetric(
+                            insertion: .scale(scale: 0.8).combined(with: .opacity),
+                            removal: .opacity
+                        ))
+                        .animation(.spring(response: 0.4, dampingFraction: 0.6), value: viewModel.sdkInterfaceTips.code)
+                }
                 
                 Text(localizedTip(for: viewModel.sdkInterfaceTipsExtra.code))
                     .font(.system(size: 20).bold())
@@ -119,7 +128,7 @@ struct VerifyFaceView: View {
                 
                 // Calculate style: If it's a missing feature error or low similarity, it's a failure
                 // 计算样式：如果是无特征值错误，或者相似度低，则为 failure
-                let isSuccess = viewModel.faceVerifyResult.similarity > threshold && viewModel.faceVerifyResult.liveness>0.7
+                let isSuccess = viewModel.faceVerifyResult.similarity > threshold && viewModel.faceVerifyResult.liveness>0.72
                 let toastStyle: ToastStyle = isSuccess ? .success : .failure
                 
                 VStack {
@@ -183,6 +192,11 @@ struct VerifyFaceView: View {
             }
         }
          .onAppear {
+             
+             withAnimation(.spring(response: 0.5, dampingFraction: 0.7).delay(0.1)) {
+                 isTipAppeared = true
+             }
+             
              if autoControlBrightness {
                  ScreenBrightnessHelper.shared.maximizeBrightness()
              }
@@ -197,7 +211,7 @@ struct VerifyFaceView: View {
                 toastViewTips = "No Face Feature for : \(faceID)"
                 showToast = true
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     showToast = false
                     // Callback NO_FACE_FEATURE
                     // 返回无特征值状态
@@ -219,7 +233,6 @@ struct VerifyFaceView: View {
                  }
                  return
              }
-             
              
             
             viewModel.initFaceAISDK(

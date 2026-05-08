@@ -11,6 +11,8 @@ struct LivenessDetectView: View {
     @StateObject private var viewModel: VerifyFaceModel = VerifyFaceModel()
     @State private var showToast = false
     @State private var showLightHighDialog = false
+    @State private var isTipAppeared = false
+    
     @Environment(\.dismiss) private var dismiss
 
     // Automatically control screen brightness
@@ -70,15 +72,23 @@ struct LivenessDetectView: View {
                 .padding(.horizontal, 10)
                 .padding(.top, 10)
                 
-
-                Text(localizedTip(for: viewModel.sdkInterfaceTips.code))
-                    .font(.system(size: 20).bold())
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 9)
-                    .foregroundColor(.white)
-                    .multilineTextAlignment(.center)
-                    .background(Color.faceMain)
-                    .cornerRadius(20)
+                
+                if isTipAppeared {
+                    Text(localizedTip(for: viewModel.sdkInterfaceTips.code))
+                        .font(.system(size: 20).bold())
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 8)
+                        .foregroundColor(.white)
+                        .background(Color.faceMain)
+                        .cornerRadius(20)
+                        .id(viewModel.sdkInterfaceTips.code)
+                        .transition(.asymmetric(
+                            insertion: .scale(scale: 0.8).combined(with: .opacity),
+                            removal: .opacity
+                        ))
+                        .animation(.spring(response: 0.4, dampingFraction: 0.6), value: viewModel.sdkInterfaceTips.code)
+                }
+                
                 
                 Text(localizedTip(for: viewModel.sdkInterfaceTipsExtra.code))
                     .font(.system(size: 20).bold())
@@ -103,7 +113,7 @@ struct LivenessDetectView: View {
 
              if showToast {
                 
-                 let isSuccess = viewModel.faceVerifyResult.liveness > 0.8
+                 let isSuccess = viewModel.faceVerifyResult.liveness > 0.75
                  let toastStyle: ToastStyle = isSuccess ? .success : .failure
                  
                 VStack {
@@ -175,6 +185,9 @@ struct LivenessDetectView: View {
         .onAppear {
             if autoControlBrightness {
                 ScreenBrightnessHelper.shared.maximizeBrightness()
+            }
+            withAnimation(.spring(response: 0.5, dampingFraction: 0.7).delay(0.1)) {
+                isTipAppeared = true
             }
             
             withAnimation(.easeInOut(duration: 0.3)) {
