@@ -8,8 +8,8 @@ FaceAISDK_iOS SDK是设备端可完全离线不需联网实现人脸录入、活
 
 ## 集成步骤
 
-SDK 默认开发环境为 Xcode 15.2 (Swift 5.9)，并已验证兼容至 Xcode 26.5 (Swift 6.3)。UI 层全量采用 SwiftUI 构建；  
-全面支持 iOS/iPadOS [15, 26]，还可原生运行于搭载 Apple Silicon（M系列芯片）的 Mac 设备 
+ SDK 默认开发环境为 Xcode 15.2 (Swift 5.9)，并已验证兼容至 Xcode 26.5 (Swift 6.3)。
+ UI层全量采用SwiftUI构建；全面支持 iOS/iPadOS [15, 26]，也可运行搭载Apple Silicon（M系列芯片）Mac设备 
 
   ```
     pod 'FaceAISDK_Core', :git => 'https://github.com/FaceAISDK/FaceAISDK_Core.git', :tag => '2026.05.19swift6.3'
