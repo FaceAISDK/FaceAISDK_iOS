@@ -12,8 +12,8 @@ SDK 默认开发环境为 Xcode 15.2 (Swift 5.9)，并已验证兼容至 Xcode 2
 全面支持 iOS/iPadOS [15, 26]，还可原生运行于搭载 Apple Silicon（M系列芯片）的 Mac 设备 
 
   ```
-    pod 'FaceAISDK_Core', :git => 'https://github.com/FaceAISDK/FaceAISDK_Core.git', :tag => '2026.04.27'
-    # pod 'FaceAISDK_Core', '2026.04.27'
+    pod 'FaceAISDK_Core', :git => 'https://github.com/FaceAISDK/FaceAISDK_Core.git', :tag => '2026.05.19swift6.3'
+    # pod 'FaceAISDK_Core', '026.05.19swift6.3'
   ```
 
 ### 1.首次运行/更新版本发生闪退异常
