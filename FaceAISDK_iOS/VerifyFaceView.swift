@@ -129,6 +129,7 @@ struct VerifyFaceView: View {
                 // Calculate style: If it's a missing feature error or low similarity, it's a failure
                 // 计算样式：如果是无特征值错误，或者相似度低，则为 failure
                 let isSuccess = viewModel.faceVerifyResult.similarity > threshold && viewModel.faceVerifyResult.liveness>0.72
+                
                 let toastStyle: ToastStyle = isSuccess ? .success : .failure
                 
                 VStack {
