@@ -12,8 +12,9 @@ FaceAISDK_iOS SDK是设备端可完全离线不需联网实现人脸录入、活
  UI层全量采用SwiftUI构建；全面支持 iOS/iPadOS [15, 26]，也可运行搭载Apple Silicon（M系列芯片）Mac设备 
 
   ```
-    pod 'FaceAISDK_Core', :git => 'https://github.com/FaceAISDK/FaceAISDK_Core.git', :tag => '2026.05.19swift6.3'
-    # pod 'FaceAISDK_Core', '026.05.19swift6.3'
+    # 1.在Podfile中添加如下依赖，请及时更新到最新版本
+    pod 'FaceAISDK_Core', :git => 'https://github.com/FaceAISDK/FaceAISDK_Core.git', :tag => '2026.05.28.xcode15'
+    # pod 'FaceAISDK_Core', '2026.05.28.xcode15'
   ```
 
 ### 1.首次运行/更新版本发生闪退异常
