@@ -60,10 +60,10 @@ FaceAISDK_iOS SDK是设备端可完全离线不需联网实现人脸录入、活
   
   **iOS纯Swift：** https://github.com/FaceAISDK/FaceAISDK_iOS  
   **iOS OC混编：** https://github.com/FaceAISDK/FaceAISDK_iOS  
-
   **Android：** https://github.com/FaceAISDK/FaceAISDK_Android     
   **Flutter 插件：** https://github.com/FaceAISDK/FaceAISDK_Flutter_Plugin  
-  **uniApp UTS插件：** https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS  
+  **uniApp UTS插件** https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS  
+  **React Native**  https://github.com/FaceAISDK/FaceAISDK_RN  
   
   Email: FaceAISDK.Service@gmail.com   
   

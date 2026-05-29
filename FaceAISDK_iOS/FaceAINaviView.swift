@@ -79,7 +79,7 @@ struct FaceAINaviView: View {
                             NavigationLink(destination: LivenessDetectView(
                                 // 1. Motion Liveness, 2. Motion + Color, 3. Color, 4. Silent Liveness only (the first three all include silent liveness).
                                 // 1.动作活体 2.动作+炫彩 3.炫彩 4.仅静默活体(前三种都会带静默)。
-                                livenessType: 2,
+                                livenessType: 4,
                                 // 1. Open mouth, 2. Smile, 3. Blink, 4. Shake head, 5. Nod.
                                 // 1.张嘴 2.微笑 3.眨眼 4.摇头 5.点头。
                                 motionLiveness: "1,2,3,4,5",
