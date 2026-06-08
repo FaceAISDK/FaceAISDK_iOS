@@ -260,11 +260,11 @@ struct VerifyFaceView: View {
             }else{
                 showToast = true
                 
-                if FaceImageManger.saveFaceImage(faceName: faceID, faceImage: viewModel.faceVerifyResult.faceImage){
+                if FaceImageManager.saveFaceImage(faceName: faceID, faceImage: viewModel.faceVerifyResult.faceImage){
                     print("saveFaceImage success ")
                 }
 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     withAnimation {
                         showToast = false
                     }
