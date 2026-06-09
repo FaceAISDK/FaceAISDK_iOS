@@ -662,13 +662,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Silent Liveness Failed"
+            "value" : "Liveness check failed. Please ensure soft lighting conditions."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "静默活体检测失败"
+            "state" : "translated",
+            "value" : "活体检测失败,请确认光线环境柔和"
           }
         }
       }
