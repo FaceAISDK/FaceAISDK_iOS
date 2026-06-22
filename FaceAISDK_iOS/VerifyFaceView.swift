@@ -129,7 +129,6 @@ struct VerifyFaceView: View {
                 // Calculate style: If it's a missing feature error or low similarity, it's a failure
                 // 计算样式：如果是无特征值错误，或者相似度低，则为 failure
                 let isSuccess = viewModel.faceVerifyResult.similarity > threshold && viewModel.faceVerifyResult.liveness>0.72
-                
                 let toastStyle: ToastStyle = isSuccess ? .success : .failure
                 
                 VStack {
@@ -212,7 +211,7 @@ struct VerifyFaceView: View {
                 toastViewTips = "No Face Feature for : \(faceID)"
                 showToast = true
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                     showToast = false
                     // Callback NO_FACE_FEATURE
                     // 返回无特征值状态
@@ -234,6 +233,7 @@ struct VerifyFaceView: View {
                  }
                  return
              }
+             
              
             
             viewModel.initFaceAISDK(
@@ -264,7 +264,7 @@ struct VerifyFaceView: View {
                     print("saveFaceImage success ")
                 }
 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     withAnimation {
                         showToast = false
                     }

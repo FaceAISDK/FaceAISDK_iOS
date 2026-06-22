@@ -35,6 +35,9 @@ struct LivenessDetectView: View {
     // 动作活体个数
     let motionLivenessSteps:Int
     
+    // show Result Tips? For Flutter,RN,UNIApp plugin
+    let showResultTips:Bool
+    
     // callback status liveness score
     let onDismiss: (Int, Float) -> Void
     
@@ -111,7 +114,7 @@ struct LivenessDetectView: View {
             .navigationBarBackButtonHidden(true)
             .navigationBarHidden(true)
 
-             if showToast {
+             if showToast && showResultTips {
                 
                  let isSuccess = viewModel.faceVerifyResult.liveness > 0.75
                  let toastStyle: ToastStyle = isSuccess ? .success : .failure
@@ -214,7 +217,7 @@ struct LivenessDetectView: View {
                     //print("Base64: \(String(describing: FaceImageManger.faceImageToBase64(fileName:"Liveness")))")
                 }
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     withAnimation {
                         showToast = false
                     }
