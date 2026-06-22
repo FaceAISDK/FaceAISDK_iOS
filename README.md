@@ -13,8 +13,8 @@ FaceAISDK_iOS SDK是设备端可完全离线不需联网实现人脸录入、活
 
   ```
     # 1.在Podfile中添加如下依赖，请及时更新到最新版本
-    pod 'FaceAISDK_Core', :git => 'https://github.com/FaceAISDK/FaceAISDK_Core.git', :tag => '2026.05.28.xcode15'
-    # pod 'FaceAISDK_Core', '2026.05.28.xcode15'
+    pod 'FaceAISDK_Core', :git => 'https://github.com/FaceAISDK/FaceAISDK_Core.git', :tag => '2026.06.21'
+    # pod 'FaceAISDK_Core', '2026.06.21'
   ```
 
 ### 1.首次运行/更新版本发生闪退异常
@@ -36,7 +36,7 @@ FaceAISDK_iOS SDK是设备端可完全离线不需联网实现人脸录入、活
  「没有翻墙的错误提示」
   Updating local specs repositories
   Downloading dependencies
-  Installing FaceAISDK_Core 2026.04.26 
+  Installing FaceAISDK_Core 2026.06.21 
   [!] Error installing FaceAISDK_Core
   Cloning into '/var/folders/gh/p4wv4ytj4tn5xrhgq0n_jnbm0000gn/T/d20251020-8626-c57agm'...
   fatal: unable to access 'https://github.com/FaceAISDK/FaceAISDK_Core.git/': Error in the HTTP2 framing layer
