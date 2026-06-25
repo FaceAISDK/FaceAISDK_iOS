@@ -11,6 +11,7 @@ struct LivenessDetectView: View {
     @StateObject private var viewModel: VerifyFaceModel = VerifyFaceModel()
     @State private var showToast = false
     @State private var showLightHighDialog = false
+    @State private var showFailureDialog = false
     @State private var isTipAppeared = false
     
     @Environment(\.dismiss) private var dismiss
@@ -38,7 +39,7 @@ struct LivenessDetectView: View {
     // show Result Tips? For Flutter,RN,UNIApp plugin
     let showResultTips:Bool
     
-    // callback status liveness score
+    // callback status liveness score,多加一个参数吧message
     let onDismiss: (Int, Float) -> Void
     
     // Multi-language tips can be provided based on the Code
@@ -115,8 +116,8 @@ struct LivenessDetectView: View {
             .navigationBarHidden(true)
 
              if showToast && showResultTips {
-                
-                 let isSuccess = viewModel.faceVerifyResult.liveness > 0.75
+                 // iOS 静默活体通过分数暂时调低为0.72
+                 let isSuccess = viewModel.faceVerifyResult.liveness > 0.72
                  let toastStyle: ToastStyle = isSuccess ? .success : .failure
                  
                 VStack {
@@ -133,8 +134,7 @@ struct LivenessDetectView: View {
                 .zIndex(1)
             }
             
-            // Custom dialog for high light levels
-            // 光线过强自定义弹窗 (Dialog)
+            // Custom dialog for high light levels,光线过强自定义弹窗 (Dialog)
             if showLightHighDialog {
                 ZStack {
                     VStack(spacing: 22) {
@@ -174,12 +174,72 @@ struct LivenessDetectView: View {
                     .background(Color.white)
                     .cornerRadius(20)
                     .shadow(color: Color.black.opacity(0.2), radius: 20, x: 0, y: 10)
-                    // Set left and right padding for the dialog
-                    // 设置弹窗左右边距
                     .padding(.horizontal, 30)
                 }
-                // Ensure it is on the top layer (higher than Toast)
-                // 确保在最上层 (比 Toast 更高)
+                .zIndex(2)
+                .transition(.scale(scale: 0.8).combined(with: .opacity))
+            }
+
+            // Failure dialog when liveness detection fails (两按钮：知道了 / 重试)
+            if showFailureDialog {
+                ZStack {
+                    VStack(spacing: 18) {
+                        Text(viewModel.faceVerifyResult.tips)
+                            .font(.system(size: 18).bold())
+                            .fontWeight(.semibold)
+                            .multilineTextAlignment(.center)
+                            .foregroundColor(.black)
+                            .padding(.vertical,18)
+
+                        HStack(spacing: 12) {
+                            Button(action: {
+                                withAnimation {
+                                    showFailureDialog = false
+                                    showToast = true
+                                    _ = FaceImageManager.saveFaceImage(faceName: "Liveness", faceImage: viewModel.faceVerifyResult.faceImage)
+                                }
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                    withAnimation { showToast = false }
+                                    onDismiss(viewModel.faceVerifyResult.code, viewModel.faceVerifyResult.liveness)
+                                    dismiss()
+                                }
+                            }) {
+                                Text("I Know")
+                                    .font(.system(size: 18).bold())
+                                    .foregroundColor(.black)
+                                    .frame(maxWidth: .infinity)
+                                    .padding(.vertical, 10)
+                                    .background(Color.white)
+                                    .cornerRadius(10)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .stroke(Color.gray.opacity(0.2), lineWidth: 1)
+                                    )
+                            }
+
+                            Button(action: {
+                                withAnimation {
+                                    showFailureDialog = false
+                                }
+                                viewModel.reInit() //重新
+                            }) {
+                                Text("Retry")
+                                    .font(.system(size: 18).bold())
+                                    .foregroundColor(.white)
+                                    .frame(maxWidth: .infinity)
+                                    .padding(.vertical, 10)
+                                    .background(Color.faceMain)
+                                    .cornerRadius(10)
+                            }
+                        }
+                        .padding(.horizontal, 12)
+                    }
+                    .padding(.vertical, 18)
+                    .background(Color.white)
+                    .cornerRadius(20)
+                    .shadow(color: Color.black.opacity(0.2), radius: 20, x: 0, y: 10)
+                    .padding(.horizontal, 30)
+                }
                 .zIndex(2)
                 .transition(.scale(scale: 0.8).combined(with: .opacity))
             }
@@ -189,7 +249,7 @@ struct LivenessDetectView: View {
             if autoControlBrightness {
                 ScreenBrightnessHelper.shared.maximizeBrightness()
             }
-            withAnimation(.spring(response: 0.5, dampingFraction: 0.7).delay(0.1)) {
+            withAnimation(.spring(response: 0.6, dampingFraction: 0.7).delay(0.9)) {
                 isTipAppeared = true
             }
             
@@ -205,26 +265,45 @@ struct LivenessDetectView: View {
                                     motionLivenessSteps:motionLivenessSteps)
         }
         .onChange(of: viewModel.faceVerifyResult.code) { newValue in
-            if newValue == VerifyResultCode.COLOR_LIVENESS_LIGHT_TOO_HIGH{
-                // Light is too strong 光线太强了
+            // 忽略默认状态（例如刚初始化或重试时变成 0），避免直接掉入底部的默认退出流程
+            if newValue == VerifyResultCode.DEFAULT { return }
+            
+            // 根据不同的 code 值来决定是否显示 toast 或者弹窗
+            // 优先处理光线过强的专用弹窗
+            if newValue == VerifyResultCode.COLOR_LIVENESS_LIGHT_TOO_HIGH {
                 withAnimation {
                     showLightHighDialog = true
                 }
-            }else{
-                showToast = true
-                
-                if FaceImageManager.saveFaceImage(faceName: "Liveness", faceImage: viewModel.faceVerifyResult.faceImage){
-                    //print("Base64: \(String(describing: FaceImageManger.faceImageToBase64(fileName:"Liveness")))")
-                }
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    withAnimation {
-                        showToast = false
-                    }
-                    onDismiss(viewModel.faceVerifyResult.code,viewModel.faceVerifyResult.liveness)
-                    dismiss()
-                }
+                return
             }
+
+            // 如果是下列失败码之一，则弹出失败对话框（允许用户知道了或重试），并返回以避免继续执行默认的 toast/退出流程
+            let failureCodes: [Int] = [
+                VerifyResultCode.MOTION_LIVENESS_TIMEOUT,
+                VerifyResultCode.NO_FACE_MULTI,
+                VerifyResultCode.COLOR_LIVENESS_FAILED,
+                VerifyResultCode.SILENT_LIVENESS_FAILED
+            ]
+
+            if failureCodes.contains(newValue) {
+                withAnimation {
+                    showFailureDialog = true
+                }
+                return
+            }
+
+            // 其余情况沿用原有流程：展示 toast -> 回调 -> 退出
+            withAnimation {
+                showFailureDialog = false
+                showToast = true
+                _ = FaceImageManager.saveFaceImage(faceName: "Liveness", faceImage: viewModel.faceVerifyResult.faceImage)
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                withAnimation { showToast = false }
+                onDismiss(viewModel.faceVerifyResult.code, viewModel.faceVerifyResult.liveness)
+                dismiss()
+            }
+            
         }
         .onDisappear {
             if autoControlBrightness {
