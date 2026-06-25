@@ -175,7 +175,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "没有检测到人脸"
+            "value" : "未检测到人脸"
           }
         }
       }
@@ -650,7 +650,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "光线过强,避免强光照射"
           }
         }
@@ -725,7 +725,6 @@
       }
     },
     "I Know" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

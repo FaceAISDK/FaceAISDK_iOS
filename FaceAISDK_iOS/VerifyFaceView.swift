@@ -19,6 +19,7 @@ struct VerifyFaceView: View {
     // Automatically control screen brightness
     // 自动控制屏幕亮度
     var autoControlBrightness: Bool = true
+    var retryTime:Int = 0; //记录失败尝试的次数
 
     let faceID: String
     let threshold: Float
@@ -193,7 +194,7 @@ struct VerifyFaceView: View {
         }
          .onAppear {
              
-             withAnimation(.spring(response: 0.5, dampingFraction: 0.7).delay(0.1)) {
+             withAnimation(.spring(response: 0.6, dampingFraction: 0.7).delay(0.9)) {
                  isTipAppeared = true
              }
              
@@ -234,8 +235,6 @@ struct VerifyFaceView: View {
                  return
              }
              
-             
-            
             viewModel.initFaceAISDK(
                 faceIDFeature: faceFeature,
                 threshold: threshold,
@@ -246,14 +245,14 @@ struct VerifyFaceView: View {
                 motionLivenessSteps:motionLivenessSteps
             )
         }
+        //和Android 一样允许重试，而不是立即结束整个流程
         .onChange(of: viewModel.faceVerifyResult.code) { newValue in
             // Clear manual tips, use SDK results
             // 清空手动的 tips，使用 SDK 的结果
             toastViewTips = ""
             
             if newValue == VerifyResultCode.COLOR_LIVENESS_LIGHT_TOO_HIGH{
-                // Light is too strong
-                // 光线太强了
+                // Light is too strong 光线太强了
                 withAnimation {
                     showLightHighDialog = true
                 }
