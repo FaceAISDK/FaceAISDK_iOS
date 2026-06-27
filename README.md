@@ -8,13 +8,13 @@ FaceAISDK_iOS SDK是设备端可完全离线不需联网实现人脸录入、活
 
 ## 集成步骤
 
- SDK 默认开发环境为 Xcode 15.2 (Swift 5.9)，并已验证兼容至 Xcode 26.5 (Swift 6.3)。
+ SDK 默认开发环境为Xcode 15.2 (Swift 5.9)，并已验证兼容至 Xcode 26.5 (Swift 6.3)。
  UI层全量采用SwiftUI构建；全面支持 iOS/iPadOS [15, 26]，也可运行搭载Apple Silicon（M系列芯片）Mac设备 
 
   ```
     # 1.在Podfile中添加如下依赖，请及时更新到最新版本
-    pod 'FaceAISDK_Core', :git => 'https://github.com/FaceAISDK/FaceAISDK_Core.git', :tag => '2026.06.21'
-    # pod 'FaceAISDK_Core', '2026.06.21'
+    pod 'FaceAISDK_Core', :git => 'https://github.com/FaceAISDK/FaceAISDK_Core.git', :tag => '2026.06.25'
+    # pod 'FaceAISDK_Core', '2026.06.25'
   ```
 
 ### 1.首次运行/更新版本发生闪退异常
@@ -36,7 +36,7 @@ FaceAISDK_iOS SDK是设备端可完全离线不需联网实现人脸录入、活
  「没有翻墙的错误提示」
   Updating local specs repositories
   Downloading dependencies
-  Installing FaceAISDK_Core 2026.06.21 
+  Installing FaceAISDK_Core 2026.06.25 
   [!] Error installing FaceAISDK_Core
   Cloning into '/var/folders/gh/p4wv4ytj4tn5xrhgq0n_jnbm0000gn/T/d20251020-8626-c57agm'...
   fatal: unable to access 'https://github.com/FaceAISDK/FaceAISDK_Core.git/': Error in the HTTP2 framing layer
@@ -54,8 +54,8 @@ FaceAISDK_iOS SDK是设备端可完全离线不需联网实现人脸录入、活
    ```
     保证网络环境以及增加Git缓存大小
     Bash
-    git config --global http.postBuffer 998576000
-    git config --global https.postBuffer 998576000
+    git config --global http.postBuffer 987654321
+    git config --global https.postBuffer 987654321
 
 ## 其他说明 
   
