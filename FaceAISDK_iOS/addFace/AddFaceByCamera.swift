@@ -35,9 +35,9 @@ public struct AddFaceByCamera: View {
     // 统一处理人脸录入成功的逻辑
     private func handleFaceAddSuccess() {
         // Optional
-        // if FaceImageManger.saveFaceImage(faceName: faceID, faceImage: viewModel.croppedFaceImage) {
-        //     print("saveFaceImage success")
-        // }
+         if FaceImageManager.saveFaceImage(faceName: faceID, faceImage: viewModel.croppedFaceImage) {
+             print("saveFaceImage success")
+         }
         
         // Save face feature 保存人脸特征信息，
         UserDefaults.standard.set(viewModel.faceFeatureBySDKCamera, forKey: faceID)
@@ -150,11 +150,12 @@ struct ConfirmAddFaceDialog: View {
                 .font(.system(size: 19, weight: .semibold))
                 .foregroundColor(Color.faceMain)
                 .padding(.top, 18)
-
-            Image(uiImage: viewModel.croppedFaceImage)
+            
+            //
+            Image(uiImage: viewModel.originFaceImage)
                 .resizable()
                 .scaledToFill()
-                .frame(width: 130, height: 130)
+                .frame(width: 190, height: 220)
                 .clipShape(RoundedRectangle(cornerRadius: 12))
                 .overlay(
                     RoundedRectangle(cornerRadius: 12)
@@ -188,17 +189,17 @@ struct ConfirmAddFaceDialog: View {
                     Text("Confirm")
                         .font(.system(size: 16, weight: .bold))
                         .frame(maxWidth: .infinity)
-                        .frame(height: 45)
+                        .frame(height: 44)
                         .background(Color.faceMain)
                         .foregroundColor(.white)
                         .cornerRadius(8)
                 }
             }
             .padding(.horizontal, 16)
-            .padding(.bottom, 20)
+            .padding(.bottom, 16)
             .padding(.top, 8)
         }
-        .frame(width: cameraSize * 1.11)
+        .frame(width: cameraSize * 1.22)
         .background(Color.white)
         .cornerRadius(16)
         .shadow(color: Color.black.opacity(0.2), radius: 10, x: 0, y: 5)
