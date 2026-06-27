@@ -8,7 +8,14 @@ FaceAISDK_iOS SDK是设备端可完全离线不需联网实现人脸录入、活
 
 ## 集成步骤
 
-SDK默认的开发环境为Xcode 15.2,Swift 5.9；UI全部使用SwiftUI实现，支持iOS[15,26]  
+ SDK 默认开发环境为 Xcode 15.2 (Swift 5.9)，并已验证兼容至 Xcode 26.5 (Swift 6.3)。
+ UI层全量采用SwiftUI构建；全面支持 iOS/iPadOS [15, 26]，也可运行搭载Apple Silicon（M系列芯片）Mac设备 
+
+  ```
+    # 1.在Podfile中添加如下依赖，请及时更新到最新版本
+    pod 'FaceAISDK_Core', :git => 'https://github.com/FaceAISDK/FaceAISDK_Core.git', :tag => '2026.06.21'
+    # pod 'FaceAISDK_Core', '2026.06.21'
+  ```
 
 ### 1.首次运行/更新版本发生闪退异常
   TensorFlowLiteSwift首次运行或更新版本后发生闪退并报错
@@ -20,7 +27,7 @@ SDK默认的开发环境为Xcode 15.2,Swift 5.9；UI全部使用SwiftUI实现，
 
 ### 2. 确认电脑能科学上网翻墙后，使用Pod命令安装FaceAISDK和相关依赖库
   一般pod install 命令能完整的下载同步安装好所有依赖，也可以pod update FaceAISDK_Core仅更新人脸识别SDK
- **首次**安装基础依赖TensorFlowLiteSwift**耗时30分钟左右**（和网络环境和设备有关），建议此时去喝杯水活动一下颈椎😭
+ **首次**安装基础依赖TensorFlowLiteSwift**耗时30分钟左右**（和网络环境和设备有关）
 
  你也可以在浏览器中看看当前网络环境下载TensorFlowLiteSwift情况：  
  https://github.com/tensorflow/tensorflow/archive/refs/heads/master.zip
@@ -29,7 +36,7 @@ SDK默认的开发环境为Xcode 15.2,Swift 5.9；UI全部使用SwiftUI实现，
  「没有翻墙的错误提示」
   Updating local specs repositories
   Downloading dependencies
-  Installing FaceAISDK_Core 2026.04.22 
+  Installing FaceAISDK_Core 2026.06.21 
   [!] Error installing FaceAISDK_Core
   Cloning into '/var/folders/gh/p4wv4ytj4tn5xrhgq0n_jnbm0000gn/T/d20251020-8626-c57agm'...
   fatal: unable to access 'https://github.com/FaceAISDK/FaceAISDK_Core.git/': Error in the HTTP2 framing layer
@@ -52,10 +59,12 @@ SDK默认的开发环境为Xcode 15.2,Swift 5.9；UI全部使用SwiftUI实现，
 
 ## 其他说明 
   
-  **iOS SDK：** https://github.com/FaceAISDK/FaceAISDK_iOS  
+  **iOS纯Swift：** https://github.com/FaceAISDK/FaceAISDK_iOS  
+  **iOS OC混编：** https://github.com/FaceAISDK/FaceAISDK_iOS  
   **Android：** https://github.com/FaceAISDK/FaceAISDK_Android     
   **Flutter 插件：** https://github.com/FaceAISDK/FaceAISDK_Flutter_Plugin  
-  **uniApp UTS插件：** https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS  
+  **uniApp UTS插件** https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS  
+  **React Native**  https://github.com/FaceAISDK/FaceAISDK_RN  
   
   Email: FaceAISDK.Service@gmail.com   
   

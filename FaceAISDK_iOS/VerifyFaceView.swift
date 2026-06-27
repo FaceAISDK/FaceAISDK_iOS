@@ -17,7 +17,7 @@ struct VerifyFaceView: View {
     // Automatically control screen brightness
     // 自动控制屏幕亮度
     var autoControlBrightness: Bool = true
-    var retryTime:Int = 0; //记录失败尝试的次数 检测可以重试3-4次
+    var retryTime:Int = 0; //记录失败尝试的次数 建议可以重试3-4次
 
     let faceID: String
     let threshold: Float
