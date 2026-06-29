@@ -2,14 +2,12 @@ import SwiftUI
 import FaceAISDK_Core
 
 /**
- * 1:1 Face Verification and Liveness Detection
- * 1:1 人脸识别以及活体检测
+ * 1:1 Face Verification and Liveness Detection        1:1 人脸识别以及活体检测
  */
 struct VerifyFaceView: View {
     @StateObject private var viewModel: VerifyFaceModel = VerifyFaceModel()
     @Environment(\.dismiss) private var dismiss
-    // Prompt that the ambient light is too bright
-    // 提示环境光太亮
+    // Prompt that the ambient light is too bright  提示环境光太亮
     @State private var showLightHighDialog = false
     @State private var showFailureDialog = false
     @State private var showToast = false
@@ -19,7 +17,7 @@ struct VerifyFaceView: View {
     // Automatically control screen brightness
     // 自动控制屏幕亮度
     var autoControlBrightness: Bool = true
-    var retryTime:Int = 0; //记录失败尝试的次数
+    var retryTime:Int = 0; //记录失败尝试的次数 建议可以重试3-4次
 
     let faceID: String
     let threshold: Float
@@ -44,8 +42,7 @@ struct VerifyFaceView: View {
     // 返回状态，人脸相似度，活体分数
     let onDismiss: (Int, Float, Float) -> Void
 
-    // Multi-language tips
-    // 多语言提示
+    // Multi-language tips  多语言提示
     private func localizedTip(for code: Int) -> String {
         let key = "Face_Tips_Code_\(code)"
         let defaultValue = "VerifyFace Tips Code=\(code)"
@@ -157,8 +154,7 @@ struct VerifyFaceView: View {
                 .zIndex(1)
             }
             
-            // Custom dialog for high light levels
-            // 光线过强自定义弹窗 (Dialog)
+            // Custom dialog for high light levels  光线过强自定义弹窗 (Dialog)
             if showLightHighDialog {
                 ZStack {
                     VStack(spacing: 22) {
@@ -318,9 +314,8 @@ struct VerifyFaceView: View {
             guard newValue != VerifyResultCode.DEFAULT else { return }
             
             if newValue == VerifyResultCode.COLOR_LIVENESS_LIGHT_TOO_HIGH{
-                // Light is too strong 光线太强了
                 withAnimation {
-                    showLightHighDialog = true
+                    showLightHighDialog = true // Light is too strong 光线太强了
                 }
                 return
             }
