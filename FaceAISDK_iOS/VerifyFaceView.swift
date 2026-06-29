@@ -11,10 +11,10 @@ struct VerifyFaceView: View {
     // Prompt that the ambient light is too bright
     // 提示环境光太亮
     @State private var showLightHighDialog = false
+    @State private var showFailureDialog = false
     @State private var showToast = false
-    @State private var toastViewTips: String = ""
+    @State private var toastMessage: String = ""
     @State private var isTipAppeared = false
-    
     
     // Automatically control screen brightness
     // 自动控制屏幕亮度
@@ -50,10 +50,31 @@ struct VerifyFaceView: View {
         let key = "Face_Tips_Code_\(code)"
         let defaultValue = "VerifyFace Tips Code=\(code)"
         let tipsString = NSLocalizedString(key, value: defaultValue, comment: "")
-        if code != 0 && code != 1 && code != 3 {
+        if code != 0 && code != 1 && code != 3 { //剔除不需要语音提示的code，否则太啰嗦
             TTSPlayer.shared.speak(tipsString)
         }
         return tipsString
+    }
+    
+    private func showToastAndDismiss(
+        message: String,
+        code: Int,
+        similarity: Float = 0.0,
+        liveness: Float = 0.0,
+        delay: Double = 1.5
+    ) {
+        toastMessage = message
+        withAnimation {
+            showToast = true
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+            withAnimation {
+                showToast = false
+            }
+            onDismiss(code, similarity, liveness)
+            dismiss()
+        }
     }
     
     var body: some View {
@@ -114,19 +135,10 @@ struct VerifyFaceView: View {
             .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(viewModel.colorFlash.ignoresSafeArea())
-            // Hide system navigation bar
-            // 隐藏系统导航栏
             .navigationBarBackButtonHidden(true)
             .navigationBarHidden(true)
             
             if showToast {
-
-                let similarity = String(format: "%.2f", viewModel.faceVerifyResult.similarity)
-                // Prefer manually set toastViewTips (for handling missing feature values), otherwise use tips returned by SDK
-                // 优先使用手动设置的 toastViewTips (用于处理无特征值的情况)，否则使用 SDK 返回的 tips
-                let displayTips = toastViewTips.isEmpty ? viewModel.faceVerifyResult.tips : toastViewTips
-                let displayMessage = (toastViewTips.isEmpty) ? "\(displayTips)" : displayTips
-                
                 // Calculate style: If it's a missing feature error or low similarity, it's a failure
                 // 计算样式：如果是无特征值错误，或者相似度低，则为 failure
                 let isSuccess = viewModel.faceVerifyResult.similarity > threshold && viewModel.faceVerifyResult.liveness>0.72
@@ -135,7 +147,7 @@ struct VerifyFaceView: View {
                 VStack {
                     Spacer()
                     CustomToastView(
-                        message: displayMessage,
+                        message: toastMessage,
                         style: toastStyle
                     )
                     .padding(.bottom, 77)
@@ -191,6 +203,72 @@ struct VerifyFaceView: View {
                 .zIndex(2)
                 .transition(.scale(scale: 0.8).combined(with: .opacity))
             }
+
+            // Failure dialog when verification/liveness fails (两按钮：知道了 / 重试)
+            if showFailureDialog {
+                ZStack {
+                    VStack(spacing: 18) {
+                        Text(viewModel.faceVerifyResult.tips)
+                            .font(.system(size: 18).bold())
+                            .fontWeight(.semibold)
+                            .multilineTextAlignment(.center)
+                            .foregroundColor(.black)
+                            .padding(.vertical,18)
+
+                        HStack(spacing: 12) {
+                            Button(action: {
+                                withAnimation {
+                                    showFailureDialog = false
+                                }
+                                _ = FaceImageManager.saveFaceImage(faceName: faceID, faceImage: viewModel.faceVerifyResult.faceImage)
+                                showToastAndDismiss(
+                                    message: viewModel.faceVerifyResult.tips,
+                                    code: viewModel.faceVerifyResult.code,
+                                    similarity: viewModel.faceVerifyResult.similarity,
+                                    liveness: viewModel.faceVerifyResult.liveness,
+                                    delay: 1
+                                )
+                            }) {
+                                Text("I Know")
+                                    .font(.system(size: 18).bold())
+                                    .foregroundColor(.black)
+                                    .frame(maxWidth: .infinity)
+                                    .padding(.vertical, 10)
+                                    .background(Color.white)
+                                    .cornerRadius(10)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .stroke(Color.gray.opacity(0.2), lineWidth: 1)
+                                    )
+                            }
+
+                            Button(action: {
+                                withAnimation {
+                                    showFailureDialog = false
+                                    showToast = false
+                                }
+                                viewModel.reInit()
+                            }) {
+                                Text("Retry")
+                                    .font(.system(size: 18).bold())
+                                    .foregroundColor(.white)
+                                    .frame(maxWidth: .infinity)
+                                    .padding(.vertical, 10)
+                                    .background(Color.faceMain)
+                                    .cornerRadius(10)
+                            }
+                        }
+                        .padding(.horizontal, 12)
+                    }
+                    .padding(.vertical, 18)
+                    .background(Color.white)
+                    .cornerRadius(20)
+                    .shadow(color: Color.black.opacity(0.2), radius: 20, x: 0, y: 10)
+                    .padding(.horizontal, 30)
+                }
+                .zIndex(2)
+                .transition(.scale(scale: 0.8).combined(with: .opacity))
+            }
         }
          .onAppear {
              
@@ -209,29 +287,19 @@ struct VerifyFaceView: View {
             // Check if there is a local feature value
             // 校验本地是否有特征值
             guard let faceFeature = UserDefaults.standard.string(forKey: faceID) else {
-                toastViewTips = "No Face Feature for : \(faceID)"
-                showToast = true
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                    showToast = false
-                    // Callback NO_FACE_FEATURE
-                    // 返回无特征值状态
-                    onDismiss(6,0.0,0.0)
-                    dismiss()
-                }
+                showToastAndDismiss(
+                    message: "No Face Feature for : \(faceID)",
+                    code: VerifyResultCode.NO_FACE_FEATURE
+                )
                 return
             }
              
              
              guard faceFeature.count >= 1024 else {
-                 toastViewTips = "Invalid Feature length for : \(faceID)"
-                 showToast = true
-                 
-                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                     showToast = false
-                     onDismiss(6, 0.0, 0.0)
-                     dismiss()
-                 }
+                 showToastAndDismiss(
+                     message: "Invalid Feature length for : \(faceID)",
+                     code: VerifyResultCode.NO_FACE_FEATURE
+                 )
                  return
              }
              
@@ -247,30 +315,41 @@ struct VerifyFaceView: View {
         }
         //和Android 一样允许重试，而不是立即结束整个流程
         .onChange(of: viewModel.faceVerifyResult.code) { newValue in
-            // Clear manual tips, use SDK results
-            // 清空手动的 tips，使用 SDK 的结果
-            toastViewTips = ""
+            guard newValue != VerifyResultCode.DEFAULT else { return }
             
             if newValue == VerifyResultCode.COLOR_LIVENESS_LIGHT_TOO_HIGH{
                 // Light is too strong 光线太强了
                 withAnimation {
                     showLightHighDialog = true
                 }
-            }else{
-                showToast = true
-                
-                if FaceImageManager.saveFaceImage(faceName: faceID, faceImage: viewModel.faceVerifyResult.faceImage){
-                    print("saveFaceImage success ")
-                }
-
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    withAnimation {
-                        showToast = false
-                    }
-                    onDismiss(viewModel.faceVerifyResult.code,viewModel.faceVerifyResult.similarity,viewModel.faceVerifyResult.liveness)
-                    dismiss()
-                }
+                return
             }
+
+            // 如果是下列失败码之一，则弹出失败对话框（允许用户知道了或重试），并返回以避免继续执行默认的 toast/退出流程
+            let failureCodes: [Int] = [
+                VerifyResultCode.VERIFY_FAILED,
+                VerifyResultCode.MOTION_LIVENESS_TIMEOUT,
+                VerifyResultCode.NO_FACE_MULTI,
+                VerifyResultCode.COLOR_LIVENESS_FAILED,
+                VerifyResultCode.SILENT_LIVENESS_FAILED
+            ]
+
+            if failureCodes.contains(newValue) {
+                withAnimation {
+                    showFailureDialog = true
+                }
+                return
+            }
+
+            _ = FaceImageManager.saveFaceImage(faceName: faceID, faceImage: viewModel.faceVerifyResult.faceImage)
+            
+            showToastAndDismiss(
+                message: viewModel.faceVerifyResult.tips,
+                code: viewModel.faceVerifyResult.code,
+                similarity: viewModel.faceVerifyResult.similarity,
+                liveness: viewModel.faceVerifyResult.liveness,
+                delay: 1
+            )
         }
         .onDisappear {
             if autoControlBrightness {
