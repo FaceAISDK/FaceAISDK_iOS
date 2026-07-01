@@ -48,19 +48,21 @@ final class TTSPlayer: NSObject {
     private let synthesizer = AVSpeechSynthesizer()
     private let log: OSLog
     
-    // 💡 核心优化：创建一个专用的默认优先级后台串行队列，隔离所有耗时/阻塞 API
-    private let workQueue = DispatchQueue(label: "com.faceAI.sdk.ttsPlayer", qos: .default)
+    /// 专用串行队列：保证去重、音频会话、播报状态处理顺序一致。
+    /// 使用 userInitiated 降低摄像头实时提示场景中的排队延迟。
+    private let workQueue = DispatchQueue(label: "com.faceAI.sdk.ttsPlayer", qos: .userInitiated)
 
     // 以下变量现在仅在 workQueue 中访问，天然线程安全
     private var isSessionActive = false
     private var pendingDeactivation: DispatchWorkItem?
-    private let sessionDeactivationDelay: TimeInterval = 1.5
+    /// 人脸检测过程中提示通常连续出现，保活稍久一点可以避免每一句都重新激活 AudioSession 导致“慢半拍”。
+    private let sessionDeactivationDelay: TimeInterval = 8.0
 
     private var voiceCache: [String: AVSpeechSynthesisVoice] = [:]
 
-    private var lastSpokenText: String?
-    private var lastSpokenTime: CFAbsoluteTime = 0
-    private let dedupInterval: TimeInterval = 0.5
+    /// 只去重“相邻两次”的相同文字：A、A 只播第一次；A、B、A 中第二个 A 仍允许播。
+    private var lastAcceptedTextKey: String?
+    private var preparedLanguages = Set<String>()
 
     private var interruptedBySystem = false
 
@@ -79,53 +81,85 @@ final class TTSPlayer: NSObject {
 
     // MARK: - Public API
 
-    /// 播报文本
-    func speak(_ text: String?,
-               language: String? = nil,
-               rate: Float = 0.5,
-               pitch: Float = 0.98,
-               policy: Policy = .dropIfBusy) {
-        guard let text = text, !text.isEmpty else { return }
-
-        // 💡 核心优化：将所有操作派发到后台队列，避免阻塞主线程
+    /// 预热音频会话和语音资源，建议在页面 onAppear 时调用。
+    /// 这样第一次真正 speak 时不用再同步做 voice 查询和 AudioSession 激活，能明显减少首句“慢半拍”。
+    func prepare(language: String? = nil) {
         workQueue.async { [weak self] in
             guard let self = self else { return }
 
-            let now = CFAbsoluteTimeGetCurrent()
-            if text == self.lastSpokenText && (now - self.lastSpokenTime) < self.dedupInterval {
+            self.activateSessionIfNeeded()
+
+            let lang = self.normalizedLanguage(language)
+            guard !self.preparedLanguages.contains(lang) else { return }
+
+            _ = self.cachedVoice(for: lang)
+            self.preparedLanguages.insert(lang)
+        }
+    }
+
+    /// 播报文本
+    func speak(_ text: String?,
+               language: String? = nil,
+               rate: Float = 0.56,
+               pitch: Float = 0.98,
+               policy: Policy = .dropIfBusy) {
+        let originalText = text ?? ""
+        let textKey = normalizedTextKey(originalText)
+        guard !textKey.isEmpty else { return }
+
+        workQueue.async { [weak self] in
+            guard let self = self else { return }
+
+            // 相邻重复文本只播第一次，避免 SwiftUI body 重复刷新导致同一句反复播报。
+            if textKey == self.lastAcceptedTextKey {
                 return
             }
 
             switch policy {
             case .interrupt:
                 self.synthesizer.stopSpeaking(at: .immediate)
+
             case .enqueue:
                 break
+
             case .dropIfBusy:
-                // 现在在后台队列查询 isSpeaking，不会引起优先级反转
-                if self.synthesizer.isSpeaking {
-                    return
-                }
+                // 默认策略：前一句没播完时，不打断，也不追加队列，避免提示越排越滞后。
+                guard !self.synthesizer.isSpeaking && !self.synthesizer.isPaused else { return }
             }
 
+            self.lastAcceptedTextKey = textKey
+
+            let lang = self.normalizedLanguage(language)
             self.activateSessionIfNeeded()
 
-            let utterance = AVSpeechUtterance(string: text)
+            let utterance = AVSpeechUtterance(string: originalText.trimmingCharacters(in: .whitespacesAndNewlines))
             let clampedRate = min(max(rate, 0), 1)
             utterance.rate = AVSpeechUtteranceMinimumSpeechRate
                 + clampedRate * (AVSpeechUtteranceMaximumSpeechRate - AVSpeechUtteranceMinimumSpeechRate)
-            
             utterance.pitchMultiplier = min(max(pitch, 0.5), 2.0)
-            utterance.preUtteranceDelay = 0.05
-            utterance.postUtteranceDelay = 0.15
-            
-            // speechVoices 查询也被移到了后台执行
-            utterance.voice = self.cachedVoice(for: language)
 
-            self.lastSpokenText = text
-            self.lastSpokenTime = now
+            // 去掉人为前置延迟，缩短后置延迟，减少连续提示时的“慢半拍”。
+            utterance.preUtteranceDelay = 0
+            utterance.postUtteranceDelay = 0.03
+            utterance.voice = self.cachedVoice(for: lang)
 
             self.synthesizer.speak(utterance)
+        }
+    }
+
+    /// 清空相邻去重记录。
+    /// 如果一个流程结束后，希望下次进入页面同一句提示仍能重新播放，可在 onAppear/onDisappear 调用。
+    func resetDuplicateHistory() {
+        workQueue.async { [weak self] in
+            self?.lastAcceptedTextKey = nil
+        }
+    }
+
+    /// 停止当前播报，并清空已排队的语音。
+    func stop() {
+        workQueue.async { [weak self] in
+            guard let self = self else { return }
+            self.stopSynthesizerIfActive()
         }
     }
 
@@ -148,19 +182,14 @@ final class TTSPlayer: NSObject {
         }
     }
 
-    func stop() {
-        workQueue.async { [weak self] in
-            guard let self = self else { return }
-            self.stopSynthesizerIfActive()
-        }
-    }
-
     func release() {
         workQueue.async { [weak self] in
             guard let self = self else { return }
             self.stopSynthesizerIfActive()
             self.deactivateSessionNow()
             self.voiceCache.removeAll()
+            self.preparedLanguages.removeAll()
+            self.lastAcceptedTextKey = nil
         }
     }
     
@@ -193,7 +222,6 @@ final class TTSPlayer: NSObject {
             self?.deactivateSessionNow()
         }
         pendingDeactivation = item
-        // 在后台队列调度延时任务
         workQueue.asyncAfter(deadline: .now() + sessionDeactivationDelay, execute: item)
     }
 
@@ -231,7 +259,6 @@ final class TTSPlayer: NSObject {
         let optionsValue = info[AVAudioSessionInterruptionOptionKey] as? UInt ?? 0
         let options = AVAudioSession.InterruptionOptions(rawValue: optionsValue)
 
-        // 统一派发到工作队列处理
         workQueue.async { [weak self] in
             guard let self = self else { return }
             
@@ -280,7 +307,7 @@ final class TTSPlayer: NSObject {
     // MARK: - Voice Selection (仅在 workQueue 内调用)
 
     private func cachedVoice(for language: String?) -> AVSpeechSynthesisVoice? {
-        let lang = language ?? Locale.preferredLanguages.first ?? "en-US"
+        let lang = normalizedLanguage(language)
         if let cached = voiceCache[lang] { return cached }
         let voice = bestVoice(for: lang)
         if let voice = voice { voiceCache[lang] = voice }
@@ -312,6 +339,18 @@ final class TTSPlayer: NSObject {
     }
 
     // MARK: - Helpers
+
+    private func normalizedLanguage(_ language: String?) -> String {
+        let lang = language ?? Locale.preferredLanguages.first ?? "en-US"
+        let trimmed = lang.trimmingCharacters(in: .whitespacesAndNewlines)
+        return trimmed.isEmpty ? "en-US" : trimmed
+    }
+
+    private func normalizedTextKey(_ text: String) -> String {
+        text
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .replacingOccurrences(of: "\\s+", with: " ", options: .regularExpression)
+    }
 
     /// 安全地向主线程抛出状态变更
     private func updateStateOnMainThread(_ newState: State) {

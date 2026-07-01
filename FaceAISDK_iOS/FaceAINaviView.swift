@@ -120,9 +120,8 @@ struct FaceAINaviView: View {
 
                         Spacer().frame(height: 30)
                         
-                        // 打开关于我们的外部链接 (保持简洁风格)
                         Button(action: {
-                            if let url = URL(string: "https://faceaisdk.github.io/index") {
+                            if let url = URL(string: "https://github.com/FaceAISDK") {
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                     if UIApplication.shared.canOpenURL(url) {
                                         UIApplication.shared.open(url)
