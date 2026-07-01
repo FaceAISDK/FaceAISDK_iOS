@@ -13,8 +13,8 @@ FaceAISDK_iOS SDK是设备端可完全离线不需联网实现人脸录入、活
 
   ```
     # 1.在Podfile中添加如下依赖，请及时更新到最新版本
-    pod 'FaceAISDK_Core', :git => 'https://github.com/FaceAISDK/FaceAISDK_Core.git', :tag => '2026.06.25'
-    # pod 'FaceAISDK_Core', '2026.06.25'
+    pod 'FaceAISDK_Core', :git => 'https://github.com/FaceAISDK/FaceAISDK_Core.git', :tag => '2026.06.29'
+    # pod 'FaceAISDK_Core', '2026.06.29'
   ```
 
 ### 1.首次运行/更新版本发生闪退异常
