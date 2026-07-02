@@ -100,7 +100,7 @@ final class TTSPlayer: NSObject {
     /// 播报文本
     func speak(_ text: String?,
                language: String? = nil,
-               rate: Float = 0.56,
+               rate: Float = 0.50,
                pitch: Float = 0.98,
                policy: Policy = .dropIfBusy) {
         let originalText = text ?? ""
