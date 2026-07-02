@@ -8,7 +8,6 @@ import FaceAISDK_Core
 struct FaceAINaviView: View {
     
     // The FaceID value used for saving the face feature. Usually, it's the unique identifier of a person in your business system, such as an account ID or ID card number.
-    // 录入保存的 FaceID 值。一般是你的业务体系中个人的唯一编码，比如账号或身份证号。
     private let faceID = "yourFaceID";
     
     var onDismiss: (() -> Void)?
@@ -16,16 +15,13 @@ struct FaceAINaviView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                // 背景色铺满
                 Color.faceMain.ignoresSafeArea()
                 
-                // 使用 ScrollView 适配小屏幕机型
                 ScrollView(.vertical, showsIndicators: false) {
-                    VStack(spacing: 18) {
+                    VStack(spacing: 16) {
                         
                         // --- 模块一：人脸录入 ---
-                        VStack(spacing: 14) {
-                            // 通过 SDK 相机录入人脸
+                        VStack(spacing: 12) {
                             NavigationLink(destination: AddFaceByCamera(
                                 faceID: faceID,
                                 addFacePerformanceMode: 1,
@@ -37,7 +33,6 @@ struct FaceAINaviView: View {
                                 MenuRowView(icon: "camera.viewfinder", title: "Add Face By Camera")
                             }
                             
-                            // 通过图片录入人脸信息
                             NavigationLink(destination: AddFaceByImage(
                                 faceID: faceID,
                                 onDismiss: { result, feature in
@@ -47,25 +42,16 @@ struct FaceAINaviView: View {
                                 MenuRowView(icon: "photo.on.rectangle.angled", title: "Add Face From Album")
                             }
                         }
-                        .padding(.top, 20)
+                        .padding(.top, 16)
                         
                         // --- 模块二：识别与活体 ---
-                        VStack(spacing: 14) {
-                            // 人脸识别 + 活体检测
+                        VStack(spacing: 12) {
                             NavigationLink(destination: VerifyFaceView(
                                 faceID: faceID,
-                                // Threshold range [0.8, 0.9].  阈值范围【0.8，0.9】。
                                 threshold: 0.83,
-                                
-                                // 1. Motion Liveness, 2. Motion + Color, 3. Color, 4. Silent Liveness only (the first three all include silent liveness).
-                                // 1.动作活体 2.动作+炫彩 3.炫彩 4.仅静默活体(前三种都会带静默)。
                                 livenessType: 1,
-                                // 1. Open mouth, 2. Smile, 3. Blink, 4. Shake head, 5. Nod.
-                                // 1.张嘴 2.微笑 3.眨眼 4.摇头 5.点头。
                                 motionLiveness: "1,2,3,4,5",
-                                // Timeout: 3-22 seconds.  超时时间：3-22秒。
                                 motionLivenessTimeOut: 11,
-                                // Number of motion steps.  动作步骤个数。
                                 motionLivenessSteps:2,
                                 
                                 onDismiss: {code, similarity, liveness in
@@ -75,19 +61,11 @@ struct FaceAINaviView: View {
                                 MenuRowView(icon: "faceid", title: "Face Verify & Liveness")
                             }
                             
-                            // 仅活体检测（建议动作活体+静默组合）
                             NavigationLink(destination: LivenessDetectView(
-                                // 1. Motion Liveness, 2. Motion + Color, 3. Color, 4. Silent Liveness only (the first three all include silent liveness).
-                                // 1. 动作活体 2.动作+炫彩 3.炫彩 4.仅静默活体(前三种都会带静默)。
                                 livenessType: 1,
-                                // 1. Open mouth, 2. Smile, 3. Blink, 4. Shake head, 5. Nod.
-                                // 1. 张嘴 2.微笑 3.眨眼 4.摇头 5.点头。
                                 motionLiveness: "1,2,3,4,5",
-                                // Timeout in seconds. 超时时间(秒)。
                                 motionLivenessTimeOut: 5,
-                                // Number of motion steps. 动作步骤个数。
                                 motionLivenessSteps:2,
-                                //show Result Tips? For Flutter,RN,UNIApp plugin
                                 showResultTips: true,
                                 onDismiss: { code,liveness in
                                     print("🎆 Liveness Result: \(code), Liveness Score: \(liveness)")
@@ -96,11 +74,9 @@ struct FaceAINaviView: View {
                                 MenuRowView(icon: "person.crop.circle.badge.checkmark", title: "ONLY Liveness Detection")
                             }
                         }
-                        .padding(.top, 8)
                         
                         // --- 模块三：功能辅助测试 ---
-                        VStack(spacing: 14) {
-                            // 判断 faceID 对应人脸特征值是否存在
+                        VStack(spacing: 12) {
                             Button(action: {
                                 guard let faceFeature = UserDefaults.standard.string(forKey: faceID) else {
                                     print("isFaceFeatureExist？ ： No ! ")
@@ -111,14 +87,12 @@ struct FaceAINaviView: View {
                                 MenuRowView(icon: "magnifyingglass.circle", title: "Is Face Feature Exist", showChevron: false)
                             }
                             
-                            // 验证两张人脸的相似度
                             NavigationLink(destination: VerifyTwoFaceSimiView()) {
                                 MenuRowView(icon: "person.2.crop.square.stack", title: "Verify Two Face Similarity")
                             }
                         }
-                        .padding(.top, 8)
 
-                        Spacer().frame(height: 30)
+                        Spacer().frame(height: 24)
                         
                         Button(action: {
                             if let url = URL(string: "https://github.com/FaceAISDK") {
@@ -134,15 +108,13 @@ struct FaceAINaviView: View {
                                 .foregroundColor(Color.white.opacity(0.8))
                                 .underline()
                         }
-                        .padding(.bottom, 40)
-                        .padding(.top, 22)
+                        .padding(.bottom, 30)
                     }
-                    .padding(.horizontal, 22)
-                    .padding(.top, 22)
+                    .padding(.horizontal, 16)
+                    .padding(.top, 16)
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
-            // 顶部导航栏添加关闭按钮
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
@@ -160,7 +132,6 @@ struct FaceAINaviView: View {
         }
         .navigationViewStyle(.stack)
         .onAppear {
-            // 视图显示时将屏幕亮度调至最大
             ScreenBrightnessHelper.shared.maximizeBrightness()
             withAnimation(.easeInOut(duration: 0.3)) {
                 UIScreen.main.brightness = 1.0
@@ -170,42 +141,40 @@ struct FaceAINaviView: View {
 }
 
 // MARK: - 统一的菜单行组件
-/// 用于美化导航列表的按钮卡片视图
 struct MenuRowView: View {
     var icon: String
-    
-    // 将 String 改为 LocalizedStringKey，这样 SwiftUI 就会自动去 Localizable.strings 查找多语言
     var title: LocalizedStringKey
-    
-    var showChevron: Bool = true // 是否显示右侧的小箭头
+    var showChevron: Bool = true
     
     var body: some View {
-        HStack(spacing: 16) {
+        HStack(spacing: 10) {
             Image(systemName: icon)
-                .font(.system(size: 22, weight: .light))
-                .frame(width: 30)
+                .font(.system(size: 20, weight: .light))
+                .frame(width: 26)
             
             Text(title)
-                .font(.system(size: 17, weight: .semibold))
+                .font(.system(size: 16, weight: .semibold))
+                .lineLimit(1)
+                .minimumScaleFactor(0.77)
             
-            Spacer()
+            Spacer(minLength: 4)
             
             if showChevron {
                 Image(systemName: "chevron.right")
-                    .font(.system(size: 14, weight: .semibold))
-                    .foregroundColor(Color.white.opacity(0.5))
+                    .font(.system(size: 13, weight: .semibold))
+                    .foregroundColor(Color.white.opacity(0.4))
             }
         }
         .foregroundColor(.white)
-        .padding(.horizontal, 20)
-        .padding(.vertical, 18)
+        .padding(.horizontal, 14)
+        .padding(.vertical, 16)   
         .background(
-            RoundedRectangle(cornerRadius: 16)
+            RoundedRectangle(cornerRadius: 14)
                 .fill(Color.white.opacity(0.15))
         )
         .overlay(
-            RoundedRectangle(cornerRadius: 16)
-                .stroke(Color.white.opacity(0.3), lineWidth: 1)
+            RoundedRectangle(cornerRadius: 14)
+                .stroke(Color.white.opacity(0.25), lineWidth: 1)
         )
     }
 }
