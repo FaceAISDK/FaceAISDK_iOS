@@ -5,9 +5,7 @@ import os.log
 import UIKit
 #endif
 
-// MARK: - TTSPlayer
-
-/// iOS 原生语音播报管理器（兼容 iOS 15 ~ 26）
+// MARK: - TTSPlayer 20260703
 final class TTSPlayer: NSObject {
 
     static let shared = TTSPlayer()
