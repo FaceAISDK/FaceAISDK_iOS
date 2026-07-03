@@ -4,11 +4,9 @@
 
 ## Table of Contents 
 
-- [English](#english)
   - [FaceAISDK Introduction](#faceaisdk-introduction)
   - [Integration Guide](#integration-guide)
   - [More Information](#more-information)
-- [中文](./README_zh-CN.md)
 
 ---
 
