@@ -44,7 +44,7 @@ struct LivenessDetectView: View {
     
     // Multi-language tips can be provided based on the Code
     // 可以根据Code进行多语言提示
-    private func localizedTip(for code: Int) -> String {
+    private func localizedTips(for code: Int) -> String {
         let key = "Face_Tips_Code_\(code)"
         let defaultValue = "LivenessDetect Tips Code=\(code)"
         let tipsString = NSLocalizedString(key, value: defaultValue, comment: "")
@@ -78,7 +78,7 @@ struct LivenessDetectView: View {
                 
                 
                 if isTipAppeared {
-                    Text(localizedTip(for: viewModel.sdkInterfaceTips.code))
+                    Text(localizedTips(for: viewModel.sdkInterfaceTips.code))
                         .font(.system(size: 20).bold())
                         .padding(.horizontal, 20)
                         .padding(.vertical, 8)
@@ -94,7 +94,7 @@ struct LivenessDetectView: View {
                 }
                 
                 
-                Text(localizedTip(for: viewModel.sdkInterfaceTipsExtra.code))
+                Text(localizedTips(for: viewModel.sdkInterfaceTipsExtra.code))
                     .font(.system(size: 20).bold())
                     .multilineTextAlignment(.center)
                     .padding(.bottom, 8)
@@ -121,10 +121,10 @@ struct LivenessDetectView: View {
                  let toastStyle: ToastStyle = isSuccess ? .success : .failure
                  
                 VStack {
-
                     Spacer()
+                    let message=localizedTips(for: viewModel.faceVerifyResult.tipsCode)
                     CustomToastView(
-                        message: "\(viewModel.faceVerifyResult.tips) \(viewModel.faceVerifyResult.liveness)",
+                        message: message,
                         style: toastStyle
                     )
                      .padding(.bottom, 77)
@@ -133,58 +133,15 @@ struct LivenessDetectView: View {
                 .transition(.move(edge: .bottom).combined(with: .opacity))
                 .zIndex(1)
             }
-            
-            // Custom dialog for high light levels,光线过强自定义弹窗 (Dialog)
-            if showLightHighDialog {
-                ZStack {
-                    VStack(spacing: 22) {
-                        Text(viewModel.faceVerifyResult.tips)
-                            .font(.system(size: 16).bold())
-                            .fontWeight(.semibold)
-                            .multilineTextAlignment(.center)
-                            .foregroundColor(.black)
-                            .padding(.horizontal,25)
 
-
-                        if let uiImage = UIImage(named: "light_too_high") {
-                                    Image(uiImage: uiImage)
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(maxHeight: 120)
-                                        .padding(.horizontal,1)}
-                        
-                        Button(action: {
-                            withAnimation {
-                                showLightHighDialog = false
-                                onDismiss(viewModel.faceVerifyResult.code,viewModel.faceVerifyResult.liveness)
-                                dismiss()
-                            }
-                        }) {
-                            Text("Confirm")
-                                .font(.system(size: 18).bold())
-                                .foregroundColor(.white)
-                                .frame(maxWidth: .infinity)
-                                .padding(.vertical, 10)
-                                .background(Color.faceMain)
-                                .cornerRadius(10)
-                        }
-                        .padding(.horizontal, 30)
-                    }
-                    .padding(.vertical, 22)
-                    .background(Color.white)
-                    .cornerRadius(20)
-                    .shadow(color: Color.black.opacity(0.2), radius: 20, x: 0, y: 10)
-                    .padding(.horizontal, 30)
-                }
-                .zIndex(2)
-                .transition(.scale(scale: 0.8).combined(with: .opacity))
-            }
 
             // Failure dialog when liveness detection fails (两按钮：知道了 / 重试)
             if showFailureDialog {
                 ZStack {
                     VStack(spacing: 18) {
-                        Text(viewModel.faceVerifyResult.tips)
+                        let message=localizedTips(for: viewModel.faceVerifyResult.tipsCode)
+
+                        Text(message)
                             .font(.system(size: 18).bold())
                             .fontWeight(.semibold)
                             .multilineTextAlignment(.center)
@@ -268,19 +225,13 @@ struct LivenessDetectView: View {
             // 忽略默认状态（例如刚初始化或重试时变成 0），避免直接掉入底部的默认退出流程
             if newValue == VerifyResultCode.DEFAULT { return }
             
-            // 根据不同的 code 值来决定是否显示 toast 或者弹窗
-            // 优先处理光线过强的专用弹窗
-            if newValue == VerifyResultCode.COLOR_LIVENESS_LIGHT_TOO_HIGH {
-                withAnimation {
-                    showLightHighDialog = true
-                }
-                return
-            }
+            
 
             // 如果是下列失败码之一，则弹出失败对话框（允许用户知道了或重试），并返回以避免继续执行默认的 toast/退出流程
             let failureCodes: [Int] = [
                 VerifyResultCode.MOTION_LIVENESS_TIMEOUT,
                 VerifyResultCode.NO_FACE_MULTI,
+                VerifyResultCode.COLOR_LIVENESS_LIGHT_TOO_HIGH,
                 VerifyResultCode.COLOR_LIVENESS_FAILED,
                 VerifyResultCode.SILENT_LIVENESS_FAILED
             ]
