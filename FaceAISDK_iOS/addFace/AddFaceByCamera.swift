@@ -22,7 +22,7 @@ public struct AddFaceByCamera: View {
     @StateObject private var viewModel: AddFaceByCameraModel = AddFaceByCameraModel()
     
     // 根据状态码转换为对应的文字提示
-    private func localizedTip(for code: Int) -> String {
+    private func localizedTips(for code: Int) -> String {
         let key = "Face_Tips_Code_\(code)"
         let defaultValue = "Add Face Tips Code=\(code)"
         let tipsString = NSLocalizedString(key, value: defaultValue, comment: "")
@@ -71,7 +71,7 @@ public struct AddFaceByCamera: View {
                 .padding(.top, 10)
                 
                 // Status Tips
-                Text(localizedTip(for: viewModel.sdkInterfaceTips.code))
+                Text(localizedTips(for: viewModel.sdkInterfaceTips.code))
                     .font(.system(size: 19).bold())
                     .padding(.horizontal, 20)
                     .padding(.vertical, 8)

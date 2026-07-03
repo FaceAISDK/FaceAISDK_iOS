@@ -2,13 +2,12 @@ import SwiftUI
 import FaceAISDK_Core
 
 /**
- * 1:1 Face Verification and Liveness Detection        1:1 人脸识别以及活体检测
+ * 1:1 Face Verification and Liveness Detection
+ * 1:1 人脸识别以及活体检测
  */
 struct VerifyFaceView: View {
     @StateObject private var viewModel: VerifyFaceModel = VerifyFaceModel()
     @Environment(\.dismiss) private var dismiss
-    // Prompt that the ambient light is too bright  提示环境光太亮
-    @State private var showLightHighDialog = false
     @State private var showFailureDialog = false
     @State private var showToast = false
     @State private var toastMessage: String = ""
@@ -17,7 +16,7 @@ struct VerifyFaceView: View {
     // Automatically control screen brightness
     // 自动控制屏幕亮度
     var autoControlBrightness: Bool = true
-    var retryTime:Int = 0; //记录失败尝试的次数 建议可以重试3-4次
+    var retryTime:Int = 0; //记录失败尝试的次数
 
     let faceID: String
     let threshold: Float
@@ -42,8 +41,9 @@ struct VerifyFaceView: View {
     // 返回状态，人脸相似度，活体分数
     let onDismiss: (Int, Float, Float) -> Void
 
-    // Multi-language tips  多语言提示
-    private func localizedTip(for code: Int) -> String {
+    // Multi-language tips
+    // 多语言提示
+    private func localizedTips(for code: Int) -> String {
         let key = "Face_Tips_Code_\(code)"
         let defaultValue = "VerifyFace Tips Code=\(code)"
         let tipsString = NSLocalizedString(key, value: defaultValue, comment: "")
@@ -96,7 +96,7 @@ struct VerifyFaceView: View {
                 .padding(.top, 10)
                 
                 if isTipAppeared {
-                    Text(localizedTip(for: viewModel.sdkInterfaceTips.code))
+                    Text(localizedTips(for: viewModel.sdkInterfaceTips.code))
                         .font(.system(size: 20).bold())
                         .padding(.horizontal, 20)
                         .padding(.vertical, 8)
@@ -111,7 +111,7 @@ struct VerifyFaceView: View {
                         .animation(.spring(response: 0.4, dampingFraction: 0.6), value: viewModel.sdkInterfaceTips.code)
                 }
                 
-                Text(localizedTip(for: viewModel.sdkInterfaceTipsExtra.code))
+                Text(localizedTips(for: viewModel.sdkInterfaceTipsExtra.code))
                     .font(.system(size: 20).bold())
                     .padding(.bottom, 6)
                     .frame(minHeight: 30)
@@ -153,58 +153,13 @@ struct VerifyFaceView: View {
                 .transition(.move(edge: .bottom).combined(with: .opacity))
                 .zIndex(1)
             }
-            
-            // Custom dialog for high light levels  光线过强自定义弹窗 (Dialog)
-            if showLightHighDialog {
-                ZStack {
-                    VStack(spacing: 22) {
-                        Text(viewModel.faceVerifyResult.tips)
-                            .font(.system(size: 16).bold())
-                            .fontWeight(.semibold)
-                            .multilineTextAlignment(.center)
-                            .foregroundColor(.black)
-                            .padding(.horizontal,25)
-
-
-                        if let uiImage = UIImage(named: "light_too_high") {
-                                    Image(uiImage: uiImage)
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(maxHeight: 120)
-                                        .padding(.horizontal,1)}
-                        
-                        Button(action: {
-                            withAnimation {
-                                showLightHighDialog = false
-                                onDismiss(viewModel.faceVerifyResult.code,viewModel.faceVerifyResult.similarity,viewModel.faceVerifyResult.liveness)
-                                dismiss()
-                            }
-                        }) {
-                            Text("Confirm")
-                                .font(.system(size: 18).bold())
-                                .foregroundColor(.white)
-                                .frame(maxWidth: .infinity)
-                                .padding(.vertical, 10)
-                                .background(Color.faceMain)
-                                .cornerRadius(10)
-                        }
-                        .padding(.horizontal, 30)
-                    }
-                    .padding(.vertical, 22)
-                    .background(Color.white)
-                    .cornerRadius(20)
-                    .shadow(color: Color.black.opacity(0.2), radius: 20, x: 0, y: 10)
-                    .padding(.horizontal, 30)
-                }
-                .zIndex(2)
-                .transition(.scale(scale: 0.8).combined(with: .opacity))
-            }
 
             // Failure dialog when verification/liveness fails (两按钮：知道了 / 重试)
             if showFailureDialog {
                 ZStack {
                     VStack(spacing: 18) {
-                        Text(viewModel.faceVerifyResult.tips)
+                        let message=localizedTips(for: viewModel.faceVerifyResult.tipsCode)
+                        Text(message)
                             .font(.system(size: 18).bold())
                             .fontWeight(.semibold)
                             .multilineTextAlignment(.center)
@@ -218,7 +173,7 @@ struct VerifyFaceView: View {
                                 }
                                 _ = FaceImageManager.saveFaceImage(faceName: faceID, faceImage: viewModel.faceVerifyResult.faceImage)
                                 showToastAndDismiss(
-                                    message: viewModel.faceVerifyResult.tips,
+                                    message: message,
                                     code: viewModel.faceVerifyResult.code,
                                     similarity: viewModel.faceVerifyResult.similarity,
                                     liveness: viewModel.faceVerifyResult.liveness,
@@ -279,7 +234,8 @@ struct VerifyFaceView: View {
              withAnimation(.easeInOut(duration: 0.3)) {
                 UIScreen.main.brightness = 1.0
             }
-            
+             
+             
             // Check if there is a local feature value
             // 校验本地是否有特征值
             guard let faceFeature = UserDefaults.standard.string(forKey: faceID) else {
@@ -290,7 +246,6 @@ struct VerifyFaceView: View {
                 return
             }
              
-             
              guard faceFeature.count >= 1024 else {
                  showToastAndDismiss(
                      message: "Invalid Feature length for : \(faceID)",
@@ -298,6 +253,7 @@ struct VerifyFaceView: View {
                  )
                  return
              }
+            
              
             viewModel.initFaceAISDK(
                 faceIDFeature: faceFeature,
@@ -309,22 +265,17 @@ struct VerifyFaceView: View {
                 motionLivenessSteps:motionLivenessSteps
             )
         }
-        //和Android 一样允许重试，而不是立即结束整个流程
-        .onChange(of: viewModel.faceVerifyResult.code) { newValue in
-            guard newValue != VerifyResultCode.DEFAULT else { return }
-            
-            if newValue == VerifyResultCode.COLOR_LIVENESS_LIGHT_TOO_HIGH{
-                withAnimation {
-                    showLightHighDialog = true // Light is too strong 光线太强了
-                }
-                return
-            }
+        
+         .onChange(of: viewModel.faceVerifyResult.code) {newValue in
+            // 忽略默认状态（例如刚初始化或重试时变成 0），避免直接掉入底部的默认退出流程
+            if newValue == VerifyResultCode.DEFAULT { return }
 
-            // 如果是下列失败码之一，则弹出失败对话框（允许用户知道了或重试），并返回以避免继续执行默认的 toast/退出流程
+            // 如果是下列失败码之一，则弹出失败对话框（允许用户重试），并返回以避免继续执行默认的 toast/退出流程
             let failureCodes: [Int] = [
                 VerifyResultCode.VERIFY_FAILED,
                 VerifyResultCode.MOTION_LIVENESS_TIMEOUT,
                 VerifyResultCode.NO_FACE_MULTI,
+                VerifyResultCode.COLOR_LIVENESS_LIGHT_TOO_HIGH,
                 VerifyResultCode.COLOR_LIVENESS_FAILED,
                 VerifyResultCode.SILENT_LIVENESS_FAILED
             ]
@@ -337,9 +288,10 @@ struct VerifyFaceView: View {
             }
 
             _ = FaceImageManager.saveFaceImage(faceName: faceID, faceImage: viewModel.faceVerifyResult.faceImage)
-            
+             let message=localizedTips(for: viewModel.faceVerifyResult.tipsCode)
+
             showToastAndDismiss(
-                message: viewModel.faceVerifyResult.tips,
+                message: message,
                 code: viewModel.faceVerifyResult.code,
                 similarity: viewModel.faceVerifyResult.similarity,
                 liveness: viewModel.faceVerifyResult.liveness,
