@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		2A98309A8C0AED8DF86B9035 /* Pods_FaceAISDK_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94D1A1B0234E7977167CE5E7 /* Pods_FaceAISDK_iOS.framework */; };
-		7C327F202F9B53B2007EF6BF /* light_too_high.png in Resources */ = {isa = PBXBuildFile; fileRef = 7C327F1F2F9B53B2007EF6BF /* light_too_high.png */; };
 		7C600D4F2EDEB8A3005EEEDD /* CustomToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C600D4E2EDEB8A3005EEEDD /* CustomToastView.swift */; };
 		7C784BBA2F1635AC0086B329 /* ScreenBrightnessHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C784BB92F1635AB0086B329 /* ScreenBrightnessHelper.swift */; };
 		7CC0A3532F04EFB700857F23 /* FaceAISDK_demoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC0A3522F04EFB700857F23 /* FaceAISDK_demoApp.swift */; };
@@ -27,7 +26,6 @@
 
 /* Begin PBXFileReference section */
 		0AD83DB9F43FA3ECFEF34586 /* Pods-FaceAISDK_iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FaceAISDK_iOS.release.xcconfig"; path = "Target Support Files/Pods-FaceAISDK_iOS/Pods-FaceAISDK_iOS.release.xcconfig"; sourceTree = "<group>"; };
-		7C327F1F2F9B53B2007EF6BF /* light_too_high.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = light_too_high.png; sourceTree = "<group>"; };
 		7C600D4E2EDEB8A3005EEEDD /* CustomToastView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomToastView.swift; sourceTree = "<group>"; };
 		7C784BB92F1635AB0086B329 /* ScreenBrightnessHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenBrightnessHelper.swift; sourceTree = "<group>"; };
 		7CC0A3522F04EFB700857F23 /* FaceAISDK_demoApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceAISDK_demoApp.swift; sourceTree = "<group>"; };
@@ -99,7 +97,6 @@
 				7CD054CC2EDE7E6300EA3E37 /* VerifyFaceView.swift */,
 				7CD054CB2EDE7E6300EA3E37 /* Localizable.xcstrings */,
 				7CFB91322EDE7D6200F01A21 /* Assets.xcassets */,
-				7C327F1F2F9B53B2007EF6BF /* light_too_high.png */,
 			);
 			path = FaceAISDK_iOS;
 			sourceTree = "<group>";
@@ -187,7 +184,6 @@
 			files = (
 				7CD054D22EDE7E6300EA3E37 /* Localizable.xcstrings in Resources */,
 				7CFB91332EDE7D6200F01A21 /* Assets.xcassets in Resources */,
-				7C327F202F9B53B2007EF6BF /* light_too_high.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,9 +220,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-FaceAISDK_iOS/Pods-FaceAISDK_iOS-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-FaceAISDK_iOS/Pods-FaceAISDK_iOS-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -241,9 +241,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-FaceAISDK_iOS/Pods-FaceAISDK_iOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-FaceAISDK_iOS/Pods-FaceAISDK_iOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
