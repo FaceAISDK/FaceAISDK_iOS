@@ -111,7 +111,7 @@ git config --global https.postBuffer 987654321
 | Platform | Link |
 | --- | --- |
 | iOS Swift only | https://github.com/FaceAISDK/FaceAISDK_iOS |
-| iOS Objective-C mixed project | https://github.com/FaceAISDK/FaceAISDK_iOS |
+| iOS Objective-C| https://github.com/FaceAISDK/ObjectC_FaceAISDK |
 | Android | https://github.com/FaceAISDK/FaceAISDK_Android |
 | Flutter plugin | https://github.com/FaceAISDK/FaceAISDK_Flutter_Plugin |
 | uniApp UTS plugin | https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS |
