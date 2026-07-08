@@ -39,3 +39,6 @@ Carthage/
 *.gcda
 *.gcov
 *.lproj/
+
+.DS_Store
+**/.DS_Store
