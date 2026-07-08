@@ -9,8 +9,6 @@ struct VerifyFaceView: View {
     @StateObject private var viewModel: VerifyFaceModel = VerifyFaceModel()
     @Environment(\.dismiss) private var dismiss
     @State private var showFailureDialog = false
-    @State private var showToast = false
-    @State private var toastMessage: String = ""
     @State private var isTipAppeared = false
     
     // Automatically control screen brightness
@@ -37,9 +35,9 @@ struct VerifyFaceView: View {
     // 动作活体步骤个数
     let motionLivenessSteps:Int
     
-    // Callback status, face similarity, liveness score
-    // 返回状态，人脸相似度，活体分数
-    let onDismiss: (Int, Float, Float) -> Void
+    // Callback status, face similarity, liveness score,Message
+    // 返回状态，人脸相似度，活体分数,Message
+    let onDismiss: (Int, Float, Float,String) -> Void
 
     // Multi-language tips
     // 多语言提示
@@ -53,34 +51,13 @@ struct VerifyFaceView: View {
         return tipsString
     }
     
-    private func showToastAndDismiss(
-        message: String,
-        code: Int,
-        similarity: Float = 0.0,
-        liveness: Float = 0.0,
-        delay: Double = 1.5
-    ) {
-        toastMessage = message
-        withAnimation {
-            showToast = true
-        }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-            withAnimation {
-                showToast = false
-            }
-            onDismiss(code, similarity, liveness)
-            dismiss()
-        }
-    }
-    
     var body: some View {
         ZStack {
             VStack {
                  HStack {
                     Button(action: {
-                        // 0 represents user cancellation 代表用户取消
-                        onDismiss(0, 0.0, 0.0)
+                        // 0 represents user cancel 代表用户取消
+                        onDismiss(0, 0.0, 0.0,"user cancel")
                         dismiss()
                     }) {
                         Image(systemName: "chevron.left")
@@ -135,25 +112,6 @@ struct VerifyFaceView: View {
             .navigationBarBackButtonHidden(true)
             .navigationBarHidden(true)
             
-            if showToast {
-                // Calculate style: If it's a missing feature error or low similarity, it's a failure
-                // 计算样式：如果是无特征值错误，或者相似度低，则为 failure
-                let isSuccess = viewModel.faceVerifyResult.similarity > threshold && viewModel.faceVerifyResult.liveness>0.72
-                let toastStyle: ToastStyle = isSuccess ? .success : .failure
-                
-                VStack {
-                    Spacer()
-                    CustomToastView(
-                        message: toastMessage,
-                        style: toastStyle
-                    )
-                    .padding(.bottom, 77)
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .transition(.move(edge: .bottom).combined(with: .opacity))
-                .zIndex(1)
-            }
-
             // Failure dialog when verification/liveness fails (两按钮：知道了 / 重试)
             if showFailureDialog {
                 ZStack {
@@ -165,6 +123,7 @@ struct VerifyFaceView: View {
                             .multilineTextAlignment(.center)
                             .foregroundColor(.black)
                             .padding(.vertical,18)
+                            .padding(.horizontal, 4)
 
                         HStack(spacing: 12) {
                             Button(action: {
@@ -172,13 +131,16 @@ struct VerifyFaceView: View {
                                     showFailureDialog = false
                                 }
                                 _ = FaceImageManager.saveFaceImage(faceName: faceID, faceImage: viewModel.faceVerifyResult.faceImage)
-                                showToastAndDismiss(
-                                    message: message,
-                                    code: viewModel.faceVerifyResult.code,
-                                    similarity: viewModel.faceVerifyResult.similarity,
-                                    liveness: viewModel.faceVerifyResult.liveness,
-                                    delay: 1
-                                )
+                                
+                            
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    onDismiss(viewModel.faceVerifyResult.code,
+                                              viewModel.faceVerifyResult.similarity,
+                                              viewModel.faceVerifyResult.liveness,
+                                              message)
+                                    dismiss()
+                                }
+                                
                             }) {
                                 Text("I Know")
                                     .font(.system(size: 18).bold())
@@ -196,7 +158,6 @@ struct VerifyFaceView: View {
                             Button(action: {
                                 withAnimation {
                                     showFailureDialog = false
-                                    showToast = false
                                 }
                                 viewModel.reInit()
                             }) {
@@ -239,18 +200,22 @@ struct VerifyFaceView: View {
             // Check if there is a local feature value
             // 校验本地是否有特征值
             guard let faceFeature = UserDefaults.standard.string(forKey: faceID) else {
-                showToastAndDismiss(
-                    message: "No Face Feature for : \(faceID)",
-                    code: VerifyResultCode.NO_FACE_FEATURE
-                )
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    onDismiss(VerifyResultCode.NO_FACE_FEATURE, 0.0, 0.0, "No Face Feature for : \(faceID)")
+                    dismiss()
+                }
+                
                 return
             }
              
-             guard faceFeature.count >= 1024 else {
-                 showToastAndDismiss(
-                     message: "Invalid Feature length for : \(faceID)",
-                     code: VerifyResultCode.NO_FACE_FEATURE
-                 )
+             guard faceFeature.count == 1024 else {
+                 
+                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                     onDismiss(VerifyResultCode.NO_FACE_FEATURE, 0.0, 0.0, "faceFeature.count error : \(faceID)")
+                     dismiss()
+                 }
+
                  return
              }
             
@@ -289,14 +254,16 @@ struct VerifyFaceView: View {
 
             _ = FaceImageManager.saveFaceImage(faceName: faceID, faceImage: viewModel.faceVerifyResult.faceImage)
              let message=localizedTips(for: viewModel.faceVerifyResult.tipsCode)
+             
+             
+             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                 onDismiss(viewModel.faceVerifyResult.code,
+                           viewModel.faceVerifyResult.similarity,
+                           viewModel.faceVerifyResult.liveness,
+                           message)
+                 dismiss()
+             }
 
-            showToastAndDismiss(
-                message: message,
-                code: viewModel.faceVerifyResult.code,
-                similarity: viewModel.faceVerifyResult.similarity,
-                liveness: viewModel.faceVerifyResult.liveness,
-                delay: 1
-            )
         }
         .onDisappear {
             if autoControlBrightness {
@@ -305,6 +272,5 @@ struct VerifyFaceView: View {
             
             viewModel.stopFaceVerify()
         }
-        .animation(.easeInOut(duration: 0.3), value: showToast)
     }
 }

@@ -9,7 +9,6 @@ import FaceAISDK_Core
  */
 struct LivenessDetectView: View {
     @StateObject private var viewModel: VerifyFaceModel = VerifyFaceModel()
-    @State private var showToast = false
     @State private var showLightHighDialog = false
     @State private var showFailureDialog = false
     @State private var isTipAppeared = false
@@ -36,11 +35,8 @@ struct LivenessDetectView: View {
     // 动作活体个数
     let motionLivenessSteps:Int
     
-    // show Result Tips? For Flutter,RN,UNIApp plugin
-    let showResultTips:Bool
-    
-    // callback status liveness score,多加一个参数吧message
-    let onDismiss: (Int, Float) -> Void
+    // callback status code, liveness score,message
+    let onDismiss: (Int, Float,String) -> Void
     
     // Multi-language tips can be provided based on the Code
     // 可以根据Code进行多语言提示
@@ -61,7 +57,7 @@ struct LivenessDetectView: View {
                 HStack {
                     Button(action: {
                         // 0 represents user cancellation 0代表用户取消
-                        onDismiss(0,0.0)
+                        onDismiss(0,0.0,"User canceled")
                         dismiss()
                     }) {
                         Image(systemName: "chevron.left")
@@ -115,25 +111,6 @@ struct LivenessDetectView: View {
             .navigationBarBackButtonHidden(true)
             .navigationBarHidden(true)
 
-             if showToast && showResultTips {
-                 // iOS 静默活体通过分数暂时调低为0.72
-                 let isSuccess = viewModel.faceVerifyResult.liveness > 0.72
-                 let toastStyle: ToastStyle = isSuccess ? .success : .failure
-                 
-                VStack {
-                    Spacer()
-                    let message=localizedTips(for: viewModel.faceVerifyResult.tipsCode)
-                    CustomToastView(
-                        message: message,
-                        style: toastStyle
-                    )
-                     .padding(.bottom, 77)
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .transition(.move(edge: .bottom).combined(with: .opacity))
-                .zIndex(1)
-            }
-
 
             // Failure dialog when liveness detection fails (两按钮：知道了 / 重试)
             if showFailureDialog {
@@ -147,17 +124,16 @@ struct LivenessDetectView: View {
                             .multilineTextAlignment(.center)
                             .foregroundColor(.black)
                             .padding(.vertical,18)
+                            .padding(.horizontal, 4)  
 
                         HStack(spacing: 12) {
                             Button(action: {
                                 withAnimation {
                                     showFailureDialog = false
-                                    showToast = true
                                     _ = FaceImageManager.saveFaceImage(faceName: "Liveness", faceImage: viewModel.faceVerifyResult.faceImage)
                                 }
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                    withAnimation { showToast = false }
-                                    onDismiss(viewModel.faceVerifyResult.code, viewModel.faceVerifyResult.liveness)
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    onDismiss(viewModel.faceVerifyResult.code, viewModel.faceVerifyResult.liveness,message)
                                     dismiss()
                                 }
                             }) {
@@ -225,7 +201,6 @@ struct LivenessDetectView: View {
             // 忽略默认状态（例如刚初始化或重试时变成 0），避免直接掉入底部的默认退出流程
             if newValue == VerifyResultCode.DEFAULT { return }
             
-            
 
             // 如果是下列失败码之一，则弹出失败对话框（允许用户知道了或重试），并返回以避免继续执行默认的 toast/退出流程
             let failureCodes: [Int] = [
@@ -246,12 +221,13 @@ struct LivenessDetectView: View {
             // 其余情况沿用原有流程：展示 toast -> 回调 -> 退出
             withAnimation {
                 showFailureDialog = false
-                showToast = true
                 _ = FaceImageManager.saveFaceImage(faceName: "Liveness", faceImage: viewModel.faceVerifyResult.faceImage)
             }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                withAnimation { showToast = false }
-                onDismiss(viewModel.faceVerifyResult.code, viewModel.faceVerifyResult.liveness)
+            
+            let message=localizedTips(for: viewModel.faceVerifyResult.tipsCode)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                onDismiss(viewModel.faceVerifyResult.code, viewModel.faceVerifyResult.liveness,message)
                 dismiss()
             }
             
@@ -263,6 +239,5 @@ struct LivenessDetectView: View {
             
             viewModel.stopFaceVerify()
         }
-        .animation(.easeInOut(duration: 0.3), value: showToast)
     }
 }

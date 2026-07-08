@@ -577,12 +577,12 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Start Color Flash"
+            "value" : "Please move closer. Screen will flash"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "请靠近,屏幕即将闪烁"
           }
         }

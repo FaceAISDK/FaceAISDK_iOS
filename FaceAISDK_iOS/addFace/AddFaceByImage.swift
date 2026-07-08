@@ -15,7 +15,7 @@ public struct AddFaceByImage: View {
     @StateObject private var viewModel: AddFaceByImageModel = AddFaceByImageModel()
     
     let faceID: String
-    let onDismiss: (Int, String?) -> Void // 0 用户取消， 1 添加成功
+    let onDismiss: (Int, String?,String) -> Void // 0 用户取消， 1 添加成功
 
     @Environment(\.dismiss) private var dismiss
     
@@ -33,7 +33,7 @@ public struct AddFaceByImage: View {
                 HStack {
                     // 左侧返回按钮
                     Button(action: {
-                        onDismiss(0, nil)
+                        onDismiss(0, nil,"User Cancel")
                         dismiss()
                     }) {
                         Image(systemName: "chevron.left")
@@ -120,7 +120,7 @@ public struct AddFaceByImage: View {
                                 
                                 //保存人脸特征信息，Save face feature
                                 UserDefaults.standard.set(feature, forKey: faceID)
-                                onDismiss(1, feature)
+                                onDismiss(1, feature,"Add Face Success")
                                 dismiss()
                             }
                             
