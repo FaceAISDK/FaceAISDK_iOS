@@ -110,7 +110,7 @@ git config --global https.postBuffer 987654321
 | 平台 | 链接 |
 | --- | --- |
 | iOS 纯 Swift | https://github.com/FaceAISDK/FaceAISDK_iOS |
-| iOS OC 混编 | https://github.com/FaceAISDK/FaceAISDK_iOS |
+| iOS OC 混编 | https://github.com/FaceAISDK/ObjectC_FaceAISDK |
 | Android | https://github.com/FaceAISDK/FaceAISDK_Android |
 | Flutter 插件 | https://github.com/FaceAISDK/FaceAISDK_Flutter_Plugin |
 | uniApp UTS 插件 | https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS |
