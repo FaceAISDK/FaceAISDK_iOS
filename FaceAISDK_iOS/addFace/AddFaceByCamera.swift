@@ -10,10 +10,10 @@ var FaceCameraSize: CGFloat {
 public struct AddFaceByCamera: View {
     let faceID: String
     let addFacePerformanceMode: Int //Alternate fields备用字段
-    let needShowConfirmDialog: Bool
+    let needShowConfirmDialog: Bool //是否需要显示确认框还是直接提取特征值确认
     
-    // callback Status , FaceFeature
-    let onDismiss: (Int, String) -> Void //status 0 cancel， 1 success
+    // callback Status , FaceFeature,message
+    let onDismiss: (Int, String,String) -> Void //status 0 cancel， 1 success
     
     var autoControlBrightness: Bool = true
     
@@ -25,15 +25,16 @@ public struct AddFaceByCamera: View {
     private func localizedTips(for code: Int) -> String {
         let key = "Face_Tips_Code_\(code)"
         let defaultValue = "Add Face Tips Code=\(code)"
-        let tipsString = NSLocalizedString(key, value: defaultValue, comment: "")
-        if code != 0 && code != 1 && code != 11 {
-            TTSPlayer.shared.speak(tipsString)
-        }
-        return tipsString
+        return NSLocalizedString(key, value: defaultValue, comment: "")
+    }
+    
+    private func speakTipsIfNeeded(for code: Int) {
+        guard code != 0 && code != 1 && code != 11 else { return }
+        TTSPlayer.shared.speak(localizedTips(for: code))
     }
     
     // 统一处理人脸录入成功的逻辑
-    private func handleFaceAddSuccess() {
+    private func saveFaceData() {
         // Optional
          if FaceImageManager.saveFaceImage(faceName: faceID, faceImage: viewModel.croppedFaceImage) {
              print("saveFaceImage success")
@@ -44,7 +45,7 @@ public struct AddFaceByCamera: View {
         
         // Close Page, CallBack
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            onDismiss(1, viewModel.faceFeatureBySDKCamera)
+            onDismiss(1, viewModel.faceFeatureBySDKCamera,"Add Face Success")
             dismiss()
         }
         
@@ -55,7 +56,7 @@ public struct AddFaceByCamera: View {
             VStack(spacing: 20) {
                 HStack {
                     Button(action: {
-                        onDismiss(0, "")
+                        onDismiss(0, "","User Cancel")
                         dismiss()
                     }) {
                         Image(systemName: "chevron.left")
@@ -88,15 +89,14 @@ public struct AddFaceByCamera: View {
                         .overlay(Circle().stroke(Color.gray, lineWidth: 1))
                     
                     // Confirm Add Face
-                    if viewModel.readyConfirmFace && needShowConfirmDialog {
-                        Color.black.opacity(0.3)
-                            .clipShape(Circle())
-                        
+                    if viewModel.readyConfirmFace, needShowConfirmDialog {
+                        //Color.black.opacity(0.3).clipShape(Circle())
+
                         ConfirmAddFaceDialog(
                             viewModel: viewModel,
                             cameraSize: FaceCameraSize,
                             onConfirm: {
-                                handleFaceAddSuccess()
+                                saveFaceData()
                             }
                         )
                         .transition(.scale.combined(with: .opacity))
@@ -126,11 +126,14 @@ public struct AddFaceByCamera: View {
                 viewModel.stopAddFace()
             }
             .onChange(of: viewModel.sdkInterfaceTips.code) { newValue in
-                print("🔔 AddFaceBySDKCamera： \(viewModel.sdkInterfaceTips.message)")
+                speakTipsIfNeeded(for: newValue)
             }
-            .onChange(of: viewModel.readyConfirmFace) { isReady in
-                if isReady && !needShowConfirmDialog {
-                    handleFaceAddSuccess()
+            .onChange(of: viewModel.readyConfirmFace) { _ in
+                guard viewModel.readyConfirmFace else { return }
+                if needShowConfirmDialog {
+                    print("show Confirm Dialog")
+                } else { //不需要确认框就直接保存提取人脸数据
+                    saveFaceData()
                 }
             }
         }

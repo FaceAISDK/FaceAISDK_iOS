@@ -11,6 +11,25 @@ struct FaceAINaviView: View {
     private let faceID = "yourFaceID";
     
     var onDismiss: (() -> Void)?
+    
+    @State private var showToast = false
+    @State private var toastMessage = ""
+    @State private var toastStyle: ToastStyle = .success
+    
+
+
+    private func triggerToast(message: String, style: ToastStyle = .success) {
+        toastMessage = message
+        toastStyle = style
+        withAnimation(.easeInOut(duration: 0.25)) {
+            showToast = true
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+            withAnimation(.easeInOut(duration: 0.25)) {
+                showToast = false
+            }
+        }
+    }
 
     var body: some View {
         NavigationView {
@@ -26,8 +45,10 @@ struct FaceAINaviView: View {
                                 faceID: faceID,
                                 addFacePerformanceMode: 1,
                                 needShowConfirmDialog: true,
-                                onDismiss: { result, feature in
-                                    print("🎆 AddFace   Status: \(result), Feature: \(feature)")
+                                onDismiss: { result, feature ,message in
+                                    //ShowToast
+                                    triggerToast(message: message, style: result == 1 ? .success : .failure)
+                                    print("🎆 AddFace   Status: \(result),  Message: \(message), Feature: \(feature)")
                                 }
                             )) {
                                 MenuRowView(icon: "camera.viewfinder", title: "Add Face By Camera")
@@ -35,7 +56,9 @@ struct FaceAINaviView: View {
                             
                             NavigationLink(destination: AddFaceByImage(
                                 faceID: faceID,
-                                onDismiss: { result, feature in
+                                onDismiss: { result, feature ,message in
+                                    //ShowToast
+                                    triggerToast(message: message, style: result == 1 ? .success : .failure)
                                     print("🎆  AddFace  Status: \(result), Feature: \(feature ?? "")")
                                 }
                             )) {
@@ -54,21 +77,28 @@ struct FaceAINaviView: View {
                                 motionLivenessTimeOut: 11,
                                 motionLivenessSteps:2,
                                 
-                                onDismiss: {code, similarity, liveness in
-                                    print("🎆 Face Verify  Status: \(code), Similarity: \(similarity), Liveness: \(liveness)")
+                                onDismiss: {code, similarity, liveness, message in
+                                    //ShowToast
+                                    let isSuccess = liveness > 0.72 && similarity > 0.83
+                                    let fullMessage = "\(message), Liveness: \(String(format: "%.2f", liveness)) , similarity: \(String(format: "%.2f", similarity))"
+                                    triggerToast(message: fullMessage, style: isSuccess ? .success : .failure)
+                                    print("🎆 Face Verify  Status: \(code), Similarity: \(similarity), Liveness: \(liveness), Message: \(message)")
                                 }
                             )) {
                                 MenuRowView(icon: "faceid", title: "Face Verify & Liveness")
                             }
                             
                             NavigationLink(destination: LivenessDetectView(
-                                livenessType: 1,
+                                livenessType: 2,
                                 motionLiveness: "1,2,3,4,5",
                                 motionLivenessTimeOut: 5,
                                 motionLivenessSteps:2,
-                                showResultTips: true,
-                                onDismiss: { code,liveness in
-                                    print("🎆 Liveness Result: \(code), Liveness Score: \(liveness)")
+                                onDismiss: { code,liveness,message in
+                                    //ShowToast
+                                    let isSuccess = liveness > 0.72
+                                    let fullMessage = "\(message), Liveness: \(String(format: "%.2f", liveness))"
+                                    triggerToast(message: fullMessage, style: isSuccess ? .success : .failure)
+                                    print("🎆 Liveness Result: \(code), Liveness Score: \(liveness) , Message: \(message)")
                                 }
                             )) {
                                 MenuRowView(icon: "person.crop.circle.badge.checkmark", title: "ONLY Liveness Detection")
@@ -112,6 +142,20 @@ struct FaceAINaviView: View {
                     }
                     .padding(.horizontal, 16)
                     .padding(.top, 16)
+                }
+                
+                if showToast {
+                    VStack {
+                        Spacer()
+                        CustomToastView(
+                            message: toastMessage,
+                            style: toastStyle
+                        )
+                        .padding(.bottom, 77)
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
+                    .zIndex(1)
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
@@ -167,7 +211,7 @@ struct MenuRowView: View {
         }
         .foregroundColor(.white)
         .padding(.horizontal, 14)
-        .padding(.vertical, 16)   
+        .padding(.vertical, 16)
         .background(
             RoundedRectangle(cornerRadius: 14)
                 .fill(Color.white.opacity(0.15))
