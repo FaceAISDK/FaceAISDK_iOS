@@ -39,7 +39,7 @@ public struct AddFaceByCamera: View {
          if FaceImageManager.saveFaceImage(faceName: faceID, faceImage: viewModel.croppedFaceImage) {
              print("saveFaceImage success")
          }
-        
+                
         // Save face feature 保存人脸特征信息，
         UserDefaults.standard.set(viewModel.faceFeatureBySDKCamera, forKey: faceID)
         
@@ -128,7 +128,9 @@ public struct AddFaceByCamera: View {
             .onChange(of: viewModel.sdkInterfaceTips.code) { newValue in
                 speakTipsIfNeeded(for: newValue)
             }
-            .onChange(of: viewModel.readyConfirmFace) { _ in
+            .onChange(of: viewModel.readyConfirmFace) { _ in      
+                print("viewModel.readyConfirmFace is now \(viewModel.readyConfirmFace)")
+
                 guard viewModel.readyConfirmFace else { return }
                 if needShowConfirmDialog {
                     print("show Confirm Dialog")
