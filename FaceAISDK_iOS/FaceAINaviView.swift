@@ -48,7 +48,7 @@ struct FaceAINaviView: View {
                                 onDismiss: { result, feature ,message in
                                     //ShowToast
                                     triggerToast(message: message, style: result == 1 ? .success : .failure)
-                                    print("🎆 AddFace   Status: \(result),  Message: \(message), Feature: \(feature)")
+                                    print("🎆 AddFace  Status: \(result),  Message: \(message), Feature: \(feature)")
                                 }
                             )) {
                                 MenuRowView(icon: "camera.viewfinder", title: "Add Face By Camera")
@@ -59,7 +59,7 @@ struct FaceAINaviView: View {
                                 onDismiss: { result, feature ,message in
                                     //ShowToast
                                     triggerToast(message: message, style: result == 1 ? .success : .failure)
-                                    print("🎆  AddFace  Status: \(result), Feature: \(feature ?? "")")
+                                    print("🎆 AddFace  Status: \(result),  Message: \(message), Feature: \(feature)")
                                 }
                             )) {
                                 MenuRowView(icon: "photo.on.rectangle.angled", title: "Add Face From Album")
@@ -82,14 +82,14 @@ struct FaceAINaviView: View {
                                     let isSuccess = liveness > 0.72 && similarity > 0.83
                                     let fullMessage = "\(message), Liveness: \(String(format: "%.2f", liveness)) , similarity: \(String(format: "%.2f", similarity))"
                                     triggerToast(message: fullMessage, style: isSuccess ? .success : .failure)
-                                    print("🎆 Face Verify  Status: \(code), Similarity: \(similarity), Liveness: \(liveness), Message: \(message)")
+                                    print("🎆 Face Verify  Result: \(code), Similarity: \(similarity), Liveness: \(liveness), Message: \(message)")
                                 }
                             )) {
                                 MenuRowView(icon: "faceid", title: "Face Verify & Liveness")
                             }
                             
                             NavigationLink(destination: LivenessDetectView(
-                                livenessType: 2,
+                                livenessType: 4, 
                                 motionLiveness: "1,2,3,4,5",
                                 motionLivenessTimeOut: 5,
                                 motionLivenessSteps:2,
