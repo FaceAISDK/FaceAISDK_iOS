@@ -112,9 +112,9 @@ git config --global https.postBuffer 987654321
 | iOS 纯 Swift | https://github.com/FaceAISDK/FaceAISDK_iOS |
 | iOS OC 混编 | https://github.com/FaceAISDK/ObjectC_FaceAISDK |
 | Android | https://github.com/FaceAISDK/FaceAISDK_Android |
-| Flutter 插件 | https://github.com/FaceAISDK/FaceAISDK_Flutter_Plugin |
+| Flutter 插件 | https://github.com/FaceAISDK/FaceRecognition_Flutter |
 | uniApp UTS 插件 | https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS |
-| React Native | https://github.com/FaceAISDK/FaceAISDK_RN |
+| React Native | https://github.com/FaceAISDK/FaceRecognition_ReactNative |
 
 **Email：** FaceAISDK.Service@gmail.com
 
