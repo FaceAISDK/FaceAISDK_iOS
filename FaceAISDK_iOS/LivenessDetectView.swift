@@ -19,8 +19,9 @@ struct LivenessDetectView: View {
     // 自动控制屏幕亮度
     var autoControlBrightness: Bool = true
     
-    // 0. No liveness detection  1. Motion only  2. Motion + Color flash  3. Color flash only  4. Silent liveness detection
-    // 0. 无需活体检测 1.仅仅动作 2.动作+炫彩 3.炫彩 4.静默活体检测
+    // Type 1，2，3 include 4 Silent liveness Default 活体检测类型1，2，3默认包含4 静默活体
+    // 0. No liveness detection  1. Motion   2. Motion + Color flash  3. Color flash   4.Only Silent liveness detection
+    // 0. 无需活体检测 1.动作活体 2.动作+炫彩 3.炫彩 4.仅仅静默活体检测
     let livenessType:Int
     
     // Types of motion liveness:  1. Open mouth  2. Smile  3. Blink  4. Shake head  5. Nod
