@@ -1,6 +1,7 @@
 import SwiftUI
 import PhotosUI
 import UIKit
+import UniformTypeIdentifiers
 
 // Extension for UIImage providing utility functions for image processing
 extension UIImage {
@@ -10,13 +11,13 @@ extension UIImage {
     public func scaledImage(with size: CGSize) -> UIImage? {
         UIGraphicsBeginImageContextWithOptions(size, false, scale)
         
-
         defer { UIGraphicsEndImageContext() }
         
         draw(in: CGRect(origin: .zero, size: size))
         
         // Core step: "Flatten" the image through encode/decode to strip metadata (like orientation flags)
         // 核心步骤：通过编码/解码将图像“拍扁”，剔除复杂元数据（如方向标识等）
+        // 注：不论原始是 WebP 还是 HEIC，这里都会被统一转码为标准格式数据
         return UIGraphicsGetImageFromCurrentImageContext()?.data.flatMap(UIImage.init)
     }
 
@@ -42,13 +43,8 @@ struct ImagePicker: UIViewControllerRepresentable {
 
     func makeUIViewController(context: Context) -> PHPickerViewController {
         var config = PHPickerConfiguration()
-        
-        // Only allow image selection
-        // 仅允许选择图像
+
         config.filter = .images
-        
-        // Limit selection to a single image
-        // 限制最多选择 1 张图像
         config.selectionLimit = 1
         
         let picker = PHPickerViewController(configuration: config)
@@ -58,7 +54,6 @@ struct ImagePicker: UIViewControllerRepresentable {
     }
 
     func updateUIViewController(_ uiViewController: PHPickerViewController, context: Context) {
-        // No updates needed for this view controller lifecycle
         // 此视图控制器生命周期不需要更新
     }
 
@@ -67,7 +62,6 @@ struct ImagePicker: UIViewControllerRepresentable {
     }
 
     // Coordinator class to act as the PHPickerViewControllerDelegate
-    // 作为 PHPickerViewControllerDelegate 的协调器类
     class Coordinator: NSObject, PHPickerViewControllerDelegate {
         let parent: ImagePicker
 
@@ -76,35 +70,53 @@ struct ImagePicker: UIViewControllerRepresentable {
         }
 
         func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-
             parent.dismiss()
             
-            // Ensure the selected item exists and can be loaded as a UIImage
-            // 确保选中的项目存在且可以作为 UIImage 加载
-            guard let provider = results.first?.itemProvider,
-                  provider.canLoadObject(ofClass: UIImage.self) else { return }
+            // Ensure the selected item exists 确保选中的项目存在
+            guard let provider = results.first?.itemProvider else { return }
 
-            // Using [weak self] to avoid strong reference cycles during the asynchronous load
-            // 使用 [weak self] 避免在异步加载过程中出现强引用循环
-            provider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
-                guard let self = self, let uiImage = image as? UIImage else { return }
-                
-                // Pre-processing step: Standardize the image here to avoid errors in subsequent external detectors (e.g., FaceDetector)
-                // 预处理步骤：在这里进行标准化，避免后续传入外部检测器（如 FaceDetector）时报错
-                
-                // Scale to a base width of 1080 to maintain facial feature extraction accuracy while avoiding memory overflow.
-                // Height is calculated dynamically to preserve the aspect ratio.
-                // 建议缩放至 1080 基础宽度，既能保证人脸特征提取的准确性，又不会导致内存溢出。
-                // 高度根据纵横比动态计算。
-                let targetSize = CGSize(
-                    width: 1080,
-                    height: 1080 * (uiImage.size.height / uiImage.size.width)
-                )
-                
-                if let processedImage = uiImage.scaledImage(with: targetSize) {
-                    DispatchQueue.main.async {
-                        self.parent.selectedImage = processedImage
-                        self.parent.onImagePicked?(processedImage)
+            // 2. support WebP, HEIC, GIF, RAW ,PNG ,JPEG
+            if provider.hasItemConformingToTypeIdentifier(UTType.image.identifier) {
+                provider.loadDataRepresentation(forTypeIdentifier: UTType.image.identifier) { [weak self] data, error in
+                    guard let self = self else { return }
+                    
+                    if let data = data, let uiImage = UIImage(data: data) {
+                        self.processAndReturn(uiImage: uiImage)
+                    } else {
+                        // 兜底策略：如果 Data 解析失败，尝试系统原生对象加载
+                        self.fallbackToObjectLoad(provider: provider)
+                    }
+                }
+            }else {
+                // 如果连泛用的 UTType.image 都不符合，直接尝试强制按 UIImage 加载
+                self.fallbackToObjectLoad(provider: provider)
+            }
+        }
+        
+
+        private func processAndReturn(uiImage: UIImage) {
+            // Scale to a base width of 999 to maintain facial feature extraction accuracy while avoiding memory overflow.
+            // 建议缩放至 999 基础宽度，既能保证特征提取的准确性，又不会导致内存溢出。
+            let targetSize = CGSize(
+                width: 999,
+                height: 999 * (uiImage.size.height / uiImage.size.width)
+            )
+            
+            if let processedImage = uiImage.scaledImage(with: targetSize) {
+                // 回调必须在主线程
+                DispatchQueue.main.async {
+                    self.parent.selectedImage = processedImage
+                    self.parent.onImagePicked?(processedImage)
+                }
+            }
+        }
+        
+        // 提取的兜底加载方法
+        private func fallbackToObjectLoad(provider: NSItemProvider) {
+            if provider.canLoadObject(ofClass: UIImage.self) {
+                provider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
+                    if let uiImage = image as? UIImage {
+                        self?.processAndReturn(uiImage: uiImage)
                     }
                 }
             }
