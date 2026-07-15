@@ -78,8 +78,8 @@ struct FaceAINaviView: View {
                                 motionLivenessSteps:2,
                                 
                                 onDismiss: {code, similarity, liveness, message in
-                                    //ShowToast
-                                    let isSuccess = liveness > 0.72 && similarity > 0.83
+                                    //liveness > 0.66 , ios silent liveness need optimise
+                                    let isSuccess = liveness > 0.66 && similarity > 0.83
                                     let fullMessage = "\(message), Liveness: \(String(format: "%.2f", liveness)) , similarity: \(String(format: "%.2f", similarity))"
                                     triggerToast(message: fullMessage, style: isSuccess ? .success : .failure)
                                     print("🎆 Face Verify  Result: \(code), Similarity: \(similarity), Liveness: \(liveness), Message: \(message)")
@@ -94,8 +94,8 @@ struct FaceAINaviView: View {
                                 motionLivenessTimeOut: 5,
                                 motionLivenessSteps:2,
                                 onDismiss: { code,liveness,message in
-                                    //ShowToast
-                                    let isSuccess = liveness > 0.72
+                                    //liveness > 0.66 , ios silent liveness need optimise
+                                    let isSuccess = liveness > 0.66
                                     let fullMessage = "\(message), Liveness: \(String(format: "%.2f", liveness))"
                                     triggerToast(message: fullMessage, style: isSuccess ? .success : .failure)
                                     print("🎆 Liveness Result: \(code), Liveness Score: \(liveness) , Message: \(message)")
