@@ -78,7 +78,7 @@ struct FaceAINaviView: View {
                                 motionLivenessSteps:2,
                                 
                                 onDismiss: {code, similarity, liveness, message in
-                                    //liveness > 0.66 , ios silent liveness need optimise
+                                    // ios silent liveness > 0.66 is success , need optimise
                                     let isSuccess = liveness > 0.66 && similarity > 0.83
                                     let fullMessage = "\(message), Liveness: \(String(format: "%.2f", liveness)) , similarity: \(String(format: "%.2f", similarity))"
                                     triggerToast(message: fullMessage, style: isSuccess ? .success : .failure)
@@ -89,12 +89,12 @@ struct FaceAINaviView: View {
                             }
                             
                             NavigationLink(destination: LivenessDetectView(
-                                livenessType: 4, 
+                                livenessType: 1,
                                 motionLiveness: "1,2,3,4,5",
                                 motionLivenessTimeOut: 5,
                                 motionLivenessSteps:2,
                                 onDismiss: { code,liveness,message in
-                                    //liveness > 0.66 , ios silent liveness need optimise
+                                    // ios silent liveness > 0.66 is success , need optimise
                                     let isSuccess = liveness > 0.66
                                     let fullMessage = "\(message), Liveness: \(String(format: "%.2f", liveness))"
                                     triggerToast(message: fullMessage, style: isSuccess ? .success : .failure)
