@@ -85,7 +85,8 @@ If `TensorFlowLiteSwift` crashes and reports an error on first launch or after a
 Thread 1: EXC BAD ACCESS (code=1, address=0x800008)
 ```
 
-In Xcode, choose **Product** > **Clean Build Folder** / **Clean All Issues**, then run the pod command again to update FaceAISDK.
+In Xcode, choose **Product** > **Clean Build Folder** / **Clean All Issues**, then run **pod update FaceAISDK_Core**
+to update FaceAISDK.
 
 #### 6. Git transfer failures
 
