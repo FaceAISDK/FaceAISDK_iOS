@@ -197,7 +197,7 @@ struct VerifyFaceView: View {
             }
              
              
-            // Check if there is a local feature value
+            // Check if there is a local feature value for the faceID
             // 校验本地是否有特征值
             guard let faceFeature = UserDefaults.standard.string(forKey: faceID) else {
                 

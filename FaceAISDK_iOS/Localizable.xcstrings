@@ -119,12 +119,12 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "FaceSDK Version Too Old"
+            "value" : "SDK Version Too Old"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "FaceSDK Version Too Old"
           }
         }
@@ -739,6 +739,9 @@
           }
         }
       }
+    },
+    "Initializing FaceAI Engine..." : {
+
     },
     "Is Face Feature Exist" : {
       "localizations" : {

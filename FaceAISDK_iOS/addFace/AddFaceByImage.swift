@@ -160,12 +160,6 @@ public struct AddFaceByImage: View {
                         await viewModel.addFaceByUIImageAsync(faceUIImage: uiImage)
                     }
                     
-                    
-//                    Task {
-//                        let faceFeature = await viewModel.addFaceByBase64Async(base64: "your Base64 String")
-//                        print("return faceFeature:"+faceFeature)
-//                    }
-                    
                 }
             }
             
