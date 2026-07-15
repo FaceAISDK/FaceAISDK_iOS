@@ -106,7 +106,7 @@ git config --global http.postBuffer 987654321
 git config --global https.postBuffer 987654321
 ```
 
-### More Information
+### More Information 
 
 | Platform | Link |
 | --- | --- |
