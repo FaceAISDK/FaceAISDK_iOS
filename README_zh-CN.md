@@ -29,7 +29,7 @@ FaceAISDK_iOS 支持设备端完全离线，不需要联网即可实现人脸录
 
 SDK 最低支持 Xcode 15.2（Swift 5.9），已兼容 Xcode 26.5（Swift 6.3），支持 Swift 和 Objective-C。
 
-#### 1. 添加依赖
+#### 1. 添加依赖 
 
 <details>
 <summary><strong>Podfile 示例</strong></summary>
