@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		74072CFFB29BE4BD1AD8D6A4 /* libPods-FaceAISDK_iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8CF83C53D926A5C79991DB7 /* libPods-FaceAISDK_iOS.a */; };
+		501DB9CD11BCF8FE9606DAD3 /* Pods_FaceAISDK_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57F3A1D30D9A027B64E4481D /* Pods_FaceAISDK_iOS.framework */; };
 		7C600D4F2EDEB8A3005EEEDD /* CustomToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C600D4E2EDEB8A3005EEEDD /* CustomToastView.swift */; };
 		7C784BBA2F1635AC0086B329 /* ScreenBrightnessHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C784BB92F1635AB0086B329 /* ScreenBrightnessHelper.swift */; };
 		7CC0A3532F04EFB700857F23 /* FaceAISDK_demoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC0A3522F04EFB700857F23 /* FaceAISDK_demoApp.swift */; };
@@ -26,6 +26,7 @@
 
 /* Begin PBXFileReference section */
 		0AD83DB9F43FA3ECFEF34586 /* Pods-FaceAISDK_iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FaceAISDK_iOS.release.xcconfig"; path = "Target Support Files/Pods-FaceAISDK_iOS/Pods-FaceAISDK_iOS.release.xcconfig"; sourceTree = "<group>"; };
+		57F3A1D30D9A027B64E4481D /* Pods_FaceAISDK_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FaceAISDK_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C600D4E2EDEB8A3005EEEDD /* CustomToastView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomToastView.swift; sourceTree = "<group>"; };
 		7C784BB92F1635AB0086B329 /* ScreenBrightnessHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenBrightnessHelper.swift; sourceTree = "<group>"; };
 		7CC0A3522F04EFB700857F23 /* FaceAISDK_demoApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceAISDK_demoApp.swift; sourceTree = "<group>"; };
@@ -42,7 +43,6 @@
 		CFB0BAD02F6E22BA00EF438F /* AddFaceByImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFaceByImage.swift; sourceTree = "<group>"; };
 		CFB0BAD12F6E22BA00EF438F /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		CFB0BAD22F6E22BA00EF438F /* VerifyTwoFaceSimiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyTwoFaceSimiView.swift; sourceTree = "<group>"; };
-		F8CF83C53D926A5C79991DB7 /* libPods-FaceAISDK_iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FaceAISDK_iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,7 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				74072CFFB29BE4BD1AD8D6A4 /* libPods-FaceAISDK_iOS.a in Frameworks */,
+				501DB9CD11BCF8FE9606DAD3 /* Pods_FaceAISDK_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,7 +60,7 @@
 		544B5B540412ADC5717B90B3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F8CF83C53D926A5C79991DB7 /* libPods-FaceAISDK_iOS.a */,
+				57F3A1D30D9A027B64E4481D /* Pods_FaceAISDK_iOS.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -383,9 +383,7 @@
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = G35M5X479Y;
 				ENABLE_PREVIEWS = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = FaceAISDK;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
@@ -419,9 +417,7 @@
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = G35M5X479Y;
 				ENABLE_PREVIEWS = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = FaceAISDK;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";

@@ -1,11 +1,18 @@
 platform :ios, '15.5'
 
+use_frameworks! :linkage => :static
+
+
 target 'FaceAISDK_iOS' do
   # pod update FaceAISDK_Core
   pod 'FaceAISDK_Core', :git => 'https://github.com/FaceAISDK/FaceAISDK_Core.git', :tag => '2026.07.16.beta2'
 #  pod 'FaceAISDK_Core', '****version****'
 
 end
+
+
+
+
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|
@@ -20,13 +27,4 @@ post_install do |installer|
     end
   end
 
-  installer.aggregate_targets.each do |target|
-    support_dir = File.join(installer.sandbox.root, 'Target Support Files', target.label)
-    Dir.glob(File.join(support_dir, '*.xcconfig')).each do |path|
-      contents = File.read(path)
-      contents = contents.gsub(/^BUILD_LIBRARY_FOR_DISTRIBUTION = .*\n/, "BUILD_LIBRARY_FOR_DISTRIBUTION = NO\n")
-      contents = contents.gsub(' $(inherited) "${PODS_TARGET_SRCROOT}/Silent/framework"', '')
-      File.write(path, contents)
-    end
-  end
 end
