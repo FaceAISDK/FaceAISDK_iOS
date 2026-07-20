@@ -40,8 +40,8 @@ struct VerifyFaceView: View {
     // 返回状态，人脸相似度，活体分数,Message
     let onDismiss: (Int, Float, Float,String) -> Void
 
-    // Multi-language tips
-    // 多语言提示
+    // Multi-language message tips
+    // 多语言信息提示
     private func localizedTips(for code: Int) -> String {
         let key = "Face_Tips_Code_\(code)"
         let defaultValue = "VerifyFace Tips Code=\(code)"
@@ -75,25 +75,24 @@ struct VerifyFaceView: View {
                 
                 if isTipAppeared {
                     Text(localizedTips(for: viewModel.sdkInterfaceTips.code))
-                        .font(.system(size: 20).bold())
+                        .font(.system(size: 21).bold())
                         .padding(.horizontal, 20)
                         .padding(.vertical, 8)
                         .foregroundColor(.white)
                         .background(Color.faceMain)
                         .cornerRadius(20)
-                        .id(viewModel.sdkInterfaceTips.code)
                         .transition(.asymmetric(
                             insertion: .scale(scale: 0.8).combined(with: .opacity),
                             removal: .opacity
                         ))
-                        .animation(.spring(response: 0.4, dampingFraction: 0.6), value: viewModel.sdkInterfaceTips.code)
+                        .animation(.spring(response: 0.6, dampingFraction: 0.6), value: viewModel.sdkInterfaceTips.code)
                 }
                 
                 Text(localizedTips(for: viewModel.sdkInterfaceTipsExtra.code))
-                    .font(.system(size: 20).bold())
+                    .font(.system(size: 20, weight: .bold))  
                     .padding(.bottom, 6)
                     .frame(minHeight: 30)
-                    .foregroundColor(.black)
+                    .foregroundColor(Color.faceMain)
                 
                 FaceSDKCameraView(session: viewModel.captureSession, cameraSize: FaceCameraSize)
                     .frame(

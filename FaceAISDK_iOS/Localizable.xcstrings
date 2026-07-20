@@ -645,12 +645,12 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Excessive light, avoid strong light exposure."
+            "value" : "Excessive light, avoid strong light exposure"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "光线过强,避免强光照射"
           }
         }
@@ -662,13 +662,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Liveness check failed. Please ensure soft lighting conditions."
+            "value" : "Verification failed. Please ensure even lighting and a suitable environment"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "活体检测失败,请确认光线环境柔和"
+            "state" : "needs_review",
+            "value" : "验证失败,请确认光线柔和环境适宜"
           }
         }
       }
@@ -684,7 +684,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "活体检测完成"
           }
         }
