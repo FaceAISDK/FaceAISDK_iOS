@@ -14,7 +14,7 @@
          location = "group:pod_update_FaceAISDK.jpg">
       </FileRef>
       <FileRef
-         location = "group:/Users/zlb/ios_code/FaceAISDK_iOS/Doc/Update histroy.md">
+         location = "group:Update histroy.md">
       </FileRef>
       <FileRef
          location = "group:logo.png">
@@ -26,7 +26,7 @@
          location = "group:FaceAISDK.jpeg">
       </FileRef>
       <FileRef
-         location = "group:/Users/zlb/ios_code/FaceAISDK_iOS/Doc/Privacy Policy.md">
+         location = "group:Privacy Policy.md">
       </FileRef>
    </Group>
    <FileRef

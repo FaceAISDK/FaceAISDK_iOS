@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2A98309A8C0AED8DF86B9035 /* Pods_FaceAISDK_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94D1A1B0234E7977167CE5E7 /* Pods_FaceAISDK_iOS.framework */; };
+		74072CFFB29BE4BD1AD8D6A4 /* libPods-FaceAISDK_iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8CF83C53D926A5C79991DB7 /* libPods-FaceAISDK_iOS.a */; };
 		7C600D4F2EDEB8A3005EEEDD /* CustomToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C600D4E2EDEB8A3005EEEDD /* CustomToastView.swift */; };
 		7C784BBA2F1635AC0086B329 /* ScreenBrightnessHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C784BB92F1635AB0086B329 /* ScreenBrightnessHelper.swift */; };
 		7CC0A3532F04EFB700857F23 /* FaceAISDK_demoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC0A3522F04EFB700857F23 /* FaceAISDK_demoApp.swift */; };
@@ -36,13 +36,13 @@
 		7CD054CD2EDE7E6300EA3E37 /* LivenessDetectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LivenessDetectView.swift; sourceTree = "<group>"; };
 		7CFB912B2EDE7D5F00F01A21 /* FaceAISDK_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FaceAISDK_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CFB91322EDE7D6200F01A21 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		94D1A1B0234E7977167CE5E7 /* Pods_FaceAISDK_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FaceAISDK_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		962B8699098C6B58AB2997A8 /* Pods-FaceAISDK_iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FaceAISDK_iOS.debug.xcconfig"; path = "Target Support Files/Pods-FaceAISDK_iOS/Pods-FaceAISDK_iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		CF7F7C8D2FA970470018164A /* TTSPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSPlayer.swift; sourceTree = "<group>"; };
 		CFB0BACF2F6E22BA00EF438F /* AddFaceByCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFaceByCamera.swift; sourceTree = "<group>"; };
 		CFB0BAD02F6E22BA00EF438F /* AddFaceByImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFaceByImage.swift; sourceTree = "<group>"; };
 		CFB0BAD12F6E22BA00EF438F /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		CFB0BAD22F6E22BA00EF438F /* VerifyTwoFaceSimiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyTwoFaceSimiView.swift; sourceTree = "<group>"; };
+		F8CF83C53D926A5C79991DB7 /* libPods-FaceAISDK_iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FaceAISDK_iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,7 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2A98309A8C0AED8DF86B9035 /* Pods_FaceAISDK_iOS.framework in Frameworks */,
+				74072CFFB29BE4BD1AD8D6A4 /* libPods-FaceAISDK_iOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,7 +60,7 @@
 		544B5B540412ADC5717B90B3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				94D1A1B0234E7977167CE5E7 /* Pods_FaceAISDK_iOS.framework */,
+				F8CF83C53D926A5C79991DB7 /* libPods-FaceAISDK_iOS.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -132,7 +132,6 @@
 				7CFB91272EDE7D5F00F01A21 /* Sources */,
 				7CFB91282EDE7D5F00F01A21 /* Frameworks */,
 				7CFB91292EDE7D5F00F01A21 /* Resources */,
-				7DCA31DE8CD1AE181C3084A1 /* [CP] Embed Pods Frameworks */,
 				5C174A46DE2BDEF0F65C4DB3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -227,23 +226,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FaceAISDK_iOS/Pods-FaceAISDK_iOS-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7DCA31DE8CD1AE181C3084A1 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FaceAISDK_iOS/Pods-FaceAISDK_iOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FaceAISDK_iOS/Pods-FaceAISDK_iOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FaceAISDK_iOS/Pods-FaceAISDK_iOS-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -400,10 +382,9 @@
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = G35M5X479Y;
-				ENABLE_PREVIEWS = YES;
+				ENABLE_PREVIEWS = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/framework",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = FaceAISDK;
@@ -437,10 +418,9 @@
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = G35M5X479Y;
-				ENABLE_PREVIEWS = YES;
+				ENABLE_PREVIEWS = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/framework",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = FaceAISDK;
