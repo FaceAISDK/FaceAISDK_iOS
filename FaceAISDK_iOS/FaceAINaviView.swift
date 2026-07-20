@@ -16,7 +16,8 @@ struct FaceAINaviView: View {
     @State private var toastMessage = ""
     @State private var toastStyle: ToastStyle = .success
     
-
+    //silent Liveness performance depends on the device's camera. 静默活体检测和设备相机有关
+    private var silentLivenessThreshold = 0.85; //silent liveness threshold(0.85-0.95)
 
     private func triggerToast(message: String, style: ToastStyle = .success) {
         toastMessage = message
@@ -72,14 +73,14 @@ struct FaceAINaviView: View {
                             NavigationLink(destination: VerifyFaceView(
                                 faceID: faceID,
                                 threshold: 0.83,
-                                livenessType: 1,
+                                livenessType: 4,
                                 motionLiveness: "1,2,3,4,5",
                                 motionLivenessTimeOut: 11,
                                 motionLivenessSteps:2,
                                 
                                 onDismiss: {code, similarity, liveness, message in
                                     // ios silent liveness > 0.66 is success , need optimise
-                                    let isSuccess = liveness > 0.66 && similarity > 0.83
+                                    let isSuccess = liveness > 0.70 && similarity > 0.83
                                     let fullMessage = "\(message), Liveness: \(String(format: "%.2f", liveness)) , similarity: \(String(format: "%.2f", similarity))"
                                     triggerToast(message: fullMessage, style: isSuccess ? .success : .failure)
                                     print("🎆 Face Verify  Result: \(code), Similarity: \(similarity), Liveness: \(liveness), Message: \(message)")
@@ -89,13 +90,13 @@ struct FaceAINaviView: View {
                             }
                             
                             NavigationLink(destination: LivenessDetectView(
-                                livenessType: 1,
+                                livenessType: 4, 
                                 motionLiveness: "1,2,3,4,5",
                                 motionLivenessTimeOut: 5,
                                 motionLivenessSteps:2,
                                 onDismiss: { code,liveness,message in
                                     // ios silent liveness > 0.66 is success , need optimise
-                                    let isSuccess = liveness > 0.66
+                                    let isSuccess = liveness > 0.70
                                     let fullMessage = "\(message), Liveness: \(String(format: "%.2f", liveness))"
                                     triggerToast(message: fullMessage, style: isSuccess ? .success : .failure)
                                     print("🎆 Liveness Result: \(code), Liveness Score: \(liveness) , Message: \(message)")
