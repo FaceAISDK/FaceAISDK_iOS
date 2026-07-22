@@ -1,11 +1,12 @@
-## V2026.07.16-beta2
+## V2026.07.17
 - Optimize the stability of Silent passive liveness detection
 - update for flutter RN plugin
+
  
 ##  V2026.07.01
 - 添加中英文支持
 - 缩减SDK体积，优化性能
- 
+
  
 ## V2026.06.01
 - 适配三方插件更多参数控制

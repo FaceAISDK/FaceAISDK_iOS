@@ -628,12 +628,12 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Detection failed: Too bright.Please avoid direct light as below and use in a softly lit indoor environment"
+            "value" : "Failed,Too bright.Please avoid direct light as below and use in a softly lit indoor environment"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "炫彩活体检测失败,光线亮度过高;如图遮挡高亮光源或室内光线柔和环境使用"
           }
         }
@@ -662,7 +662,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Verification failed. Please ensure even lighting and a suitable environment"
+            "value" : "Failed,please ensure even lighting and a suitable environment"
           }
         },
         "zh-Hans" : {
@@ -739,9 +739,6 @@
           }
         }
       }
-    },
-    "Initializing FaceAI Engine..." : {
-
     },
     "Is Face Feature Exist" : {
       "localizations" : {
