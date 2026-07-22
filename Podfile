@@ -5,7 +5,7 @@ use_frameworks! :linkage => :static
 
 target 'FaceAISDK_iOS' do
   # pod update FaceAISDK_Core
-  pod 'FaceAISDK_Core', :git => 'https://github.com/FaceAISDK/FaceAISDK_Core.git', :tag => '2026.07.16.beta2'
+  pod 'FaceAISDK_Core', :git => 'https://github.com/FaceAISDK/FaceAISDK_Core.git', :tag => '2026.07.17'
 #  pod 'FaceAISDK_Core', '****version****'
 
 end

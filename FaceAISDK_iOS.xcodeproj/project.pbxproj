@@ -10,7 +10,7 @@
 		501DB9CD11BCF8FE9606DAD3 /* Pods_FaceAISDK_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57F3A1D30D9A027B64E4481D /* Pods_FaceAISDK_iOS.framework */; };
 		7C600D4F2EDEB8A3005EEEDD /* CustomToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C600D4E2EDEB8A3005EEEDD /* CustomToastView.swift */; };
 		7C784BBA2F1635AC0086B329 /* ScreenBrightnessHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C784BB92F1635AB0086B329 /* ScreenBrightnessHelper.swift */; };
-		7CC0A3532F04EFB700857F23 /* FaceAISDK_demoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC0A3522F04EFB700857F23 /* FaceAISDK_demoApp.swift */; };
+		7CC17EC43010C6CD00E365ED /* SDKDebugApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC17EC33010C6CD00E365ED /* SDKDebugApp.swift */; };
 		7CC46D2C2F9A1F350077B293 /* FaceSDKCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC46D2B2F9A1F350077B293 /* FaceSDKCameraView.swift */; };
 		7CD054CE2EDE7E6300EA3E37 /* FaceAINaviView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD054C72EDE7E6300EA3E37 /* FaceAINaviView.swift */; };
 		7CD054D22EDE7E6300EA3E37 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 7CD054CB2EDE7E6300EA3E37 /* Localizable.xcstrings */; };
@@ -29,7 +29,7 @@
 		57F3A1D30D9A027B64E4481D /* Pods_FaceAISDK_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FaceAISDK_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C600D4E2EDEB8A3005EEEDD /* CustomToastView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomToastView.swift; sourceTree = "<group>"; };
 		7C784BB92F1635AB0086B329 /* ScreenBrightnessHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenBrightnessHelper.swift; sourceTree = "<group>"; };
-		7CC0A3522F04EFB700857F23 /* FaceAISDK_demoApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceAISDK_demoApp.swift; sourceTree = "<group>"; };
+		7CC17EC33010C6CD00E365ED /* SDKDebugApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDKDebugApp.swift; sourceTree = "<group>"; };
 		7CC46D2B2F9A1F350077B293 /* FaceSDKCameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceSDKCameraView.swift; sourceTree = "<group>"; };
 		7CD054C72EDE7E6300EA3E37 /* FaceAINaviView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceAINaviView.swift; sourceTree = "<group>"; };
 		7CD054CB2EDE7E6300EA3E37 /* Localizable.xcstrings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
@@ -91,9 +91,9 @@
 				7C784BB92F1635AB0086B329 /* ScreenBrightnessHelper.swift */,
 				7CC46D2B2F9A1F350077B293 /* FaceSDKCameraView.swift */,
 				7CD054C72EDE7E6300EA3E37 /* FaceAINaviView.swift */,
+				7CC17EC33010C6CD00E365ED /* SDKDebugApp.swift */,
 				CF7F7C8D2FA970470018164A /* TTSPlayer.swift */,
 				7CD054CD2EDE7E6300EA3E37 /* LivenessDetectView.swift */,
-				7CC0A3522F04EFB700857F23 /* FaceAISDK_demoApp.swift */,
 				7CD054CC2EDE7E6300EA3E37 /* VerifyFaceView.swift */,
 				7CD054CB2EDE7E6300EA3E37 /* Localizable.xcstrings */,
 				7CFB91322EDE7D6200F01A21 /* Assets.xcassets */,
@@ -241,9 +241,9 @@
 				CFB0BAD42F6E22BA00EF438F /* VerifyTwoFaceSimiView.swift in Sources */,
 				7CC46D2C2F9A1F350077B293 /* FaceSDKCameraView.swift in Sources */,
 				CFB0BAD52F6E22BA00EF438F /* AddFaceByImage.swift in Sources */,
+				7CC17EC43010C6CD00E365ED /* SDKDebugApp.swift in Sources */,
 				CFB0BAD62F6E22BA00EF438F /* ImagePicker.swift in Sources */,
 				CFB0BAD72F6E22BA00EF438F /* AddFaceByCamera.swift in Sources */,
-				7CC0A3532F04EFB700857F23 /* FaceAISDK_demoApp.swift in Sources */,
 				7CD054D42EDE7E6300EA3E37 /* LivenessDetectView.swift in Sources */,
 				7CD054D32EDE7E6300EA3E37 /* VerifyFaceView.swift in Sources */,
 				7CD054CE2EDE7E6300EA3E37 /* FaceAINaviView.swift in Sources */,
