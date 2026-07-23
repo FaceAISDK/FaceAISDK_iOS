@@ -76,16 +76,16 @@ struct VerifyFaceView: View {
                 if isTipAppeared {
                     Text(localizedTips(for: viewModel.sdkInterfaceTips.code))
                         .font(.system(size: 21).bold())
-                        .padding(.horizontal, 20)
+                        .padding(.horizontal, 15)
                         .padding(.vertical, 8)
                         .foregroundColor(.white)
                         .background(Color.faceMain)
                         .cornerRadius(20)
                         .transition(.asymmetric(
-                            insertion: .scale(scale: 0.8).combined(with: .opacity),
+                            insertion: .scale(scale: 0.9).combined(with: .opacity),
                             removal: .opacity
                         ))
-                        .animation(.spring(response: 0.6, dampingFraction: 0.6), value: viewModel.sdkInterfaceTips.code)
+                        .animation(.spring(response: 0.3, dampingFraction: 0.7), value: viewModel.sdkInterfaceTips.code)
                 }
                 
                 Text(localizedTips(for: viewModel.sdkInterfaceTipsExtra.code))

@@ -35,8 +35,8 @@ SDK 最低支持 Xcode 15.2（Swift 5.9），已兼容 Xcode 26.5（Swift 6.3）
 <summary><strong>Podfile 示例</strong></summary>
 
 ```ruby
-pod 'FaceAISDK_Core', :git => 'https://github.com/FaceAISDK/FaceAISDK_Core.git', :tag => '2026.07.17'
-# pod 'FaceAISDK_Core', '2026.07.17'
+pod 'FaceAISDK_Core', :git => 'https://github.com/FaceAISDK/FaceAISDK_Core.git', :tag => '2026.07.18'
+# pod 'FaceAISDK_Core', '2026.07.18'
 ```
 
 </details>
@@ -70,7 +70,7 @@ https://github.com/tensorflow/tensorflow/archive/refs/heads/master.zip
 ```text
 Updating local specs repositories
 Downloading dependencies
-Installing FaceAISDK_Core 2026.06.25
+Installing FaceAISDK_Core 2026.07.25
 [!] Error installing FaceAISDK_Core
 Cloning into '/var/folders/gh/p4wv4ytj4tn5xrhgq0n_jnbm0000gn/T/d20251020-8626-c57agm'...
 fatal: unable to access 'https://github.com/FaceAISDK/FaceAISDK_Core.git/': Error in the HTTP2 framing layer
