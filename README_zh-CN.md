@@ -84,7 +84,7 @@ fatal: unable to access 'https://github.com/FaceAISDK/FaceAISDK_Core.git/': Erro
 Thread 1: EXC BAD ACCESS (code=1, address=0x800008)
 ```
 
-请在 Xcode 菜单中选择 **Product** > **Clean Build Folder** / **Clean All Issues**，然后再次执行 pod 命令升级 FaceAISDK。
+请在 Xcode 菜单中选择 **Product** > **Clean Build Folder** / **Clean All Issues**，然后再次执行**pod update FaceAISDK_Core**升级 FaceAISDK。
 
 #### 6. Git 下载失败处理
 

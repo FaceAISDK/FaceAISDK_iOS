@@ -74,7 +74,7 @@ public struct AddFaceByCamera: View {
                 // Status Tips
                 Text(localizedTips(for: viewModel.sdkInterfaceTips.code))
                     .font(.system(size: 19).bold())
-                    .padding(.horizontal, 20)
+                    .padding(.horizontal, 16)
                     .padding(.vertical, 8)
                     .foregroundColor(.white)
                     .background(Color.faceMain)
