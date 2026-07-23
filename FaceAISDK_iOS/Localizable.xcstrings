@@ -131,6 +131,7 @@
       }
     },
     "Face_Tips_Code_(code)" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -662,13 +663,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Failed,please ensure even lighting and a suitable environment"
+            "value" : "Avoid strong backlighting and busy backgrounds. Please move and try again"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "验证失败,请确认光线柔和环境适宜"
+            "value" : "请避开强逆光与杂乱背景，换个地方重试"
           }
         }
       }
