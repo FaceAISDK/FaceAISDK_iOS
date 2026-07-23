@@ -35,8 +35,8 @@ SDK 最低支持 Xcode 15.2（Swift 5.9），已兼容 Xcode 26.5（Swift 6.3）
 <summary><strong>Podfile 示例</strong></summary>
 
 ```ruby
-pod 'FaceAISDK_Core', :git => 'https://github.com/FaceAISDK/FaceAISDK_Core.git', :tag => '2026.07.18'
-# pod 'FaceAISDK_Core', '2026.07.18'
+pod 'FaceAISDK_Core', :git => 'https://github.com/FaceAISDK/FaceAISDK_Core.git', :tag => '2026.07.19'
+# pod 'FaceAISDK_Core', '2026.07.19'
 ```
 
 </details>
