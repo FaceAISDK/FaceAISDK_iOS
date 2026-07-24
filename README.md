@@ -36,8 +36,8 @@ Minimum supported version: Xcode 15.2 (Swift 5.9). Compatible with Xcode 26.5 (S
 <summary><strong>Podfile snippet</strong></summary>
 
 ```ruby
-pod 'FaceAISDK_Core', :git => 'https://github.com/FaceAISDK/FaceAISDK_Core.git', :tag => '2026.07.20'
-# pod 'FaceAISDK_Core', '2026.07.20'
+pod 'FaceAISDK_Core', :git => 'https://github.com/FaceAISDK/FaceAISDK_Core.git', :tag => '2026.07.22'
+# pod 'FaceAISDK_Core', '2026.07.22'
 ```
 
 </details>
