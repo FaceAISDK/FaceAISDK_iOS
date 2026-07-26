@@ -1,5 +1,5 @@
 
-## V2026.07.23
+## V2026.07.24
 - Optimize the stability of Silent passive liveness detection
 - update for flutter RN plugin
 - update silent failed tips
