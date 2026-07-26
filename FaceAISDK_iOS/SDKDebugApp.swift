@@ -1,15 +1,10 @@
-//
-//  SDKDebugApp.swift
-//  SDKDebug
-//
-//  Created by anylife on 8/29/25.
-//
+// FaceAISDK.Service@gmail.com , https://github.com/FaceAISDK
 
 import SwiftUI
 
 @main
 struct SDKDebugApp: App {
-    
+
     var body: some Scene {
         WindowGroup {
             FaceAINaviView()
