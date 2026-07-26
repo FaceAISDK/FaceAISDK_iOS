@@ -98,7 +98,7 @@ struct FaceAINaviView: View {
 
                             NavigationLink(
                                 destination: LivenessDetectView(
-                                    livenessType: 4,
+                                    livenessType: 1,
                                     motionLiveness: "1,2,3,4,5",
                                     motionLivenessTimeOut: 7,
                                     motionLivenessSteps: 2,
