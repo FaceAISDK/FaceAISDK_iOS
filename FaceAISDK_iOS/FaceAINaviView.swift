@@ -49,11 +49,11 @@ struct FaceAINaviView: View {
                                     onDismiss: { result, feature, message in
                                         // Shows the operation result. 显示操作结果。
                                         triggerToast(message: message, style: result == 1 ? .success : .failure)
-                                        print("🎆 AddFace  Status: \(result),  Message: \(message), Feature: \(feature)")
+                                        print("🎆 Enroll Status: \(result),  Message: \(message), Feature: \(feature)")
                                     }
                                 )
                             ) {
-                                MenuRowView(icon: "camera.viewfinder", title: "Add Face By Camera")
+                                MenuRowView(icon: "camera.viewfinder", title: "Enroll Face By Camera")
                             }
 
                             NavigationLink(
@@ -62,11 +62,11 @@ struct FaceAINaviView: View {
                                     onDismiss: { result, feature, message in
                                         // Shows the operation result. 显示操作结果。
                                         triggerToast(message: message, style: result == 1 ? .success : .failure)
-                                        print("🎆 AddFace  Status: \(result),  Message: \(message), Feature: \(feature)")
+                                        print("🎆 Enroll  Status: \(result),  Message: \(message), Feature: \(feature)")
                                     }
                                 )
                             ) {
-                                MenuRowView(icon: "photo.on.rectangle.angled", title: "Add Face From Album")
+                                MenuRowView(icon: "photo.on.rectangle.angled", title: "Enroll Face From Album")
                             }
                         }
                         .padding(.top, 16)
@@ -96,6 +96,7 @@ struct FaceAINaviView: View {
                                 MenuRowView(icon: "faceid", title: "Face Verify & Liveness")
                             }
 
+                            // only liveness. 仅仅活体检测。
                             NavigationLink(
                                 destination: LivenessDetectView(
                                     livenessType: 1,
@@ -113,7 +114,7 @@ struct FaceAINaviView: View {
                                 )
                             ) {
                                 MenuRowView(
-                                    icon: "person.crop.circle.badge.checkmark", title: "ONLY Liveness Detection")
+                                    icon: "person.crop.circle.badge.checkmark", title: "Liveness Detection Only")
                             }
                         }
 
@@ -132,7 +133,7 @@ struct FaceAINaviView: View {
                             }
 
                             NavigationLink(destination: VerifyTwoFaceSimiView()) {
-                                MenuRowView(icon: "person.2.crop.square.stack", title: "Verify Two Face Similarity")
+                                MenuRowView(icon: "person.2.crop.square.stack", title: "Compare Two Faces")
                             }
                         }
 
