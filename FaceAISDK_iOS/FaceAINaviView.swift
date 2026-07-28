@@ -34,7 +34,7 @@ struct FaceAINaviView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color.faceMain.ignoresSafeArea()
+                Color.teal.ignoresSafeArea()
 
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(spacing: 16) {
