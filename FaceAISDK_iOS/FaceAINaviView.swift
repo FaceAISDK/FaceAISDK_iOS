@@ -8,9 +8,10 @@ struct FaceAINaviView: View {
 
     // Use a stable business identifier, such as an account or ID number. 使用账号或证件号等稳定业务标识。
     private let faceID = "yourFaceID"
+    
 
-    // Silent-liveness performance depends on camera quality; use 0.7–0.9. 静默活体效果取决于相机质量，建议阈值为 0.7–0.9。
-    private var silentLivenessThreshold: Float = 0.7
+    //silentLivenessThreshold[0.75,0.95]
+    private var silentLivenessThreshold: Float = 0.75
 
     @State private var showToast = false
     @State private var toastMessage = ""
