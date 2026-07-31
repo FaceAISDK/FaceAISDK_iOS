@@ -10,8 +10,9 @@ struct FaceAINaviView: View {
     private let faceID = "yourFaceID"
     
 
-    //silentLivenessThreshold[0.75,0.95]
-    private var silentLivenessThreshold: Float = 0.75
+    //Silent liveness threshold (iOS/Android): 0.85–0.95. Actual performance varies with camera and lighting—adjust based on scenario.
+    //iOS Android 静默活体通过阈值范围0.85到0.95，注意实际表现和摄像头&环境有关
+    private var silentLivenessThreshold: Float = 0.85
 
     @State private var showToast = false
     @State private var toastMessage = ""
