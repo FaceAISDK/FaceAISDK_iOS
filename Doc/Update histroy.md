@@ -1,7 +1,7 @@
 
-## V2026.07.30
+## V2026.07.31
 - Initial adaptation for iOS 27 has been completed.
-- silentLivenessThreshold [0.75,0.95]
+- Silent liveness threshold (iOS/Android): 0.85–0.95. Actual performance varies with camera and lighting—adjust based on scenario.
 
 ## V2026.07.27
 - Optimize the stability of Silent passive liveness detection
