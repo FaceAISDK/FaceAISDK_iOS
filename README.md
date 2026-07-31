@@ -120,7 +120,7 @@ git config --global https.postBuffer 987654321
 
 **Email:** FaceAISDK.Service@gmail.com
 
-![FaceAISDK](/Doc/FaceAISDK.jpeg)
+![FaceAISDK](/Doc/FaceAISDK.png)
 
 ### Android Demo APK Download
 

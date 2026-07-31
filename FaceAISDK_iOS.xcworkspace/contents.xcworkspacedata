@@ -23,9 +23,6 @@
          location = "group:LICENSE">
       </FileRef>
       <FileRef
-         location = "group:FaceAISDK.jpeg">
-      </FileRef>
-      <FileRef
          location = "group:Privacy Policy.md">
       </FileRef>
    </Group>

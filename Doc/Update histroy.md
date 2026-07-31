@@ -1,4 +1,8 @@
 
+## V2026.07.30
+- Initial adaptation for iOS 27 has been completed.
+- silentLivenessThreshold [0.75,0.95]
+
 ## V2026.07.27
 - Optimize the stability of Silent passive liveness detection
 - update for flutter RN plugin
