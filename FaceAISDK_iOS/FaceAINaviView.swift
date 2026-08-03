@@ -8,7 +8,6 @@ struct FaceAINaviView: View {
 
     // Use a stable business identifier, such as an account or ID number. 使用账号或证件号等稳定业务标识。
     private let faceID = "yourFaceID"
-    
 
     //Silent liveness threshold (iOS/Android): 0.85–0.95. Actual performance varies with camera and lighting—adjust based on scenario.
     //iOS Android 静默活体通过阈值范围0.85到0.95，注意实际表现和摄像头&环境有关
@@ -26,7 +25,7 @@ struct FaceAINaviView: View {
         withAnimation(.easeInOut(duration: 0.25)) {
             showToast = true
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             withAnimation(.easeInOut(duration: 0.25)) {
                 showToast = false
             }
@@ -36,7 +35,7 @@ struct FaceAINaviView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color.teal.ignoresSafeArea()
+                Color.faceMain.ignoresSafeArea()
 
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(spacing: 16) {
@@ -85,12 +84,13 @@ struct FaceAINaviView: View {
                                     motionLivenessSteps: 2,
 
                                     onDismiss: { code, similarity, liveness, message in
+                                        //custom by your business
                                         let isSuccess = liveness > silentLivenessThreshold && similarity > 0.83
                                         let fullMessage =
-                                            "\(message), Liveness: \(String(format: "%.2f", liveness)) , similarity: \(String(format: "%.2f", similarity))"
+                                            "\(message), Liveness=\(String(format: "%.2f", liveness)), Simi=\(String(format: "%.2f", similarity))"
                                         triggerToast(message: fullMessage, style: isSuccess ? .success : .failure)
                                         print(
-                                            "🎆 Face Verify  Result: \(code), Similarity: \(similarity), Liveness: \(liveness), Message: \(message)"
+                                            "🎆 Verification  Result: \(code), Similarity: \(similarity), Liveness: \(liveness), Message: \(message)"
                                         )
                                     }
                                 )
@@ -98,7 +98,6 @@ struct FaceAINaviView: View {
                                 MenuRowView(icon: "faceid", title: "Face Verify & Liveness")
                             }
 
-                            // only liveness. 仅仅活体检测。
                             NavigationLink(
                                 destination: LivenessDetectView(
                                     livenessType: 1,
@@ -107,7 +106,7 @@ struct FaceAINaviView: View {
                                     motionLivenessSteps: 2,
                                     onDismiss: { code, liveness, message in
                                         let isSuccess = liveness > silentLivenessThreshold
-                                        let fullMessage = "\(message), Liveness: \(String(format: "%.2f", liveness))"
+                                        let fullMessage = "\(message), Liveness=\(String(format: "%.2f", liveness))"
                                         triggerToast(message: fullMessage, style: isSuccess ? .success : .failure)
                                         print(
                                             "🎆 Liveness Result: \(code), Liveness Score: \(liveness) , Message: \(message)"
