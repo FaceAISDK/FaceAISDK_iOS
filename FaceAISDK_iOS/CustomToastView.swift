@@ -23,7 +23,7 @@ struct CustomToastView: View {
             HStack {
                 Text(message)
                     .foregroundColor(.white)
-                    .font(.system(size: 19).bold())
+                    .font(.system(size: 18).bold())
                     .padding(.vertical, 14)
                     .padding(.horizontal, 22)
             }
