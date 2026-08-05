@@ -108,7 +108,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "请确保人脸清晰、完整且无遮挡"
+            "value" : "确保人脸清晰、完整且无遮挡"
           }
         }
       }
@@ -220,12 +220,12 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Please Move Closer"
+            "value" : "Move Closer"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "请靠近一点"
           }
         }
@@ -322,12 +322,12 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Raise Your Head"
+            "value" : "Look Up"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "向上摆正头部"
           }
         }
@@ -339,12 +339,12 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lower Your Head"
+            "value" : "Look Down"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "向下摆正头部"
           }
         }
@@ -594,12 +594,12 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Please move closer. The screen will flash"
+            "value" : "Move closer. Screen will flash"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "请靠近,屏幕即将闪烁"
           }
         }
@@ -645,13 +645,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Failed. The light is too bright. Please avoid direct light and use a softly lit indoor environment"
+            "value" : "Too bright. Avoid direct light"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "炫彩活体检测失败,光线亮度过高;如图遮挡高亮光源或室内光线柔和环境使用"
+            "value" : "炫彩活体检测失败,光线亮度过高;请室内光线柔和环境使用"
           }
         }
       }
@@ -679,13 +679,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Avoid strong backlighting and busy backgrounds. Try a different angle or location"
+            "value" : "Liveness Failed"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "请避开强逆光与杂乱背景，换个角度或地方重试"
+            "value" : "活体检测识别"
           }
         }
       }
@@ -713,12 +713,12 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Verification Successful"
+            "value" : "Verified"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "识别成功"
           }
         }
@@ -730,13 +730,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Verification Failed"
+            "value" : "Unverified"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "识别失败,相似度低"
+            "state" : "needs_review",
+            "value" : "识别失败"
           }
         }
       }
