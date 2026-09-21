@@ -80,7 +80,7 @@ struct FaceAINaviView: View {
                                     threshold: 0.83,
                                     livenessType: 1,
                                     motionLiveness: "1,2,3,4,5",
-                                    motionLivenessTimeOut: 7,
+                                    motionLivenessTimeOut: 8,
                                     motionLivenessSteps: 2,
 
                                     onDismiss: { code, similarity, liveness, message in
@@ -102,7 +102,7 @@ struct FaceAINaviView: View {
                                 destination: LivenessDetectView(
                                     livenessType: 1,
                                     motionLiveness: "1,2,3,4,5",
-                                    motionLivenessTimeOut: 7,
+                                    motionLivenessTimeOut: 8,
                                     motionLivenessSteps: 2,
                                     onDismiss: { code, liveness, message in
                                         let isSuccess = liveness > silentLivenessThreshold

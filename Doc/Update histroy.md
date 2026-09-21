@@ -1,3 +1,5 @@
+## V2026.09.20
+- adaptation for iOS 27 
 
 ## V2026.07.31
 - Initial adaptation for iOS 27 has been completed.
