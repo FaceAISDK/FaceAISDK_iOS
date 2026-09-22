@@ -148,7 +148,7 @@ struct VerifyFaceView: View {
                                 _ = FaceImageManager.saveFaceImage(
                                     faceName: faceID, faceImage: viewModel.faceVerifyResult.faceImage)
 
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                                     onDismiss(
                                         viewModel.faceVerifyResult.code,
                                         viewModel.faceVerifyResult.similarity,
@@ -218,7 +218,7 @@ struct VerifyFaceView: View {
             // 校验本地是否有特征值
             guard let faceFeature = UserDefaults.standard.string(forKey: faceID) else {
 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                     onDismiss(VerifyResultCode.NO_FACE_FEATURE, 0.0, 0.0, "No Face Feature for : \(faceID)")
                     dismiss()
                 }
@@ -228,7 +228,7 @@ struct VerifyFaceView: View {
 
             guard faceFeature.count == 1024 else {
 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                     onDismiss(
                         VerifyResultCode.NO_FACE_FEATURE, 0.0, 0.0, "faceFeature.count error : \(faceID)")
                     dismiss()
@@ -279,7 +279,7 @@ struct VerifyFaceView: View {
                 faceName: faceID, faceImage: viewModel.faceVerifyResult.faceImage)
             let message = localizedTips(for: viewModel.faceVerifyResult.tipsCode)
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 onDismiss(
                     viewModel.faceVerifyResult.code,
                     viewModel.faceVerifyResult.similarity,
