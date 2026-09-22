@@ -251,7 +251,7 @@ struct LivenessDetectView: View {
 
             let message = localizedTips(for: viewModel.faceVerifyResult.tipsCode)
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 onDismiss(viewModel.faceVerifyResult.code, viewModel.faceVerifyResult.liveness, message)
                 dismiss()
             }
